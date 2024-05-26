@@ -1,4 +1,7 @@
+
 package Articulos;
+
+import Enum.interiorOexterior;
 
 import java.util.Objects;
 
