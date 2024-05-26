@@ -3,12 +3,11 @@ import java.util.Objects;
 public class Maceta extends Articulo{
     /// lo hago String para poder poenr ..x..x..
     private String MedidaDeLaMaceta;
-
     /// platico, fibrocemento,blum,etc;
     private String mateiralDeLaMaceta;
 
-    public Maceta(String nombreDelArticulo, float precio, String descripcion, int sotck, String medidaDeLaMaceta, String mateiralDeLaMaceta) {
-        super(nombreDelArticulo, precio, descripcion, sotck);
+    public Maceta(String nombreDelArticulo, float precio, String descripcion, int stock, String medidaDeLaMaceta, String mateiralDeLaMaceta) {
+        super(nombreDelArticulo, precio, descripcion, stock);
         MedidaDeLaMaceta = medidaDeLaMaceta;
         this.mateiralDeLaMaceta = mateiralDeLaMaceta;
     }
@@ -58,7 +57,7 @@ public class Maceta extends Articulo{
                 ", nombreDelArticulo='" + nombreDelArticulo + '\'' +
                 ", precio=" + precio +
                 ", descripcion='" + descripcion + '\'' +
-                ", sotck=" + sotck +
+                ", sotck=" + stock +
                 '}';
     }
 }

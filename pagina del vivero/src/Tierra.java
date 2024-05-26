@@ -4,8 +4,8 @@ public class Tierra extends Articulo{
    // el tamanio de la tierra se mide en dm3
     private String tamanio;
 
-    public Tierra(String nombreDelArticulo, float precio, String descripcion, int sotck, String tamanio) {
-        super(nombreDelArticulo, precio, descripcion, sotck);
+    public Tierra(String nombreDelArticulo, float precio, String descripcion, int stock, String tamanio) {
+        super(nombreDelArticulo, precio, descripcion, stock);
         this.tamanio = tamanio;
     }
 
@@ -43,7 +43,7 @@ public class Tierra extends Articulo{
                 ", nombreDelArticulo='" + nombreDelArticulo + '\'' +
                 ", precio=" + precio +
                 ", descripcion='" + descripcion + '\'' +
-                ", sotck=" + sotck +
+                ", sotck=" + stock +
                 '}';
     }
 }

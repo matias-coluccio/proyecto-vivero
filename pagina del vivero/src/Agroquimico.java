@@ -4,8 +4,8 @@ public class Agroquimico extends Articulo{
     private String cantidadDelEnvase;
     private String tipoDeAgroquimico;
 
-    public Agroquimico(String nombreDelArticulo, float precio, String descripcion, int sotck, String cantidadDelEnvase, String tipoDeAgroquimico) {
-        super(nombreDelArticulo, precio, descripcion, sotck);
+    public Agroquimico(String nombreDelArticulo, float precio, String descripcion, int stock, String cantidadDelEnvase, String tipoDeAgroquimico) {
+        super(nombreDelArticulo, precio, descripcion, stock);
         this.cantidadDelEnvase = cantidadDelEnvase;
         this.tipoDeAgroquimico = tipoDeAgroquimico;
     }
@@ -55,7 +55,7 @@ public class Agroquimico extends Articulo{
                 ", nombreDelArticulo='" + nombreDelArticulo + '\'' +
                 ", precio=" + precio +
                 ", descripcion='" + descripcion + '\'' +
-                ", sotck=" + sotck +
+                ", sotck=" + stock +
                 '}';
     }
 }

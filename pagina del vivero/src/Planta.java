@@ -4,8 +4,8 @@ public class Planta extends Articulo{
     private interiorOexterior interioroexterior;
     private String cuidados;
 
-    public Planta(String nombreDelArticulo, float precio, String descripcion, int sotck, interiorOexterior interioroexterior, String cuidados) {
-        super(nombreDelArticulo, precio, descripcion, sotck);
+    public Planta(String nombreDelArticulo, float precio, String descripcion, int stock, interiorOexterior interioroexterior, String cuidados) {
+        super(nombreDelArticulo, precio, descripcion, stock);
         this.interioroexterior = interioroexterior;
         this.cuidados = cuidados;
     }
@@ -55,7 +55,7 @@ public class Planta extends Articulo{
                 ", nombreDelArticulo='" + nombreDelArticulo + '\'' +
                 ", precio=" + precio +
                 ", descripcion='" + descripcion + '\'' +
-                ", sotck=" + sotck +
+                ", sotck=" + stock +
                 '}';
     }
 }
