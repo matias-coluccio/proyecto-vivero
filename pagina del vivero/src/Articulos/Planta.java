@@ -1,6 +1,8 @@
+package Articulos;
+
 import java.util.Objects;
 
-public class Planta extends Articulo{
+public class Planta extends Articulo {
     private interiorOexterior interioroexterior;
     private String cuidados;
 
@@ -49,7 +51,7 @@ public class Planta extends Articulo{
 
     @Override
     public String toString() {
-        return "Planta{" +
+        return "Articulos.Planta{" +
                 "interioroexterior=" + interioroexterior +
                 ", cuidados='" + cuidados + '\'' +
                 ", nombreDelArticulo='" + nombreDelArticulo + '\'' +

@@ -1,6 +1,8 @@
+package Articulos;
+
 import java.util.Objects;
 
-public class Maceta extends Articulo{
+public class Maceta extends Articulo {
     /// lo hago String para poder poenr ..x..x..
     private String MedidaDeLaMaceta;
     /// platico, fibrocemento,blum,etc;
@@ -51,7 +53,7 @@ public class Maceta extends Articulo{
 
     @Override
     public String toString() {
-        return "Maceta{" +
+        return "Articulos.Maceta{" +
                 "MedidaDeLaMaceta='" + MedidaDeLaMaceta + '\'' +
                 ", mateiralDeLaMaceta='" + mateiralDeLaMaceta + '\'' +
                 ", nombreDelArticulo='" + nombreDelArticulo + '\'' +

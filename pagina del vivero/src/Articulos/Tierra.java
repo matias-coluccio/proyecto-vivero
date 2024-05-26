@@ -1,6 +1,8 @@
+package Articulos;
+
 import java.util.Objects;
 
-public class Tierra extends Articulo{
+public class Tierra extends Articulo {
    // el tamanio de la tierra se mide en dm3
     private String tamanio;
 
@@ -38,7 +40,7 @@ public class Tierra extends Articulo{
 
     @Override
     public String toString() {
-        return "Tierra{" +
+        return "Articulos.Tierra{" +
                 "tamanio='" + tamanio + '\'' +
                 ", nombreDelArticulo='" + nombreDelArticulo + '\'' +
                 ", precio=" + precio +

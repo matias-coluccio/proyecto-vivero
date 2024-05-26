@@ -1,6 +1,8 @@
+package Articulos;
+
 import java.util.Objects;
 
-public class Agroquimico extends Articulo{
+public class Agroquimico extends Articulo {
     private String cantidadDelEnvase;
     private String tipoDeAgroquimico;
 
@@ -49,7 +51,7 @@ public class Agroquimico extends Articulo{
 
     @Override
     public String toString() {
-        return "Agroquimico{" +
+        return "Articulos.Agroquimico{" +
                 "cantidadDelEnvase='" + cantidadDelEnvase + '\'' +
                 ", tipoDeAgroquimico='" + tipoDeAgroquimico + '\'' +
                 ", nombreDelArticulo='" + nombreDelArticulo + '\'' +

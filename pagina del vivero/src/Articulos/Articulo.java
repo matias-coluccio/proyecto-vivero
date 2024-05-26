@@ -1,3 +1,5 @@
+package Articulos;
+
 import java.util.Objects;
 
 public abstract class Articulo {
@@ -69,7 +71,7 @@ public abstract class Articulo {
 
     @Override
     public String toString() {
-        return "Articulo{" +
+        return "Articulos.Articulo{" +
                 "nombreDelArticulo='" + nombreDelArticulo + '\'' +
                 ", precio=" + precio +
                 ", descripcion='" + descripcion + '\'' +
