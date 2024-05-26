@@ -3,7 +3,7 @@ import java.util.Objects;
 public class Maceta extends Articulo{
     /// lo hago String para poder poenr ..x..x..
     private String MedidaDeLaMaceta;
-    private String h;
+
     /// platico, fibrocemento,blum,etc;
     private String mateiralDeLaMaceta;
 
