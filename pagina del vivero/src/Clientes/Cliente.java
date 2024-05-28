@@ -1,24 +1,24 @@
 package Clientes;
-
+import Enum.Categoria;
 import java.util.Objects;
 
 public class Cliente {
     private String nombre;
     private String apellido;
-    private String categoria;
+    private Categoria categoria;
     private int dni;
-    private long cuit;
 
-    public Cliente(String nombre, String apellido, String categoria, int dni, long cuit) {
+
+    public Cliente(String nombre, String apellido, Categoria categoria, int dni) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.categoria = categoria;
         this.dni = dni;
-        this.cuit = cuit;
+
     }
     public Cliente()
     {
-        this("", "", "", 0,0);
+        this("", "", null, 0);
     }
 
     public String getNombre() {
@@ -37,11 +37,11 @@ public class Cliente {
         this.apellido = apellido;
     }
 
-    public String getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 
@@ -53,25 +53,18 @@ public class Cliente {
         this.dni = dni;
     }
 
-    public long getCuit() {
-        return cuit;
-    }
-
-    public void setCuit(long cuit) {
-        this.cuit = cuit;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cliente cliente = (Cliente) o;
-        return dni == cliente.dni && cuit == cliente.cuit && Objects.equals(nombre, cliente.nombre) && Objects.equals(apellido, cliente.apellido) && Objects.equals(categoria, cliente.categoria);
+        return dni == cliente.dni && Objects.equals(nombre, cliente.nombre) && Objects.equals(apellido, cliente.apellido) && categoria == cliente.categoria;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nombre, apellido, categoria, dni, cuit);
+        return Objects.hash(nombre, apellido, categoria, dni);
     }
 
     @Override
@@ -79,9 +72,8 @@ public class Cliente {
         return "Cliente{" +
                 "nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
-                ", categoria='" + categoria + '\'' +
+                ", categoria=" + categoria +
                 ", dni=" + dni +
-                ", cuit=" + cuit +
                 '}';
     }
 }
