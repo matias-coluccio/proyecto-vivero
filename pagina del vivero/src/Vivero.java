@@ -37,7 +37,14 @@ public class Vivero implements Crud{
 
     @Override
     public void eliminar(Object dato) {
-
+        if(dato instanceof Articulo)
+            {
+                Articulos.remove(dato.getClass(), dato);
+            }
+        else if(dato instanceof Cliente)
+            {
+                clientes.remove(((Cliente) dato).getDni(), dato);
+            }
     }
 
     @Override
