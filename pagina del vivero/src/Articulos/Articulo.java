@@ -4,11 +4,11 @@ import java.util.Objects;
 
 public abstract class Articulo {
     protected String nombreDelArticulo;
-    protected float precio;
+    protected double precio;
     protected String descripcion;
     protected int stock;
 
-    public Articulo(String nombreDelArticulo, float precio, String descripcion, int stock) {
+    public Articulo(String nombreDelArticulo, double precio, String descripcion, int stock) {
         this.nombreDelArticulo = nombreDelArticulo;
         this.precio = precio;
         this.descripcion = descripcion;
@@ -30,11 +30,11 @@ public abstract class Articulo {
         this.nombreDelArticulo = nombreDelArticulo;
     }
 
-    public float getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(float precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 
@@ -57,11 +57,10 @@ public abstract class Articulo {
 
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Articulo articulo = (Articulo) o;
-        return Float.compare(precio, articulo.precio) == 0 && stock == articulo.stock && Objects.equals(nombreDelArticulo, articulo.nombreDelArticulo) && Objects.equals(descripcion, articulo.descripcion);
+        return Double.compare(precio, articulo.precio) == 0 && stock == articulo.stock && Objects.equals(nombreDelArticulo, articulo.nombreDelArticulo) && Objects.equals(descripcion, articulo.descripcion);
     }
 
     @Override

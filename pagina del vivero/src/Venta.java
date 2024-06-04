@@ -6,19 +6,14 @@ import java.util.ArrayList;
 public class Venta {
     ArrayList<Articulo> articulos;
     Cliente cliente;
-    int total;
+    double total;
 
     public Venta(Cliente cliente, ArrayList<Articulo> articulos) {
         this.cliente = cliente;
-        this.articulos=articulos;
-        /// esto no sabemos si va
-        if(cliente)
-        {
+        this.articulos = articulos;
+    ////acomodamos funcion
+        total = SumadePrecioArticulos(articulos) -(total * 0.10);
 
-        }
-        else if(cliente)
-        total=SumadePrecioArticulos(articulos);
-        total=total *0,10;
 
     }
     /// TODO
@@ -26,9 +21,9 @@ public class Venta {
         this.articulos=articulos;
         total=SumadePrecioArticulos(articulos);
     }
-    public int SumadePrecioArticulos(ArrayList<Articulo> articulos)
+    public double SumadePrecioArticulos(ArrayList<Articulo> articulos)
         {
-            int total=0;
+            double total=0;
             for(Articulo i:articulos)
             {
 
@@ -36,6 +31,6 @@ public class Venta {
             }
             return total;
         }
-        public boolean EsSocio()
+
 
 }
