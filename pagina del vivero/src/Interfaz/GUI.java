@@ -1,7 +1,6 @@
 package Interfaz;
 
-import java.awt.Image;
-import java.awt.Toolkit;
+import javax.swing.JFrame;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -54,11 +53,14 @@ public class GUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        MainPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
         Titulo.setBackground(new java.awt.Color(204, 255, 255));
         Titulo.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         Titulo.setText("Vivero ");
 
         Ventas.setText("Ventas");
+        Ventas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Ventas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 VentasActionPerformed(evt);
@@ -66,6 +68,7 @@ public class GUI extends javax.swing.JFrame {
         });
 
         Compras.setText("Compras");
+        Compras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Compras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ComprasActionPerformed(evt);
@@ -73,6 +76,7 @@ public class GUI extends javax.swing.JFrame {
         });
 
         Caja.setText("Caja");
+        Caja.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Caja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CajaActionPerformed(evt);
@@ -80,6 +84,7 @@ public class GUI extends javax.swing.JFrame {
         });
 
         Historial.setText("Historial");
+        Historial.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Historial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 HistorialActionPerformed(evt);
@@ -87,6 +92,7 @@ public class GUI extends javax.swing.JFrame {
         });
 
         Ayuda.setText("Ayuda");
+        Ayuda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Ayuda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AyudaActionPerformed(evt);
@@ -94,6 +100,7 @@ public class GUI extends javax.swing.JFrame {
         });
 
         Articulos.setText("Articulos");
+        Articulos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Articulos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ArticulosActionPerformed(evt);
@@ -124,16 +131,16 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(Compras)
                 .addGap(27, 27, 27)
                 .addComponent(Caja)
-                .addGap(37, 37, 37)
+                .addGap(29, 29, 29)
                 .addComponent(Historial)
-                .addGap(35, 35, 35)
+                .addGap(29, 29, 29)
                 .addComponent(Articulos)
-                .addGap(30, 30, 30)
+                .addGap(28, 28, 28)
                 .addComponent(Ayuda)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Imagen.setIcon(new javax.swing.ImageIcon("C:\\Users\\Gian\\Desktop\\A.png")); // NOI18N
+        Imagen.setIcon(new javax.swing.ImageIcon("C:\\Users\\Gian\\Downloads\\3DC_INTERIOR_PLANTS01_MINIATURA_PACK-400x400.png")); // NOI18N
         Imagen.setText("jLabel2");
 
         javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
@@ -143,15 +150,14 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(PanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(MainPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
                         .addComponent(Titulo)
                         .addGap(347, 347, 347))
-                    .addGroup(MainPanelLayout.createSequentialGroup()
-                        .addGap(27, 27, 27)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
                         .addComponent(Imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(41, 41, 41))))
         );
         MainPanelLayout.setVerticalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,9 +169,9 @@ public class GUI extends javax.swing.JFrame {
                     .addGroup(MainPanelLayout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addComponent(Titulo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(26, 26, 26)
                         .addComponent(Imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -188,43 +194,50 @@ public class GUI extends javax.swing.JFrame {
     private void VentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VentasActionPerformed
           Venta pantallaVentas=new Venta();
           pantallaVentas.setLocationRelativeTo(null);
-          pantallaVentas.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+          pantallaVentas.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
           pantallaVentas.setVisible(true);
+          setVisible(false);
     }//GEN-LAST:event_VentasActionPerformed
 
     private void ArticulosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ArticulosActionPerformed
       Articulos pantallaArticulos=new Articulos();
           pantallaArticulos.setLocationRelativeTo(null);
-          pantallaArticulos.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+          pantallaArticulos.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
           pantallaArticulos.setVisible(true);
+          setVisible(false);
     }//GEN-LAST:event_ArticulosActionPerformed
 
     private void ComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComprasActionPerformed
        Compra pantallaCompras=new Compra();
           pantallaCompras.setLocationRelativeTo(null);
-          pantallaCompras.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+          
           pantallaCompras.setVisible(true);
+          pantallaCompras.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+          setVisible(false);
     }//GEN-LAST:event_ComprasActionPerformed
 
     private void CajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CajaActionPerformed
         Caja pantallaCaja=new Caja();
           pantallaCaja.setLocationRelativeTo(null);
-          pantallaCaja.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+          pantallaCaja.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
           pantallaCaja.setVisible(true);
+          setVisible(false);
     }//GEN-LAST:event_CajaActionPerformed
 
     private void HistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HistorialActionPerformed
         Historial pantallaHistorial=new Historial();
           pantallaHistorial.setLocationRelativeTo(null);
-          pantallaHistorial.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+          pantallaHistorial.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
           pantallaHistorial.setVisible(true);
+          setVisible(false);
     }//GEN-LAST:event_HistorialActionPerformed
 
     private void AyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AyudaActionPerformed
         Ayuda pantallaAyuda=new Ayuda();
           pantallaAyuda.setLocationRelativeTo(null);
-          pantallaAyuda.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+          pantallaAyuda.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
           pantallaAyuda.setVisible(true);
+          setVisible(false);
     }//GEN-LAST:event_AyudaActionPerformed
 
     /**

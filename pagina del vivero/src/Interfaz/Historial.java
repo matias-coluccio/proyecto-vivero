@@ -15,6 +15,8 @@ public class Historial extends javax.swing.JFrame {
      */
     public Historial() {
         initComponents();
+         setTitle("Menu historial");
+        setResizable(false);
     }
 
     /**
@@ -27,18 +29,32 @@ public class Historial extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        Volver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        Volver.setText("Volver");
+        Volver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VolverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addComponent(Volver)
+                .addContainerGap(675, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(444, Short.MAX_VALUE)
+                .addComponent(Volver)
+                .addGap(33, 33, 33))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -55,12 +71,19 @@ public class Historial extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
+        GUI gui=new GUI();
+         gui.setVisible(true);// TODO add your handling code here:
+         setVisible(false);
+    }//GEN-LAST:event_VolverActionPerformed
+
     /**
      * @param args the command line arguments
      */
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Volver;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

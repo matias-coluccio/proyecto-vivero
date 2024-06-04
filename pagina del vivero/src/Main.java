@@ -1,5 +1,6 @@
 import Clientes.Cliente;
 import Enum.Categoria;
+import Interfaz.GUI;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -11,6 +12,7 @@ public class Main {
         vivero.agregar(cliente);
         String lista=vivero.listar();
         System.out.println(lista);
-
+        GUI gui= new GUI();
+        gui.setVisible(true);
     }
 }

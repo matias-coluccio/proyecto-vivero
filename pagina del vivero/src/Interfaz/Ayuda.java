@@ -4,6 +4,8 @@
  */
 package Interfaz;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author Gian
@@ -15,6 +17,9 @@ public class Ayuda extends javax.swing.JFrame {
      */
     public Ayuda() {
         initComponents();
+        setResizable(false);
+        
+        
     }
 
     /**
@@ -26,34 +31,139 @@ public class Ayuda extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        MainPanel = new javax.swing.JPanel();
+        Titulo = new javax.swing.JLabel();
+        Volver = new javax.swing.JButton();
+        Imagen = new javax.swing.JLabel();
+        PanelAyuda = new javax.swing.JPanel();
+        txtVentas = new javax.swing.JLabel();
+        txtCompras = new javax.swing.JLabel();
+        txtHistorial = new javax.swing.JLabel();
+        txtCaja = new javax.swing.JLabel();
+        Soporte = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Menu ayuda");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+        Titulo.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
+        Titulo.setText("Ayuda");
+
+        Volver.setText("Volver");
+        Volver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Volver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VolverActionPerformed(evt);
+            }
+        });
+/// arreglar imagenes
+        Imagen.setIcon(new javax.swing.ImageIcon("interfaz\\imagenes\\images.png")); // NOI18N
+
+        PanelAyuda.setBackground(new java.awt.Color(153, 153, 153));
+        PanelAyuda.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+
+        txtVentas.setBackground(new java.awt.Color(61, 62, 65));
+        txtVentas.setForeground(new java.awt.Color(0, 0, 0));
+        txtVentas.setText("Para ver tus ventas dirigite al menu ventas en la pantalla principal");
+
+        txtCompras.setForeground(new java.awt.Color(0, 0, 0));
+        txtCompras.setText("Para ingresar compras de mercaderia dirigite al menu compras");
+
+        txtHistorial.setForeground(new java.awt.Color(0, 0, 0));
+        txtHistorial.setText("Para ver el historial dirigite al menu historial en la pantalla principal");
+
+        txtCaja.setForeground(new java.awt.Color(0, 0, 0));
+        txtCaja.setText("Para ver las ventas diarias dirigite al menu Caja en la pantalla principal");
+
+        Soporte.setForeground(new java.awt.Color(0, 0, 0));
+        Soporte.setText("Para mas ayuda contactate con: https://www.Vivero.com/Soporte");
+
+        javax.swing.GroupLayout PanelAyudaLayout = new javax.swing.GroupLayout(PanelAyuda);
+        PanelAyuda.setLayout(PanelAyudaLayout);
+        PanelAyudaLayout.setHorizontalGroup(
+            PanelAyudaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelAyudaLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(PanelAyudaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Soporte)
+                    .addComponent(txtCaja)
+                    .addComponent(txtHistorial)
+                    .addGroup(PanelAyudaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtCompras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 501, Short.MAX_VALUE)
+        PanelAyudaLayout.setVerticalGroup(
+            PanelAyudaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelAyudaLayout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(txtVentas)
+                .addGap(27, 27, 27)
+                .addComponent(txtCompras)
+                .addGap(30, 30, 30)
+                .addComponent(txtHistorial)
+                .addGap(26, 26, 26)
+                .addComponent(txtCaja)
+                .addGap(30, 30, 30)
+                .addComponent(Soporte)
+                .addContainerGap(118, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
+        MainPanel.setLayout(MainPanelLayout);
+        MainPanelLayout.setHorizontalGroup(
+            MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MainPanelLayout.createSequentialGroup()
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(MainPanelLayout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(MainPanelLayout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addComponent(Volver)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(MainPanelLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(PanelAyuda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(85, 85, 85)
+                .addComponent(Imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
+        );
+        MainPanelLayout.setVerticalGroup(
+            MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MainPanelLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(Titulo)
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(MainPanelLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(PanelAyuda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(MainPanelLayout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addComponent(Imagen)))
+                .addGap(56, 56, 56)
+                .addComponent(Volver)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(MainPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(MainPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
+         GUI gui=new GUI();
+         gui.setVisible(true);// TODO add your handling code here:
+         setVisible(false);
+    }//GEN-LAST:event_VolverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -61,6 +171,15 @@ public class Ayuda extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel Imagen;
+    private javax.swing.JPanel MainPanel;
+    private javax.swing.JPanel PanelAyuda;
+    private javax.swing.JLabel Soporte;
+    private javax.swing.JLabel Titulo;
+    private javax.swing.JButton Volver;
+    private javax.swing.JLabel txtCaja;
+    private javax.swing.JLabel txtCompras;
+    private javax.swing.JLabel txtHistorial;
+    private javax.swing.JLabel txtVentas;
     // End of variables declaration//GEN-END:variables
 }
