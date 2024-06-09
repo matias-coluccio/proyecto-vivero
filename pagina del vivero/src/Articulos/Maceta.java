@@ -7,6 +7,7 @@ public class Maceta extends Articulo {
     private String MedidaDeLaMaceta;
     /// platico, fibrocemento,blum,etc;
     private String mateiralDeLaMaceta;
+    private String tamanio;
 
     public Maceta(String nombreDelArticulo, float precio, String descripcion, int stock, String medidaDeLaMaceta, String mateiralDeLaMaceta) {
         super(nombreDelArticulo, precio, descripcion, stock);
