@@ -2,6 +2,7 @@
 package Articulos;
 
 import Enum.interiorOexterior;
+import Enum.TipoDeArticulo;
 
 import java.util.Objects;
 
@@ -9,16 +10,10 @@ public class Planta extends Articulo {
     private interiorOexterior interioroexterior;
     private String cuidados;
 
-    public Planta(String nombreDelArticulo, float precio, String descripcion, int stock, interiorOexterior interioroexterior, String cuidados) {
-        super(nombreDelArticulo, precio, descripcion, stock);
+    public Planta(String descripcion, String nombreDelArticulo, float precio, int stock, interiorOexterior interioroexterior, String cuidados) {
+        super(descripcion, nombreDelArticulo, precio, stock, TipoDeArticulo.Planta);
         this.interioroexterior = interioroexterior;
         this.cuidados = cuidados;
-    }
-
-    public Planta() {
-        super();
-        this.interioroexterior=null;
-        this.cuidados="";
     }
 
     public interiorOexterior getInterioroexterior() {
