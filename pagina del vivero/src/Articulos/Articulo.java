@@ -1,25 +1,37 @@
 package Articulos;
 
 import java.util.Objects;
+import Enum.TipoDeArticulo;
 
-public abstract class Articulo {
+public class Articulo {
     protected String nombreDelArticulo;
-    protected double precio;
+    protected float precio;
     protected String descripcion;
     protected int stock;
+    protected TipoDeArticulo tipoDeArticulo;
 
-    public Articulo(String nombreDelArticulo, double precio, String descripcion, int stock) {
+    public Articulo(String descripcion, String nombreDelArticulo, float precio, int stock, TipoDeArticulo tipoDeArticulo) {
+        this.descripcion = descripcion;
         this.nombreDelArticulo = nombreDelArticulo;
         this.precio = precio;
-        this.descripcion = descripcion;
+        this.stock = stock;
+        this.tipoDeArticulo = tipoDeArticulo;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
         this.stock = stock;
     }
 
-    public Articulo() {
-        this.nombreDelArticulo = "";
-        this.precio = 0;
-        this.descripcion = "";
-        this.stock=0;
+    public TipoDeArticulo getTipoDeArticulo() {
+        return tipoDeArticulo;
+    }
+
+    public void setTipoDeArticulo(TipoDeArticulo tipoDeArticulo) {
+        this.tipoDeArticulo = tipoDeArticulo;
     }
 
     public String getNombreDelArticulo() {
@@ -30,11 +42,11 @@ public abstract class Articulo {
         this.nombreDelArticulo = nombreDelArticulo;
     }
 
-    public double getPrecio() {
+    public float getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(float precio) {
         this.precio = precio;
     }
 
@@ -60,23 +72,25 @@ public abstract class Articulo {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Articulo articulo = (Articulo) o;
-        return Double.compare(precio, articulo.precio) == 0 && stock == articulo.stock && Objects.equals(nombreDelArticulo, articulo.nombreDelArticulo) && Objects.equals(descripcion, articulo.descripcion);
+        return Float.compare(precio, articulo.precio) == 0 && stock == articulo.stock && Objects.equals(nombreDelArticulo, articulo.nombreDelArticulo) && Objects.equals(descripcion, articulo.descripcion) && tipoDeArticulo == articulo.tipoDeArticulo;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nombreDelArticulo, precio, descripcion, stock);
+        return Objects.hash(nombreDelArticulo, precio, descripcion, stock, tipoDeArticulo);
     }
 
     @Override
     public String toString() {
-        return "Articulos.Articulo{" +
-                "nombreDelArticulo='" + nombreDelArticulo + '\'' +
+        return "Articulo{" +
+                "descripcion='" + descripcion + '\'' +
+                ", nombreDelArticulo='" + nombreDelArticulo + '\'' +
                 ", precio=" + precio +
-                ", descripcion='" + descripcion + '\'' +
-                ", sotck=" + stock +
+                ", stock=" + stock +
+                ", tipoDeArticulo=" + tipoDeArticulo +
                 '}';
     }
+
     public void borrarDeStock(int cantidadDeSotckAborrar)
     {
         setSotck(getSotck()-cantidadDeSotckAborrar);

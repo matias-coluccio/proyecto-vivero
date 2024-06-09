@@ -1,21 +1,16 @@
 package Articulos;
 
 import java.util.Objects;
+import Enum.TipoDeArticulo;
 
 public class Agroquimico extends Articulo {
     private String cantidadDelEnvase;
     private String tipoDeAgroquimico;
 
-    public Agroquimico(String nombreDelArticulo, float precio, String descripcion, int stock, String cantidadDelEnvase, String tipoDeAgroquimico) {
-        super(nombreDelArticulo, precio, descripcion, stock);
+    public Agroquimico(String descripcion, String nombreDelArticulo, float precio, int stock, TipoDeArticulo tipoDeArticulo, String cantidadDelEnvase, String tipoDeAgroquimico) {
+        super(descripcion, nombreDelArticulo, precio, stock, TipoDeArticulo.Agroquimico);
         this.cantidadDelEnvase = cantidadDelEnvase;
         this.tipoDeAgroquimico = tipoDeAgroquimico;
-    }
-
-    public Agroquimico() {
-        super();
-        this.cantidadDelEnvase = "";
-        this.tipoDeAgroquimico = "";
     }
 
     public String getCantidadDelEnvase() {

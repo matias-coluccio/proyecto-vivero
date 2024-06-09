@@ -1,24 +1,18 @@
 package Articulos;
 
 import java.util.Objects;
+import Enum.TipoDeArticulo;
 
 public class Maceta extends Articulo {
     /// lo hago String para poder poenr ..x..x..
     private String MedidaDeLaMaceta;
     /// platico, fibrocemento,blum,etc;
     private String mateiralDeLaMaceta;
-    private String tamanio;
 
-    public Maceta(String nombreDelArticulo, float precio, String descripcion, int stock, String medidaDeLaMaceta, String mateiralDeLaMaceta) {
-        super(nombreDelArticulo, precio, descripcion, stock);
-        MedidaDeLaMaceta = medidaDeLaMaceta;
+    public Maceta(String descripcion, String nombreDelArticulo, float precio, int stock, TipoDeArticulo tipoDeArticulo, String mateiralDeLaMaceta, String medidaDeLaMaceta) {
+        super(descripcion, nombreDelArticulo, precio, stock, TipoDeArticulo.Maceta);
         this.mateiralDeLaMaceta = mateiralDeLaMaceta;
-    }
-
-    public Maceta() {
-        super();
-        MedidaDeLaMaceta = "";
-        this.mateiralDeLaMaceta = "";
+        MedidaDeLaMaceta = medidaDeLaMaceta;
     }
 
     public String getMedidaDeLaMaceta() {
