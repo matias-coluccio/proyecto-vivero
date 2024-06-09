@@ -5,6 +5,7 @@ import java.util.Objects;
 public class Agroquimico extends Articulo {
     private String cantidadDelEnvase;
     private String tipoDeAgroquimico;
+	private String propertyToBeDeleted;
 
     public Agroquimico(String nombreDelArticulo, float precio, String descripcion, int stock, String cantidadDelEnvase, String tipoDeAgroquimico) {
         super(nombreDelArticulo, precio, descripcion, stock);
