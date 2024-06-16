@@ -9,8 +9,8 @@ public class Maceta extends Articulo {
     /// platico, fibrocemento,blum,etc;
     private String mateiralDeLaMaceta;
 
-    public Maceta(String descripcion, String nombreDelArticulo, float precio, int stock, TipoDeArticulo tipoDeArticulo, String mateiralDeLaMaceta, String medidaDeLaMaceta) {
-        super(descripcion, nombreDelArticulo, precio, stock, TipoDeArticulo.Maceta);
+    public Maceta(String nombreDelArticulo, float precio, int stock, TipoDeArticulo tipoDeArticulo, int codigo, String mateiralDeLaMaceta, String medidaDeLaMaceta) {
+        super(nombreDelArticulo, precio, stock, TipoDeArticulo.Maceta, codigo);
         this.mateiralDeLaMaceta = mateiralDeLaMaceta;
         MedidaDeLaMaceta = medidaDeLaMaceta;
     }
@@ -48,13 +48,13 @@ public class Maceta extends Articulo {
 
     @Override
     public String toString() {
-        return "Articulos.Maceta{" +
+        return "Maceta{" +
                 "MedidaDeLaMaceta='" + MedidaDeLaMaceta + '\'' +
                 ", mateiralDeLaMaceta='" + mateiralDeLaMaceta + '\'' +
                 ", nombreDelArticulo='" + nombreDelArticulo + '\'' +
                 ", precio=" + precio +
-                ", descripcion='" + descripcion + '\'' +
-                ", sotck=" + stock +
+                ", codigo='" + codigo + '\'' +
+                ", stock=" + stock +
                 '}';
     }
 }

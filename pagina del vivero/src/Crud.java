@@ -3,5 +3,4 @@ public interface Crud<T> {
     void eliminar(T dato);
     void modificar(T dato);
     String  listar();
-
 }

@@ -7,8 +7,8 @@ public class Agroquimico extends Articulo {
     private String cantidadDelEnvase;
     private String tipoDeAgroquimico;
 
-    public Agroquimico(String descripcion, String nombreDelArticulo, float precio, int stock, TipoDeArticulo tipoDeArticulo, String cantidadDelEnvase, String tipoDeAgroquimico) {
-        super(descripcion, nombreDelArticulo, precio, stock, TipoDeArticulo.Agroquimico);
+    public Agroquimico(String nombreDelArticulo, float precio, int stock, TipoDeArticulo tipoDeArticulo,int codigo, String cantidadDelEnvase, String tipoDeAgroquimico) {
+        super(nombreDelArticulo, precio, stock, TipoDeArticulo.Agroquimico, codigo);
         this.cantidadDelEnvase = cantidadDelEnvase;
         this.tipoDeAgroquimico = tipoDeAgroquimico;
     }
@@ -46,13 +46,13 @@ public class Agroquimico extends Articulo {
 
     @Override
     public String toString() {
-        return "Articulos.Agroquimico{" +
+        return "Agroquimico{" +
                 "cantidadDelEnvase='" + cantidadDelEnvase + '\'' +
                 ", tipoDeAgroquimico='" + tipoDeAgroquimico + '\'' +
                 ", nombreDelArticulo='" + nombreDelArticulo + '\'' +
                 ", precio=" + precio +
-                ", descripcion='" + descripcion + '\'' +
-                ", sotck=" + stock +
+                ", codigo='" + codigo + '\'' +
+                ", stock=" + stock +
                 '}';
     }
 }

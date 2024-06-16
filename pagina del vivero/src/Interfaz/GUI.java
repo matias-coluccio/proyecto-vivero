@@ -1,6 +1,9 @@
 package Interfaz;
 
 import javax.swing.JFrame;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -21,13 +24,19 @@ public class GUI extends javax.swing.JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         setTitle("Vivero Professional version");
+        SetDate();
        
         
         
         
         
     }
-    
+     private void SetDate()
+     {
+         LocalDate now=LocalDate.now();
+         Locale spanishLocale=new Locale("es", "ES");
+         Imagen.setText(now.format(DateTimeFormatter.ofPattern("'Hoy es 'EEEE dd 'de' MMMM 'de' yyyy",spanishLocale)));
+     }
  
     
 
@@ -141,7 +150,7 @@ public class GUI extends javax.swing.JFrame {
         );
 
         Imagen.setIcon(new javax.swing.ImageIcon("C:\\Users\\Gian\\Downloads\\3DC_INTERIOR_PLANTS01_MINIATURA_PACK-400x400.png")); // NOI18N
-        Imagen.setText("jLabel2");
+
 
         javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
         MainPanel.setLayout(MainPanelLayout);

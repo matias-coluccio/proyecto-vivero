@@ -1,5 +1,7 @@
 package Clientes;
 import Enum.Categoria;
+
+import java.util.Locale;
 import java.util.Objects;
 
 public class Cliente {
@@ -76,4 +78,5 @@ public class Cliente {
                 ", dni=" + dni +
                 '}';
     }
+
 }

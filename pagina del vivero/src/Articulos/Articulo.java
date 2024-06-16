@@ -6,12 +6,12 @@ import Enum.TipoDeArticulo;
 public class Articulo {
     protected String nombreDelArticulo;
     protected float precio;
-    protected String descripcion;
     protected int stock;
     protected TipoDeArticulo tipoDeArticulo;
+    protected int codigo;
 
-    public Articulo(String descripcion, String nombreDelArticulo, float precio, int stock, TipoDeArticulo tipoDeArticulo) {
-        this.descripcion = descripcion;
+    public Articulo(String nombreDelArticulo, float precio, int stock, TipoDeArticulo tipoDeArticulo, int codigo) {
+        this.codigo=codigo;
         this.nombreDelArticulo = nombreDelArticulo;
         this.precio = precio;
         this.stock = stock;
@@ -50,49 +50,38 @@ public class Articulo {
         this.precio = precio;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public int getCodigo() {
+        return codigo;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
-
-    public int getSotck() {
-        return stock;
-    }
-
-    public void setSotck(int sotck) {
-        this.stock = sotck;
-    }
-
 
     @Override
     public boolean equals(Object o) {
+
+
+
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Articulo articulo = (Articulo) o;
-        return Float.compare(precio, articulo.precio) == 0 && stock == articulo.stock && Objects.equals(nombreDelArticulo, articulo.nombreDelArticulo) && Objects.equals(descripcion, articulo.descripcion) && tipoDeArticulo == articulo.tipoDeArticulo;
+        return Float.compare(precio, articulo.precio) == 0 && stock == articulo.stock && codigo == articulo.codigo && Objects.equals(nombreDelArticulo, articulo.nombreDelArticulo) && tipoDeArticulo == articulo.tipoDeArticulo;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nombreDelArticulo, precio, descripcion, stock, tipoDeArticulo);
+        return Objects.hash(nombreDelArticulo, precio, stock, tipoDeArticulo, codigo);
     }
 
     @Override
     public String toString() {
         return "Articulo{" +
-                "descripcion='" + descripcion + '\'' +
-                ", nombreDelArticulo='" + nombreDelArticulo + '\'' +
+                "nombreDelArticulo='" + nombreDelArticulo + '\'' +
                 ", precio=" + precio +
                 ", stock=" + stock +
                 ", tipoDeArticulo=" + tipoDeArticulo +
+                ", codigo=" + codigo +
                 '}';
-    }
-
-    public void borrarDeStock(int cantidadDeSotckAborrar)
-    {
-        setSotck(getSotck()-cantidadDeSotckAborrar);
     }
 }
