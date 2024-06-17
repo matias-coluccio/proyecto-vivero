@@ -16,6 +16,8 @@ public class Compra extends javax.swing.JFrame {
     public Compra() {
         initComponents();
          setTitle("Menu compras");
+           setLocationRelativeTo(null);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
     }
 
@@ -32,6 +34,7 @@ public class Compra extends javax.swing.JFrame {
         Volver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(new javax.swing.ImageIcon(System.getProperty("user.dir")+"\\proyecto-vivero\\pagina del vivero\\src\\Imagenes\\marchitez-de-la-planta-solar.png").getImage());
 
         Volver.setText("Volver");
         Volver.addActionListener(new java.awt.event.ActionListener() {

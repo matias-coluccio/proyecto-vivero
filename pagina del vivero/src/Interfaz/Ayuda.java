@@ -17,6 +17,8 @@ public class Ayuda extends javax.swing.JFrame {
      */
     public Ayuda() {
         initComponents();
+          setLocationRelativeTo(null);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
         
         
@@ -44,6 +46,10 @@ public class Ayuda extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Menu ayuda");
+        setIconImage(new javax.swing.ImageIcon(System.getProperty("user.dir")+"\\proyecto-vivero\\pagina del vivero\\src\\Imagenes\\marchitez-de-la-planta-solar.png").getImage());
+
+        MainPanel.setBackground(new java.awt.Color(255, 255, 255));
+        MainPanel.setForeground(new java.awt.Color(255, 255, 255));
 
         Titulo.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
         Titulo.setText("Ayuda");
@@ -55,8 +61,8 @@ public class Ayuda extends javax.swing.JFrame {
                 VolverActionPerformed(evt);
             }
         });
-/// arreglar imagenes
-        Imagen.setIcon(new javax.swing.ImageIcon("interfaz\\imagenes\\images.png")); // NOI18N
+
+        Imagen.setIcon(new javax.swing.ImageIcon("C:\\Users\\Gian\\Downloads\\images.png")); // NOI18N
 
         PanelAyuda.setBackground(new java.awt.Color(153, 153, 153));
         PanelAyuda.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -90,7 +96,7 @@ public class Ayuda extends javax.swing.JFrame {
                     .addGroup(PanelAyudaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(txtVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtCompras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         PanelAyudaLayout.setVerticalGroup(
             PanelAyudaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,7 +111,7 @@ public class Ayuda extends javax.swing.JFrame {
                 .addComponent(txtCaja)
                 .addGap(30, 30, 30)
                 .addComponent(Soporte)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
@@ -123,8 +129,8 @@ public class Ayuda extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(MainPanelLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(PanelAyuda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(85, 85, 85)
+                .addComponent(PanelAyuda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                 .addComponent(Imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
         );
@@ -135,12 +141,12 @@ public class Ayuda extends javax.swing.JFrame {
                 .addComponent(Titulo)
                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(MainPanelLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(PanelAyuda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(MainPanelLayout.createSequentialGroup()
                         .addGap(76, 76, 76)
-                        .addComponent(Imagen)))
-                .addGap(56, 56, 56)
+                        .addComponent(Imagen))
+                    .addGroup(MainPanelLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(PanelAyuda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(118, 118, 118)
                 .addComponent(Volver)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
