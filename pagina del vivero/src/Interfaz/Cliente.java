@@ -48,7 +48,7 @@ public class Cliente extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setIconImage(new javax.swing.ImageIcon(System.getProperty("user.dir")+"\\proyecto-vivero\\pagina del vivero\\src\\Imagenes\\marchitez-de-la-planta-solar.png").getImage());
+        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/marchitez-de-la-planta-solar.png")).getImage());
         setMinimumSize(new java.awt.Dimension(800, 520));
         setPreferredSize(new java.awt.Dimension(800, 500));
 

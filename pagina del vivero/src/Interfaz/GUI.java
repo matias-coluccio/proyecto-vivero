@@ -94,7 +94,7 @@ public class GUI extends javax.swing.JFrame {
         Fecha = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setIconImage(new javax.swing.ImageIcon(System.getProperty("user.dir")+"\\proyecto-vivero\\pagina del vivero\\src\\Imagenes\\marchitez-de-la-planta-solar.png").getImage());
+        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/marchitez-de-la-planta-solar.png")).getImage());
         setPreferredSize(new java.awt.Dimension(800, 500));
 
         MainPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -112,7 +112,7 @@ public class GUI extends javax.swing.JFrame {
         Ventas.setBackground(new java.awt.Color(51, 102, 255));
         Ventas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Ventas.setForeground(new java.awt.Color(255, 255, 255));
-        Ventas.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir")+"\\proyecto-vivero\\pagina del vivero\\src\\Imagenes\\carrito-de-compras (1).png"));
+        Ventas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/carrito-de-compras (1).png")));
         Ventas.setText("Ventas");
         Ventas.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
         Ventas.setBorderPainted(false);
@@ -128,7 +128,7 @@ public class GUI extends javax.swing.JFrame {
         Compras.setBackground(new java.awt.Color(51, 101, 255));
         Compras.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Compras.setForeground(new java.awt.Color(255, 255, 255));
-        Compras.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir")+"\\proyecto-vivero\\pagina del vivero\\src\\Imagenes\\usuarios.png"));
+        Compras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/usuarios.png")));
         Compras.setText("Compras");
         Compras.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
         Compras.setBorderPainted(false);
@@ -144,7 +144,7 @@ public class GUI extends javax.swing.JFrame {
         Caja.setBackground(new java.awt.Color(51, 102, 255));
         Caja.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Caja.setForeground(new java.awt.Color(255, 255, 255));
-        Caja.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir")+"\\proyecto-vivero\\pagina del vivero\\src\\Imagenes\\dolar.png"));
+        Caja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/dolar.png")));
         Caja.setText("Caja");
         Caja.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
         Caja.setBorderPainted(false);
@@ -160,7 +160,7 @@ public class GUI extends javax.swing.JFrame {
         Historial.setBackground(new java.awt.Color(51, 102, 255));
         Historial.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Historial.setForeground(new java.awt.Color(255, 255, 255));
-        Historial.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir")+"\\proyecto-vivero\\pagina del vivero\\src\\Imagenes\\libro-alt.png"));
+        Historial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/libro-alt.png")));
         Historial.setText("Historial");
         Historial.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
         Historial.setBorderPainted(false);
@@ -176,7 +176,7 @@ public class GUI extends javax.swing.JFrame {
         Ayuda.setBackground(new java.awt.Color(51, 102, 255));
         Ayuda.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Ayuda.setForeground(new java.awt.Color(255, 255, 255));
-        Ayuda.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir")+"\\proyecto-vivero\\pagina del vivero\\src\\Imagenes\\interrogatorio.png"));
+        Ayuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/interrogatorio.png")));
         Ayuda.setText("Ayuda");
         Ayuda.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
         Ayuda.setBorderPainted(false);
@@ -192,7 +192,7 @@ public class GUI extends javax.swing.JFrame {
         Articulos.setBackground(new java.awt.Color(51, 102, 255));
         Articulos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Articulos.setForeground(new java.awt.Color(255, 255, 255));
-        Articulos.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir")+"\\proyecto-vivero\\pagina del vivero\\src\\Imagenes\\planta-de-semillero.png"));
+        Articulos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/planta-de-semillero.png")));
         Articulos.setText("Articulos");
         Articulos.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
         Articulos.setBorderPainted(false);
@@ -208,7 +208,7 @@ public class GUI extends javax.swing.JFrame {
         Clientes.setBackground(new java.awt.Color(51, 102, 255));
         Clientes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Clientes.setForeground(new java.awt.Color(255, 255, 255));
-        Clientes.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir")+"\\proyecto-vivero\\pagina del vivero\\src\\Imagenes\\usuario.png"));
+        Clientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/usuario.png")));
         Clientes.setText("Clientes");
         Clientes.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
         Clientes.setBorderPainted(false);
