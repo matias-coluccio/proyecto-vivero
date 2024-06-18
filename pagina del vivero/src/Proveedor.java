@@ -1,5 +1,3 @@
-import Enum.Categoria;
-
 import java.util.Objects;
 
 public class Proveedor {
@@ -7,9 +5,9 @@ public class Proveedor {
     private String RazonSocial;
     private long cuit;
     private int cuentaCte;
-    private Categoria categoria;
+    private String categoria;
 
-    public Proveedor(String nombre, String razonSocial, long cuit, int cuentaCte, Categoria categoria) {
+    public Proveedor(String nombre, String razonSocial, long cuit, int cuentaCte, String categoria) {
         this.nombre = nombre;
         RazonSocial = razonSocial;
         this.cuit = cuit;
@@ -49,11 +47,11 @@ public class Proveedor {
         this.cuentaCte = cuentaCte;
     }
 
-    public Categoria getCategoria() {
+    public String getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(Categoria categoria) {
+    public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
 

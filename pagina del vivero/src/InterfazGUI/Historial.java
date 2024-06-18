@@ -2,20 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Interfaz;
+package InterfazGUI;
 
 /**
  *
  * @author Gian
  */
-public class Compra extends javax.swing.JFrame {
+public class Historial extends javax.swing.JFrame {
 
     /**
-     * Creates new form Compra
+     * Creates new form Historial
      */
-    public Compra() {
+    public Historial() {
         initComponents();
-         setTitle("Menu compras");
+         setTitle("Menu historial");
            setLocationRelativeTo(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
@@ -48,16 +48,16 @@ public class Compra extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
+                .addGap(53, 53, 53)
                 .addComponent(Volver)
-                .addContainerGap(689, Short.MAX_VALUE))
+                .addContainerGap(675, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(451, Short.MAX_VALUE)
+                .addContainerGap(444, Short.MAX_VALUE)
                 .addComponent(Volver)
-                .addGap(27, 27, 27))
+                .addGap(33, 33, 33))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

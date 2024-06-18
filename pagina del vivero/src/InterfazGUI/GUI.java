@@ -1,9 +1,8 @@
-package Interfaz;
+package InterfazGUI;
 
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -29,7 +28,7 @@ public class GUI extends javax.swing.JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         setDate();
-        setTitle("Vivero Professional version");
+        setTitle("Vivero.Vivero Professional version");
         setupButton(Ventas);
         setupButton(Compras);
         setupButton(Caja);

@@ -1,17 +1,15 @@
 package Clientes;
-import Enum.Categoria;
 
-import java.util.Locale;
 import java.util.Objects;
 
 public class Cliente {
     private String nombre;
     private String apellido;
-    private Categoria categoria;
+    private String categoria;
     private int dni;
 
 
-    public Cliente(String nombre, String apellido, Categoria categoria, int dni) {
+    public Cliente(String nombre, String apellido, String categoria, int dni) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.categoria = categoria;
@@ -39,11 +37,11 @@ public class Cliente {
         this.apellido = apellido;
     }
 
-    public Categoria getCategoria() {
+    public String getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(Categoria categoria) {
+    public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
 

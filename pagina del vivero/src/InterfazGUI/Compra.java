@@ -2,20 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Interfaz;
+package InterfazGUI;
 
 /**
  *
  * @author Gian
  */
-public class Caja extends javax.swing.JFrame {
+public class Compra extends javax.swing.JFrame {
 
     /**
-     * Creates new form Caja
+     * Creates new form Compra
      */
-    public Caja() {
+    public Compra() {
         initComponents();
-         setTitle("Menu Caja");
+         setTitle("Menu compras");
            setLocationRelativeTo(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
@@ -48,16 +48,16 @@ public class Caja extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
+                .addGap(39, 39, 39)
                 .addComponent(Volver)
-                .addContainerGap(683, Short.MAX_VALUE))
+                .addContainerGap(689, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(438, Short.MAX_VALUE)
+                .addContainerGap(451, Short.MAX_VALUE)
                 .addComponent(Volver)
-                .addGap(33, 33, 33))
+                .addGap(27, 27, 27))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -68,16 +68,14 @@ public class Caja extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
-       GUI gui=new GUI();
+        GUI gui=new GUI();
          gui.setVisible(true);// TODO add your handling code here:
          setVisible(false);
     }//GEN-LAST:event_VolverActionPerformed

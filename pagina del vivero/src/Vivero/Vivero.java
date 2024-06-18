@@ -1,11 +1,13 @@
+package Vivero;
+
 import Articulos.Articulo;
 import Clientes.Cliente;
 import Excepciones.ExceptionCodigoDuplicado;
 import Excepciones.ExceptionDNI;
 import Excepciones.ValidadorException;
-
 import java.util.HashMap;
 import java.util.LinkedList;
+import Interfaz.Crud;
 
 
 
@@ -20,7 +22,7 @@ public class Vivero implements Crud {
         }
 
         @Override
-        public void agregar(Object dato) {
+        public void agregar(Object dato)throws ExceptionDNI {
 
             if (dato instanceof Cliente) {
                 try {
@@ -29,6 +31,7 @@ public class Vivero implements Crud {
                 } catch (ExceptionDNI e) {
 
                     System.out.println(e.getMessage());
+                    throw  e;
                 }
             } else if (dato instanceof Articulo) {
                 try {
@@ -46,6 +49,34 @@ public class Vivero implements Crud {
 
 
         }
+
+    @Override
+    public Object buscar(Object dato) {
+
+            Cliente aux;
+            if(clientes.containsKey(dato)) {
+                aux = clientes.get(dato);
+                return aux;
+            }
+            /*
+            else if(Articulos.containsKey(((Articulo) dato)))
+            {
+                Articulo aux1;
+                LinkedList<Articulo> list=new LinkedList<>();
+                list=Articulos.get(((Articulo) dato).getTipoDeArticulo());
+                for(Articulo i : list)
+                {
+                    if(i.getCodigo()==((Articulo) dato).getCodigo())
+                    {
+                        aux1=i;
+                        return aux1;
+                    }
+                }
+            }
+            */
+
+        return false;
+    }
 
         @Override
         public void eliminar(Object dato) {

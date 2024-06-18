@@ -18,6 +18,9 @@ public class Articulo {
         this.tipoDeArticulo = tipoDeArticulo;
     }
 
+    public Articulo() {
+    }
+
     public int getStock() {
         return stock;
     }
