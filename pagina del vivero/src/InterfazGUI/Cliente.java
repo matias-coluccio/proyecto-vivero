@@ -7,13 +7,16 @@ package InterfazGUI;
 
 import Excepciones.ExceptionDNI;
 import Vivero.Vivero;
-
+import java.util.HashMap;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+
 
 public class Cliente extends javax.swing.JFrame {
 
@@ -49,9 +52,7 @@ public class Cliente extends javax.swing.JFrame {
         }
 
 
-        mt.addRow(new Object[]{46348819, "Gian Luka", "Fernandez", "Monotributista"});
-        mt.addRow(new Object[]{44957193, "Yago", "Fernandez", "Monotributista"});
-        mt.addRow(new Object[]{45895001, "Marcos", "Closter", "Responsable Inscripto"});
+        InitTable(mt);
         setResizable(false);
         GUI.setupButton(Volver);
         GUI.setupButton(Editar);
@@ -74,6 +75,15 @@ public class Cliente extends javax.swing.JFrame {
             }
         });
     }
+    private void InitTable(DefaultTableModel mt)
+    {
+
+        mt.addRow(new Object[]{46348819, "Gian Luka", "Fernandez", "Monotributista"});
+        mt.addRow(new Object[]{44957193, "Yago", "Fernandez", "Monotributista"});
+        mt.addRow(new Object[]{45895001, "Marcos", "Closter", "Responsable Inscripto"});
+    }
+
+
 
     private void initComponents() {
         MainPanel = new javax.swing.JPanel();
@@ -111,12 +121,22 @@ public class Cliente extends javax.swing.JFrame {
         Borrar.setText("Borrar");
         Borrar.setBorder(null);
         Borrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Borrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BorrarActionPerformed(evt);
+            }
+        });
 
         Editar.setBackground(new java.awt.Color(51, 102, 255));
         Editar.setForeground(new java.awt.Color(255, 255, 255));
         Editar.setText("Editar");
         Editar.setBorder(null);
         Editar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditarActionPerformed(evt);
+            }
+        });
 
         Nuevo.setBackground(new java.awt.Color(51, 102, 255));
         Nuevo.setForeground(new java.awt.Color(255, 255, 255));
@@ -244,52 +264,63 @@ public class Cliente extends javax.swing.JFrame {
             }
         }
     }
+    private void BorrarActionPerformed(java.awt.event.ActionEvent evt) {
 
-/*
-    private void BuscarActionPerformed(java.awt.event.ActionEvent evt) {
-        int dni = Integer.parseInt(Buscador.getText());
-        // Suponiendo que vivero.buscar retorna un objeto Cliente encontrado
-        // Replace Clientes.Cliente with the actual class type
-        Clientes.Cliente cliente = (Clientes.Cliente) vivero.buscar(dni);
-        System.out.println(cliente.toString());
+        System.out.println(vivero.listar());
+        if(jTable1.getSelectedRow()<0)
+        {
 
-        // Limpiar todas las filas existentes en la tabla
-        int rowCount = mt.getRowCount();
-        for (int i = rowCount - 1; i >= 0; i--) {
-            mt.removeRow(i);
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente a borrar", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        else {
+            int opc = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar los clientes seleccionados?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+            if (opc == 0) {
+                for (int i : jTable1.getSelectedRows()) {
 
-        // Agregar la fila del cliente encontrado
-        mt.addRow(new Object[]{cliente.getDni(), cliente.getNombre(), cliente.getApellido(), cliente.getCategoria()});
+                    try {
+                        vivero.eliminar(jTable1.getValueAt(i, 0));
+                        System.out.println(vivero.listar());
+                        jTable1.remove(i);
 
-        // Limpiar el campo de búsqueda
-        Buscador.setText("");
-        String busqueda = Buscador.getText().toLowerCase();
-        if (busqueda.isEmpty()) {
-            for (Clientes.Cliente i : todos) {
-                mt.addRow(new Object[]{i.getDni(), i.getNombre(), i.getApellido(), i.getCategoria()});
-            }
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
 
-        } else {
-            // Realizar la búsqueda según el texto ingresado
-            for (Clientes.Cliente j : todos) {
-                String dniStr = String.valueOf(j.getDni()).toLowerCase();
-                String nombre = j.getNombre().toLowerCase();
-                String apellido = j.getApellido().toLowerCase();
-                String categoria = j.getCategoria().toLowerCase();
 
-                // Verificar si alguna columna contiene el texto de búsqueda
-                if (dniStr.contains(busqueda) || nombre.contains(busqueda) || apellido.contains(busqueda) || categoria.contains(busqueda)) {
-
-                    // Agregar el cliente que coincide a la tabla
-                    mt.addRow(new Object[]{cliente.getDni(), cliente.getNombre(), cliente.getApellido(), cliente.getCategoria()});
+                }
+                mt.setRowCount(0);
+                HashMap<Integer, Clientes.Cliente> aux = vivero.getClientes();
+                Iterator<Map.Entry<Integer, Clientes.Cliente>> i = aux.entrySet().iterator();
+                while (i.hasNext()) {
+                    Map.Entry<Integer, Clientes.Cliente> e = i.next();
+                    Clientes.Cliente aux1 = e.getValue();
+                    mt.addRow(new Object[]{aux1.getDni(), aux1.getNombre(), aux1.getApellido(), aux1.getCategoria()});
                 }
 
 
             }
         }
+
+
     }
-     */
+    private void EditarActionPerformed(java.awt.event.ActionEvent evt) {
+        if(jTable1.getSelectedRow()<0)
+        {
+
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente a editar", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+
+
+            int dni =(Integer)jTable1.getValueAt(jTable1.getSelectedRow(), 0);
+            VentanaEditarCliente ventanaEditarCliente=new VentanaEditarCliente(dni, vivero);
+            ventanaEditarCliente.setVisible(true);
+            setVisible(false);
+        }
+    }
+
+
 
 
 

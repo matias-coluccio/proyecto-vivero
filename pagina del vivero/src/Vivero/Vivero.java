@@ -50,6 +50,14 @@ public class Vivero implements Crud {
 
         }
 
+    public HashMap<Integer, Cliente> getClientes() {
+        return clientes;
+    }
+
+    public void setClientes(HashMap<Integer, Cliente> clientes) {
+        this.clientes = clientes;
+    }
+
     @Override
     public Object buscar(Object dato) {
 
@@ -80,10 +88,11 @@ public class Vivero implements Crud {
 
         @Override
         public void eliminar(Object dato) {
-            if (dato instanceof Articulo) {
+            if (Articulos.containsKey(dato)) {
                 Articulos.remove(dato.getClass(), dato);
-            } else if (dato instanceof Cliente) {
-                clientes.remove(((Cliente) dato).getDni(), dato);
+            } else if (clientes.containsKey(dato)) {
+                Cliente aux=clientes.get(dato);
+                clientes.remove(dato , aux);
             }
         }
 
