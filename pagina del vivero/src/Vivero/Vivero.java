@@ -6,24 +6,23 @@ import Excepciones.ExceptionCodigoDuplicado;
 import Excepciones.ExceptionDNI;
 import Excepciones.ValidadorException;
 import Interfaz.Crud;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class Vivero implements Crud {
     HashMap<Integer, Cliente> clientes;
     HashMap<String, LinkedList<Articulo>> Articulos;
-    static ObjectMapper viveroJson = new ObjectMapper();
-    File archivoVivero = new File("archivoVivero.json");
-
+   public  static ObjectMapper viveroJson = new ObjectMapper();
+    public  File   archivoVivero=new File("archivo.json");
     public Vivero() {
         clientes = new HashMap<>();
         Articulos = new HashMap<>();
     }
-
 
 
     @Override
@@ -32,6 +31,24 @@ public class Vivero implements Crud {
             try {
                 ValidadorException.ValidadDNI(((Cliente) dato).getDni(), clientes);
                 clientes.put(((Cliente) dato).getDni(), (Cliente) dato);
+                ObjectMapper objectMapper = new ObjectMapper();
+                try (FileWriter fileWriter = new FileWriter(archivoVivero, true)) {
+
+                    PrintWriter printWriter = new PrintWriter(fileWriter);
+                    Iterator i=clientes.entrySet().iterator();
+                    while(i.hasNext())
+                    {
+                        Map.Entry<Integer, Cliente> j= (Map.Entry<Integer, Cliente>) i.next();
+                        Cliente cliente=j.getValue();
+                        String usuarioAEscribir = objectMapper.writeValueAsString(cliente);            //Escribo cada usuario al final del archivo
+                        printWriter.println(usuarioAEscribir);
+
+                    }
+                    printWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             } catch (ExceptionDNI e) {
                 System.out.println(e.getMessage());
                 throw e;

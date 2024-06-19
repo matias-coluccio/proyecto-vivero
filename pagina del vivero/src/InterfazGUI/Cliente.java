@@ -7,8 +7,11 @@ package InterfazGUI;
 import Excepciones.ExceptionDNI;
 import Vivero.Vivero;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONException;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import javax.swing.*;
@@ -19,6 +22,8 @@ import java.util.Iterator;
 import java.util.Map;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+
+import static Vivero.Vivero.viveroJson;
 
 public class Cliente extends javax.swing.JFrame {
 
@@ -31,8 +36,8 @@ public class Cliente extends javax.swing.JFrame {
     };
     Vivero vivero = new Vivero();//OTRO PROVISORIO
     ArrayList<Clientes.Cliente> todos = new ArrayList<>();
-    File archivoVivero = new File("archivoVivero.json");
      static ObjectMapper objectMapper = new ObjectMapper();
+
 
     public Cliente() {
         initComponents();
@@ -40,17 +45,6 @@ public class Cliente extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         jTable1.setModel(mt);
-
-        try {
-            if (archivoVivero.exists()) {
-                vivero = objectMapper.readValue(archivoVivero, Vivero.class);
-            } else {
-                vivero.guardarEnArchivo(archivoVivero.getPath());
-            }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-
         InitTable(mt);
         setResizable(false);
         GUI.setupButton(Volver);
@@ -77,9 +71,26 @@ public class Cliente extends javax.swing.JFrame {
 
     private void InitTable(DefaultTableModel mt) {
 
-        mt.addRow(new Object[]{46348819, "Gian Luka", "Fernandez", "Monotributista"});
-        mt.addRow(new Object[]{44957193, "Yago", "Fernandez", "Monotributista"});
-        mt.addRow(new Object[]{45895001, "Marcos", "Closter", "Responsable Inscripto"});
+       Vivero vivero1=new Vivero();
+       HashMap<Integer, Clientes.Cliente> clientes=vivero1.getClientes();
+        Clientes.Cliente usuario;
+
+
+        if (arch.exists()) {
+            try (BufferedReader br = new BufferedReader(new FileReader(archivoVivero))) {
+                String linea;
+                while ((linea = br.readLine()) != null) {                               //Leo el archivo linea por linea y lo subo a nuestro treemap
+                    usuario = viveroJson.readValue(linea, Clientes.Cliente.class);
+                    mt.addRow(new Object[]{usuario.getDni(), usuario.getNombre(), usuario.getApellido(), usuario.getCategoria()});
+                }
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        } else {
+            System.out.println("El archivo no existe");
+        }
+
+
     }
 
     private void initComponents() {
@@ -256,10 +267,7 @@ public class Cliente extends javax.swing.JFrame {
 
             //// la idea es recorrer el hasmap de los clientes del vivero para despues mostrarlos
             ///TODO
-            for(HashMap aux:clientesDelVivero)
-            {
 
-            }
 
 
 
