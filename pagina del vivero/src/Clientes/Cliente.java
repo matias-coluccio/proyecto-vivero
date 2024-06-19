@@ -1,5 +1,10 @@
 package Clientes;
 
+import Vivero.Vivero;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 
 public class Cliente {
@@ -7,7 +12,6 @@ public class Cliente {
     private String apellido;
     private String categoria;
     private int dni;
-
 
     public Cliente(String nombre, String apellido, String categoria, int dni) {
         this.nombre = nombre;
@@ -76,5 +80,6 @@ public class Cliente {
                 ", dni=" + dni +
                 '}';
     }
+
 
 }

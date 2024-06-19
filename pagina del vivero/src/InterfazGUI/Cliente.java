@@ -4,7 +4,6 @@
  */
 package InterfazGUI;
 
-
 import Excepciones.ExceptionDNI;
 import Vivero.Vivero;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,7 +20,6 @@ import java.util.Map;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-
 public class Cliente extends javax.swing.JFrame {
 
     String ids[] = {"Dni", "Nombre", "Apellido", "Categoria"};
@@ -33,6 +31,9 @@ public class Cliente extends javax.swing.JFrame {
     };
     Vivero vivero = new Vivero();//OTRO PROVISORIO
     ArrayList<Clientes.Cliente> todos = new ArrayList<>();
+    File archivoCliente = new File("archivoCliente.json");
+    File archivoVivero = new File("archivoVivero.json");
+    static ObjectMapper objectMapper = new ObjectMapper();
 
     public Cliente() {
         initComponents();
@@ -40,23 +41,16 @@ public class Cliente extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         jTable1.setModel(mt);
-        ObjectMapper clienteJson= new ObjectMapper();
-        File archivoCliente = new File("archivoCliente.json");
+
         try {
-            ///agregar faltante de clinete
-
-
-        } catch (ExceptionDNI e) {
+            if (archivoVivero.exists()) {
+                vivero = objectMapper.readValue(archivoVivero, Vivero.class);
+            } else {
+                vivero.guardarEnArchivo(archivoVivero.getPath());
+            }
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
-         try {
-
-            clienteJson.writeValue(archivoCliente,vivero);
-         }catch (IOException e)
-         {
-             System.out.println(e.getMessage());
-         }
 
         InitTable(mt);
         setResizable(false);
@@ -81,15 +75,12 @@ public class Cliente extends javax.swing.JFrame {
             }
         });
     }
-    private void InitTable(DefaultTableModel mt)
-    {
 
+    private void InitTable(DefaultTableModel mt) {
         mt.addRow(new Object[]{46348819, "Gian Luka", "Fernandez", "Monotributista"});
         mt.addRow(new Object[]{44957193, "Yago", "Fernandez", "Monotributista"});
         mt.addRow(new Object[]{45895001, "Marcos", "Closter", "Responsable Inscripto"});
     }
-
-
 
     private void initComponents() {
         MainPanel = new javax.swing.JPanel();
@@ -230,11 +221,14 @@ public class Cliente extends javax.swing.JFrame {
         pack();
     }
 
-
     private void NuevoActionPerformed(java.awt.event.ActionEvent evt) {
-        NuevoCliente cliente = new NuevoCliente();
-        cliente.setVisible(true);
-        setVisible(false);
+        try {
+            NuevoCliente cliente = new NuevoCliente();
+            cliente.setVisible(true);
+            setVisible(false);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void VolverActionPerformed(java.awt.event.ActionEvent evt) {
@@ -242,7 +236,6 @@ public class Cliente extends javax.swing.JFrame {
         gui.setVisible(true);
         setVisible(false);
     }
-
 
     private void buscarClientes() {
         String searchText = Buscador.getText().toLowerCase(); // Obtener el texto del campo de búsqueda
@@ -263,36 +256,29 @@ public class Cliente extends javax.swing.JFrame {
 
                 // Verificar si alguna columna contiene el texto de búsqueda
                 if (dniStr.contains(searchText) || nombre.contains(searchText) || apellido.contains(searchText) || categoria.contains(searchText)) {
-
                     // Agregar el cliente que coincide a la tabla
                     mt.addRow(new Object[]{cliente.getDni(), cliente.getNombre(), cliente.getApellido(), cliente.getCategoria()});
                 }
             }
         }
     }
+
     private void BorrarActionPerformed(java.awt.event.ActionEvent evt) {
-
         System.out.println(vivero.listar());
-        if(jTable1.getSelectedRow()<0)
-        {
-
+        if (jTable1.getSelectedRow() < 0) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente a borrar", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        else {
+        } else {
             int opc = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar los clientes seleccionados?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
             if (opc == 0) {
                 for (int i : jTable1.getSelectedRows()) {
-
                     try {
-                        vivero.eliminar(jTable1.getValueAt(i, 0));
+                        vivero.eliminar((Integer) jTable1.getValueAt(i, 0));
+                        vivero.guardarEnArchivo(archivoVivero.getPath());
                         System.out.println(vivero.listar());
-                        jTable1.remove(i);
-
+                        mt.removeRow(i);
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
-
-
                 }
                 mt.setRowCount(0);
                 HashMap<Integer, Clientes.Cliente> aux = vivero.getClientes();
@@ -302,33 +288,38 @@ public class Cliente extends javax.swing.JFrame {
                     Clientes.Cliente aux1 = e.getValue();
                     mt.addRow(new Object[]{aux1.getDni(), aux1.getNombre(), aux1.getApellido(), aux1.getCategoria()});
                 }
-
-
             }
         }
-
-
     }
+
     private void EditarActionPerformed(java.awt.event.ActionEvent evt) {
-        if(jTable1.getSelectedRow()<0)
-        {
-
+        if (jTable1.getSelectedRow() < 0) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente a editar", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        else
-        {
-
-
-            int dni =(Integer)jTable1.getValueAt(jTable1.getSelectedRow(), 0);
-            VentanaEditarCliente ventanaEditarCliente=new VentanaEditarCliente(dni, vivero);
+        } else {
+            int dni = (Integer) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
+            VentanaEditarCliente ventanaEditarCliente = new VentanaEditarCliente(dni, vivero);
             ventanaEditarCliente.setVisible(true);
             setVisible(false);
         }
     }
 
+    // Métodos para trabajar con JSON
+    public void guardarEnArchivo(String ruta) throws IOException {
+        objectMapper.writeValue(new File(ruta), this);
+    }
 
+    public static Vivero cargarDesdeArchivo(String ruta) throws IOException {
+        return objectMapper.readValue(new File(ruta), Vivero.class);
+    }
 
+    // Métodos para convertir a JSON y desde JSON
+    public String convertirAJson() throws IOException {
+        return objectMapper.writeValueAsString(this);
+    }
 
+    public static Vivero desdeJson(String jsonString) throws IOException {
+        return objectMapper.readValue(jsonString, Vivero.class);
+    }
 
     // Variables declaration
     private javax.swing.JButton Borrar;
