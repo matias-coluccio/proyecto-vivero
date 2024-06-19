@@ -250,8 +250,8 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(Ayuda, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        Imagen.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir")+"\\proyecto-vivero\\pagina del vivero\\src\\Imagenes\\Fondo.png"));
 
+        Imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo.png")));
         Fecha.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         Fecha.setForeground(new java.awt.Color(0, 0, 0));
         Fecha.setText("\"'Hoy es 'EEEE dd 'de' MMMM 'de' yyyy\"");

@@ -31,9 +31,8 @@ public class Cliente extends javax.swing.JFrame {
     };
     Vivero vivero = new Vivero();//OTRO PROVISORIO
     ArrayList<Clientes.Cliente> todos = new ArrayList<>();
-    File archivoCliente = new File("archivoCliente.json");
     File archivoVivero = new File("archivoVivero.json");
-    static ObjectMapper objectMapper = new ObjectMapper();
+     static ObjectMapper objectMapper = new ObjectMapper();
 
     public Cliente() {
         initComponents();
@@ -77,6 +76,7 @@ public class Cliente extends javax.swing.JFrame {
     }
 
     private void InitTable(DefaultTableModel mt) {
+
         mt.addRow(new Object[]{46348819, "Gian Luka", "Fernandez", "Monotributista"});
         mt.addRow(new Object[]{44957193, "Yago", "Fernandez", "Monotributista"});
         mt.addRow(new Object[]{45895001, "Marcos", "Closter", "Responsable Inscripto"});
@@ -240,9 +240,29 @@ public class Cliente extends javax.swing.JFrame {
     private void buscarClientes() {
         String searchText = Buscador.getText().toLowerCase(); // Obtener el texto del campo de búsqueda
         mt.setRowCount(0); // Limpiar todas las filas actuales de la tabla
+        /// aca se bajo del archivo de vivero a vivero para despues bajar todos los clientes para que se pueda mostrar
+        try
+        {
+            vivero = objectMapper.readValue(archivoVivero, Vivero.class);
+
+        }catch (IOException e)
+        {
+            System.out.println(e.getMessage());
+        }
+        HashMap<Integer, Clientes.Cliente>clientesDelVivero=vivero.getClientes();
 
         // Si el texto de búsqueda está vacío, mostrar todos los clientes de nuevo
         if (searchText.isEmpty()) {
+
+            //// la idea es recorrer el hasmap de los clientes del vivero para despues mostrarlos
+            ///TODO
+            for(HashMap aux:clientesDelVivero)
+            {
+
+            }
+
+
+
             for (Clientes.Cliente cliente : todos) {
                 mt.addRow(new Object[]{cliente.getDni(), cliente.getNombre(), cliente.getApellido(), cliente.getCategoria()});
             }

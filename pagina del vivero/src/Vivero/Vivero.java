@@ -24,6 +24,8 @@ public class Vivero implements Crud {
         Articulos = new HashMap<>();
     }
 
+
+
     @Override
     public void agregar(Object dato) throws ExceptionDNI {
         if (dato instanceof Cliente) {

@@ -6,8 +6,11 @@ package InterfazGUI;
 
 import Excepciones.ExceptionDNI;
 import Vivero.Vivero;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.swing.*;
+import java.io.File;
+import java.io.IOException;
 
 /**
  *
@@ -21,6 +24,8 @@ public class NuevoCliente extends javax.swing.JFrame {
      * Creates new form NuevoCliente
      */
     Vivero vivero = new Vivero();//PROVISORIO DE PERSISTENCIA(JSON)
+    static ObjectMapper objectMapperNuevoCliente = new ObjectMapper();
+    File archivoNuevoCliente = new File("archivoNuevoCliente.json");
     public NuevoCliente() {
         initComponents();
         setTitle("Nuevo cliente");
@@ -176,7 +181,6 @@ public class NuevoCliente extends javax.swing.JFrame {
             cliente.setCategoria((String) CategoriaCmBox.getSelectedItem());
             cliente.setDni(Integer.parseInt(txtDNI.getText()));
 
-
             if(  txtNombre.getText().equals("") || txtApellido.getText().equals("") || txtDNI.getText().equals(""))
             {
                 throw new NumberFormatException("Campos vacios");
@@ -184,6 +188,13 @@ public class NuevoCliente extends javax.swing.JFrame {
 
             try {
                 vivero.agregar(cliente);
+                try {
+                    vivero.guardarEnArchivo("archivoVivero.json");
+                }catch (IOException e)
+                {
+                    System.out.println(e.getMessage());
+                }
+
                 JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente");
             }
             catch (ExceptionDNI e)
