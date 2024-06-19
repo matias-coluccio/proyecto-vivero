@@ -7,6 +7,10 @@ package InterfazGUI;
 
 import Excepciones.ExceptionDNI;
 import Vivero.Vivero;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -36,21 +40,23 @@ public class Cliente extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         jTable1.setModel(mt);
+        ObjectMapper clienteJson= new ObjectMapper();
+        File archivoCliente = new File("archivoCliente.json");
         try {
-            Clientes.Cliente cliente1 = new Clientes.Cliente("Gian Luka", "Fernandez", "Monotributista", 46348819);
-            Clientes.Cliente cliente2 = new Clientes.Cliente("Yago ", "Fernandez", "Monotributista", 44957193);
-            Clientes.Cliente cliente3 = new Clientes.Cliente("Marcos ", "Closter", "Responsable Inscripto", 45895001);
-            vivero.agregar(cliente1);
-            vivero.agregar(cliente2);
-            vivero.agregar(cliente3);
-            todos.add(cliente1);
-            todos.add(cliente2);
-            todos.add(cliente3);
+            ///agregar faltante de clinete
+
 
         } catch (ExceptionDNI e) {
             System.out.println(e.getMessage());
         }
 
+         try {
+
+            clienteJson.writeValue(archivoCliente,vivero);
+         }catch (IOException e)
+         {
+             System.out.println(e.getMessage());
+         }
 
         InitTable(mt);
         setResizable(false);
