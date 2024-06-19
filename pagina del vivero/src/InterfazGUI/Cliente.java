@@ -5,7 +5,7 @@
 package InterfazGUI;
 
 import Excepciones.ExceptionDNI;
-import Vivero.Vivero;
+import Vivero.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONException;
 
@@ -23,6 +23,8 @@ import java.util.Map;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+
+import static Vivero.Vivero.desdeJson;
 import static Vivero.Vivero.viveroJson;
 
 public class Cliente extends javax.swing.JFrame {
@@ -70,27 +72,22 @@ public class Cliente extends javax.swing.JFrame {
     }
 
     private void InitTable(DefaultTableModel mt) {
-
-       Vivero vivero1=new Vivero();
-       HashMap<Integer, Clientes.Cliente> clientes=vivero1.getClientes();
-        Clientes.Cliente usuario;
-
-
-        if (arch.exists()) {
-            try (BufferedReader br = new BufferedReader(new FileReader(archivoVivero))) {
-                String linea;
-                while ((linea = br.readLine()) != null) {                               //Leo el archivo linea por linea y lo subo a nuestro treemap
-                    usuario = viveroJson.readValue(linea, Clientes.Cliente.class);
+        if (vivero.archivoVivero.exists()) {
+            try {
+                vivero=Vivero.cargarDesdeArchivo("archivo.json");
+                System.out.println("Hola");
+                HashMap<Integer, Clientes.Cliente> clientes=vivero.getClientes();
+                for (Map.Entry<Integer, Clientes.Cliente> aux : clientes.entrySet()){
+                    Clientes.Cliente usuario=aux.getValue();
                     mt.addRow(new Object[]{usuario.getDni(), usuario.getNombre(), usuario.getApellido(), usuario.getCategoria()});
                 }
             } catch (IOException e) {
+
                 System.out.println(e.getMessage());
             }
         } else {
             System.out.println("El archivo no existe");
         }
-
-
     }
 
     private void initComponents() {
@@ -254,7 +251,7 @@ public class Cliente extends javax.swing.JFrame {
         /// aca se bajo del archivo de vivero a vivero para despues bajar todos los clientes para que se pueda mostrar
         try
         {
-            vivero = objectMapper.readValue(archivoVivero, Vivero.class);
+            vivero = objectMapper.readValue("archivo.json", Vivero.class);
 
         }catch (IOException e)
         {
@@ -301,7 +298,7 @@ public class Cliente extends javax.swing.JFrame {
                 for (int i : jTable1.getSelectedRows()) {
                     try {
                         vivero.eliminar((Integer) jTable1.getValueAt(i, 0));
-                        vivero.guardarEnArchivo(archivoVivero.getPath());
+                        vivero.guardarEnArchivo("archivo.json");
                         System.out.println(vivero.listar());
                         mt.removeRow(i);
                     } catch (Exception e) {
@@ -331,23 +328,10 @@ public class Cliente extends javax.swing.JFrame {
         }
     }
 
-    // Métodos para trabajar con JSON
-    public void guardarEnArchivo(String ruta) throws IOException {
-        objectMapper.writeValue(new File(ruta), this);
-    }
 
-    public static Vivero cargarDesdeArchivo(String ruta) throws IOException {
-        return objectMapper.readValue(new File(ruta), Vivero.class);
-    }
 
-    // Métodos para convertir a JSON y desde JSON
-    public String convertirAJson() throws IOException {
-        return objectMapper.writeValueAsString(this);
-    }
 
-    public static Vivero desdeJson(String jsonString) throws IOException {
-        return objectMapper.readValue(jsonString, Vivero.class);
-    }
+
 
     // Variables declaration
     private javax.swing.JButton Borrar;

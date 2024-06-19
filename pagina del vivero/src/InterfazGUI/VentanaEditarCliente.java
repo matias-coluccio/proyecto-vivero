@@ -1,8 +1,11 @@
 package InterfazGUI;
 
 
+import Excepciones.ExceptionDNI;
 import Vivero.Vivero;
 
+import javax.swing.*;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -27,7 +30,7 @@ public class VentanaEditarCliente extends javax.swing.JFrame {
         this.dni=DNI;
         this.vivero=vivero;
         System.out.println(vivero.listar());
-
+        cargar();
 
 
     }
@@ -160,10 +163,59 @@ public class VentanaEditarCliente extends javax.swing.JFrame {
         setVisible(false);
     }
 
+    private void cargar()
+    {
+        Clientes.Cliente aux=(Clientes.Cliente) vivero.buscar(dni);
+        txtNombre.setText(aux.getNombre());
+        txtApellido.setText(aux.getApellido());
+        CategoriaCmBox.setSelectedItem(aux.getCategoria());
+    }
+
 
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {
-          //
+        try {
+            Clientes.Cliente cliente = new Clientes.Cliente();
+            cliente.setNombre(txtNombre.getText());
+            cliente.setApellido(txtApellido.getText());
+            cliente.setDni(dni);
+            cliente.setCategoria((String) CategoriaCmBox.getSelectedItem());
+
+
+            if(  txtNombre.getText().equals("") ||  txtApellido.getText().equals("") )
+            {
+                throw new NumberFormatException("Campos vacios");
+            }
+
+            try {
+                vivero.getClientes().put(dni,cliente);
+                System.out.println(vivero.listar());
+                System.out.println("MOSTRA ALGO MEN");
+                vivero.guardarEnArchivo("archivo.json");
+                JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente");
+            }catch (IOException e)
+            {
+                System.out.println(e.getMessage());
+            }
+            catch (Exception e)
+            {
+                JOptionPane.showInternalMessageDialog(null, "Ya existe un cliente con ese DNI", "Error", JOptionPane.ERROR_MESSAGE);
+                System.out.println(e.getMessage());
+            }
+            txtNombre.setText("");
+            txtApellido.setText("");
+            CategoriaCmBox.setSelectedItem("Consumidor Final");
+
+
+            System.out.println(vivero.listar());
+        }
+        catch (NumberFormatException e)
+        {
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Debe rellenar los campos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
     }
+
 
 
     /**

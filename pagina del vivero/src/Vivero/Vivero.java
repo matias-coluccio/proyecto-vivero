@@ -18,7 +18,7 @@ public class Vivero implements Crud {
     HashMap<Integer, Cliente> clientes;
     HashMap<String, LinkedList<Articulo>> Articulos;
    public  static ObjectMapper viveroJson = new ObjectMapper();
-    public  File   archivoVivero=new File("archivo.json");
+    public  File  archivoVivero=new File("archivo.json");
     public Vivero() {
         clientes = new HashMap<>();
         Articulos = new HashMap<>();
@@ -26,32 +26,14 @@ public class Vivero implements Crud {
 
 
     @Override
-    public void agregar(Object dato) throws ExceptionDNI {
+    public void agregar(Object dato)throws ExceptionDNI {
         if (dato instanceof Cliente) {
             try {
                 ValidadorException.ValidadDNI(((Cliente) dato).getDni(), clientes);
                 clientes.put(((Cliente) dato).getDni(), (Cliente) dato);
-                ObjectMapper objectMapper = new ObjectMapper();
-                try (FileWriter fileWriter = new FileWriter(archivoVivero, true)) {
-
-                    PrintWriter printWriter = new PrintWriter(fileWriter);
-                    Iterator i=clientes.entrySet().iterator();
-                    while(i.hasNext())
-                    {
-                        Map.Entry<Integer, Cliente> j= (Map.Entry<Integer, Cliente>) i.next();
-                        Cliente cliente=j.getValue();
-                        String usuarioAEscribir = objectMapper.writeValueAsString(cliente);            //Escribo cada usuario al final del archivo
-                        printWriter.println(usuarioAEscribir);
-
-                    }
-                    printWriter.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
             } catch (ExceptionDNI e) {
                 System.out.println(e.getMessage());
-                throw e;
+                throw  e;
             }
         } else if (dato instanceof Articulo) {
             try {
@@ -66,6 +48,7 @@ public class Vivero implements Crud {
                 System.out.println(e.getMessage());
             }
         }
+
     }
 
     public HashMap<Integer, Cliente> getClientes() {

@@ -5,7 +5,7 @@
 package InterfazGUI;
 import Excepciones.ExceptionDNI;
 import Vivero.Vivero;
-import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 
@@ -180,16 +180,20 @@ public class NuevoCliente extends javax.swing.JFrame {
             cliente.setCategoria((String) CategoriaCmBox.getSelectedItem());
             cliente.setDni(Integer.parseInt(txtDNI.getText()));
 
-            if(  txtNombre.getText().equals("") || txtApellido.getText().equals("") || txtDNI.getText().equals(""))
+            if(  txtNombre.getText().equals("") ||  txtApellido.getText().equals("") || txtDNI.getText().equals(""))
             {
                 throw new NumberFormatException("Campos vacios");
             }
 
             try {
                 vivero.agregar(cliente);
-
-
+                System.out.println(vivero.listar());
+                System.out.println("MOSTRA ALGO MEN");
+                vivero.guardarEnArchivo("archivo.json");
                 JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente");
+            }catch (IOException e)
+            {
+                System.out.println(e.getMessage());
             }
             catch (ExceptionDNI e)
             {
