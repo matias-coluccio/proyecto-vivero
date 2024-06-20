@@ -186,14 +186,13 @@ public class NuevoCliente extends javax.swing.JFrame {
             }
 
             try {
+                vivero=Vivero.cargarDesdeArchivo("archivo.json");
                 vivero.agregar(cliente);
-                System.out.println(vivero.listar());
-                System.out.println("MOSTRA ALGO MEN");
                 vivero.guardarEnArchivo("archivo.json");
                 JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente");
             }catch (IOException e)
             {
-                System.out.println(e.getMessage());
+
             }
             catch (ExceptionDNI e)
             {

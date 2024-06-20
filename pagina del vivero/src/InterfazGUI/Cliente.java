@@ -28,7 +28,6 @@ import static Vivero.Vivero.desdeJson;
 import static Vivero.Vivero.viveroJson;
 
 public class Cliente extends javax.swing.JFrame {
-
     String ids[] = {"Dni", "Nombre", "Apellido", "Categoria"};
     DefaultTableModel mt = new DefaultTableModel(ids, 0) {
         @Override
@@ -37,7 +36,6 @@ public class Cliente extends javax.swing.JFrame {
         }
     };
     Vivero vivero = new Vivero();//OTRO PROVISORIO
-    ArrayList<Clientes.Cliente> todos = new ArrayList<>();
      static ObjectMapper objectMapper = new ObjectMapper();
 
 
@@ -75,7 +73,6 @@ public class Cliente extends javax.swing.JFrame {
         if (vivero.archivoVivero.exists()) {
             try {
                 vivero=Vivero.cargarDesdeArchivo("archivo.json");
-                System.out.println("Hola");
                 HashMap<Integer, Clientes.Cliente> clientes=vivero.getClientes();
                 for (Map.Entry<Integer, Clientes.Cliente> aux : clientes.entrySet()){
                     Clientes.Cliente usuario=aux.getValue();
@@ -248,6 +245,8 @@ public class Cliente extends javax.swing.JFrame {
     private void buscarClientes() {
         String searchText = Buscador.getText().toLowerCase(); // Obtener el texto del campo de búsqueda
         mt.setRowCount(0); // Limpiar todas las filas actuales de la tabla
+        ArrayList<Clientes.Cliente> todos=new ArrayList<>();
+
         /// aca se bajo del archivo de vivero a vivero para despues bajar todos los clientes para que se pueda mostrar
         try
         {
@@ -258,17 +257,15 @@ public class Cliente extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
         HashMap<Integer, Clientes.Cliente>clientesDelVivero=vivero.getClientes();
-
+        for (Map.Entry<Integer,Clientes.Cliente>entry:clientesDelVivero.entrySet())
+        {
+            Clientes.Cliente aux =entry.getValue();
+            todos.add(aux);
+        }
         // Si el texto de búsqueda está vacío, mostrar todos los clientes de nuevo
         if (searchText.isEmpty()) {
 
-            //// la idea es recorrer el hasmap de los clientes del vivero para despues mostrarlos
-            ///TODO
-
-
-
-
-            for (Clientes.Cliente cliente : todos) {
+            for (Clientes.Cliente cliente : todos ) {
                 mt.addRow(new Object[]{cliente.getDni(), cliente.getNombre(), cliente.getApellido(), cliente.getCategoria()});
             }
         } else {
@@ -289,7 +286,6 @@ public class Cliente extends javax.swing.JFrame {
     }
 
     private void BorrarActionPerformed(java.awt.event.ActionEvent evt) {
-        System.out.println(vivero.listar());
         if (jTable1.getSelectedRow() < 0) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente a borrar", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
@@ -297,12 +293,12 @@ public class Cliente extends javax.swing.JFrame {
             if (opc == 0) {
                 for (int i : jTable1.getSelectedRows()) {
                     try {
-                        vivero.eliminar((Integer) jTable1.getValueAt(i, 0));
+                        vivero.eliminar(jTable1.getValueAt(i, 0));
                         vivero.guardarEnArchivo("archivo.json");
                         System.out.println(vivero.listar());
-                        mt.removeRow(i);
+                        jTable1.remove(i);
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+
                     }
                 }
                 mt.setRowCount(0);

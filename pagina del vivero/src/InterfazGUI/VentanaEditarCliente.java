@@ -188,8 +188,6 @@ public class VentanaEditarCliente extends javax.swing.JFrame {
 
             try {
                 vivero.getClientes().put(dni,cliente);
-                System.out.println(vivero.listar());
-                System.out.println("MOSTRA ALGO MEN");
                 vivero.guardarEnArchivo("archivo.json");
                 JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente");
             }catch (IOException e)
