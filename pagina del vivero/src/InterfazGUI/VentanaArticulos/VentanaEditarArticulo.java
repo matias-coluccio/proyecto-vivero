@@ -55,11 +55,9 @@ public class VentanaEditarArticulo extends JFrame {
         TipoCmBox = new javax.swing.JComboBox<>();
         txtPrecio = new javax.swing.JTextField();
         Stock = new javax.swing.JLabel();
-        Codigo = new javax.swing.JLabel();
-        txtCodigo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(700, 400));
+        setPreferredSize(new java.awt.Dimension(580, 400));
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/marchitez-de-la-planta-solar.png")).getImage());
         MainPanel.setBackground(new java.awt.Color(255, 255, 255));
         MainPanel.setForeground(new java.awt.Color(0, 0, 0));
@@ -74,6 +72,19 @@ public class VentanaEditarArticulo extends JFrame {
                 VolverActionPerformed(evt);
             }
         });
+
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                //txtNombreActionPerformed(evt);
+            }
+        });
+
+        txtStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                //txtStockActionPerformed(evt);
+            }
+        });
+
         Nombre.setForeground(new java.awt.Color(0, 0, 0));
         Nombre.setText("Nombre");
 
@@ -113,47 +124,35 @@ public class VentanaEditarArticulo extends JFrame {
         Stock.setForeground(new java.awt.Color(0, 0, 0));
         Stock.setText("Stock");
 
-        Codigo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Codigo.setForeground(new java.awt.Color(0, 0, 0));
-        Codigo.setText("Codigo");
-
         javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
         MainPanel.setLayout(MainPanelLayout);
         MainPanelLayout.setHorizontalGroup(
                 MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(MainPanelLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(Nombre)
+                                .addGap(35, 35, 35)
+                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(86, 86, 86)
                                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(Stock)
                                         .addGroup(MainPanelLayout.createSequentialGroup()
-                                                .addGap(6, 6, 6)
-                                                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(Stock)
-                                                        .addGroup(MainPanelLayout.createSequentialGroup()
-                                                                .addComponent(Nombre)
-                                                                .addGap(35, 35, 35)
-                                                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(78, 78, 78)
-                                                                .addComponent(Tipo)))
-                                                .addGap(28, 28, 28)
-                                                .addComponent(TipoCmBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(Tipo)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(TipoCmBox, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(80, Short.MAX_VALUE))
+                        .addGroup(MainPanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(MainPanelLayout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGroup(MainPanelLayout.createSequentialGroup()
-                                                                .addComponent(Precio)
-                                                                .addGap(42, 42, 42)
-                                                                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addGroup(MainPanelLayout.createSequentialGroup()
-                                                                                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                                                        .addComponent(txtCodigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
-                                                                                        .addComponent(txtPrecio, javax.swing.GroupLayout.Alignment.LEADING))
-                                                                                .addGap(132, 132, 132)
-                                                                                .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                                        .addGroup(MainPanelLayout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addComponent(Codigo)))
-                                .addContainerGap(66, Short.MAX_VALUE))
+                                                .addComponent(Precio)
+                                                .addGap(41, 41, 41)
+                                                .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(147, 147, 147)
+                                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         MainPanelLayout.setVerticalGroup(
                 MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,21 +163,16 @@ public class VentanaEditarArticulo extends JFrame {
                                                 .addGap(10, 10, 10)
                                                 .addComponent(Nombre))
                                         .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(MainPanelLayout.createSequentialGroup()
-                                                .addGap(7, 7, 7)
-                                                .addComponent(Tipo))
-                                        .addComponent(TipoCmBox, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(53, 53, 53)
+                                        .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(TipoCmBox, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(Tipo)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(Precio)
-                                        .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(Stock))
-                                .addGap(52, 52, 52)
-                                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(Codigo)
-                                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                                        .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(Stock)
+                                        .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(80, 80, 80)
                                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -189,7 +183,7 @@ public class VentanaEditarArticulo extends JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(MainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,7 +206,7 @@ public class VentanaEditarArticulo extends JFrame {
         txtPrecio.setText(String.valueOf(aux.getPrecio()));
         TipoCmBox.setSelectedItem(aux.getTipoDeArticulo());
         txtStock.setText(String.valueOf(aux.getStock()));
-        txtCodigo.setText(String.valueOf(aux.getCodigo()));
+
     }
 
 
@@ -221,12 +215,11 @@ public class VentanaEditarArticulo extends JFrame {
             Articulo articulo = new Articulo();
             articulo.setNombreDelArticulo(txtNombre.getText());
             articulo.setPrecio(Float.parseFloat(txtPrecio.getText()));
-            articulo.setCodigo(Integer.parseInt(txtCodigo.getText()));
             articulo.setStock(Integer.parseInt(txtStock.getText()));
             articulo.setTipoDeArticulo((String) TipoCmBox.getSelectedItem());
 
 
-            if(  txtNombre.getText().equals("") ||  txtPrecio.getText().equals("") || txtCodigo.getText().equals("") || txtStock.equals(""))
+            if(  txtNombre.getText().equals("") ||  txtPrecio.getText().equals("")  || txtStock.equals(""))
             {
                 throw new NumberFormatException("Campos vacios");
             }
@@ -246,7 +239,6 @@ public class VentanaEditarArticulo extends JFrame {
             }
             txtNombre.setText("");
             txtStock.setText("");
-            txtCodigo.setText("");
             txtPrecio.setText("");
             TipoCmBox.setSelectedItem("Planta");
 
@@ -269,7 +261,6 @@ public class VentanaEditarArticulo extends JFrame {
 
 
     // Variables declaration - do not modify
-    private javax.swing.JLabel Codigo;
     private javax.swing.JButton Guardar;
     private javax.swing.JPanel MainPanel;
     private javax.swing.JLabel Nombre;
@@ -278,7 +269,6 @@ public class VentanaEditarArticulo extends JFrame {
     private javax.swing.JLabel Tipo;
     private javax.swing.JComboBox<String> TipoCmBox;
     private javax.swing.JButton Volver;
-    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txtStock;

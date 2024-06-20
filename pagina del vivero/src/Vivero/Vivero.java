@@ -8,6 +8,8 @@ import Excepciones.ValidadorException;
 import Interfaz.Crud;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -30,6 +32,7 @@ public class Vivero implements Crud {
         if (dato instanceof Cliente) {
             try {
                 ValidadorException.ValidadDNI(((Cliente) dato).getDni(), clientes);
+                viveroJson.enable(SerializationFeature.INDENT_OUTPUT);
                 clientes.put(((Cliente) dato).getDni(), (Cliente) dato);
             } catch (ExceptionDNI e) {
                 System.out.println(e.getMessage());
@@ -38,6 +41,7 @@ public class Vivero implements Crud {
         } else if (dato instanceof Articulo) {
             try {
                 ValidadorException.ValidadCodigo(((Articulo) dato).getCodigo(), Articulos);
+                viveroJson.enable(SerializationFeature.INDENT_OUTPUT);
                 Articulos.put(((Articulo) dato).getCodigo(), (Articulo) dato);
             } catch (ExceptionCodigoDuplicado e) {
                 System.out.println(e.getMessage());
@@ -92,7 +96,7 @@ public class Vivero implements Crud {
     }
 
     // Métodos para trabajar con JSON
-    public void guardarEnArchivo(String ruta) throws IOException {
+    public  void guardarEnArchivo(String ruta) throws IOException {
         viveroJson.writeValue(new File(ruta), this);
     }
 

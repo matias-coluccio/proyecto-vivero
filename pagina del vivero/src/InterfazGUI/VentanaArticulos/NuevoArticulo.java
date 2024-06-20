@@ -60,8 +60,8 @@ public class NuevoArticulo extends JFrame {
         txtCodigo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(700, 400));
-
+        setPreferredSize(new java.awt.Dimension(580, 400));
+        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/marchitez-de-la-planta-solar.png")).getImage());
         MainPanel.setBackground(new java.awt.Color(255, 255, 255));
         MainPanel.setForeground(new java.awt.Color(0, 0, 0));
 

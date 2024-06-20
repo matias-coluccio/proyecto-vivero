@@ -2,6 +2,7 @@ package InterfazGUI;
 
 import InterfazGUI.VentanaArticulos.Articulos;
 import InterfazGUI.VentanaClientes.Cliente;
+import InterfazGUI.Ventas.VentanaPrincipal;
 
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -68,9 +69,48 @@ public class GUI extends javax.swing.JFrame {
         });
     }
 
-    
- 
-    
+    public static void setupButtonAceptar(JButton button) {
+        // Guardar el color original del botón
+        Color original= button.getBackground();
+
+        // Agregar MouseListener al botón
+        button.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseEntered(MouseEvent evt) {
+                button.setBackground(Color.GREEN);  // Cambia a un color de fondo más claro
+            }
+
+            @Override
+            public void mouseExited(MouseEvent evt) {
+                button.setBackground(original);  // Restaura el color de fondo original
+            }
+        });
+    }
+
+    public static void setupButtonCancelar(JButton button) {
+        // Guardar el color original del botón
+        Color original= button.getBackground();
+
+        // Agregar MouseListener al botón
+        button.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseEntered(MouseEvent evt) {
+                button.setBackground(Color.red);  // Cambia a un color de fondo más claro
+            }
+
+            @Override
+            public void mouseExited(MouseEvent evt) {
+                button.setBackground(original);  // Restaura el color de fondo original
+            }
+        });
+    }
+
+
+
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -312,7 +352,7 @@ public class GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void VentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VentasActionPerformed
-          Venta pantallaVentas=new Venta();
+          VentanaPrincipal pantallaVentas=new VentanaPrincipal();
           pantallaVentas.setVisible(true);
           setVisible(false);
     }//GEN-LAST:event_VentasActionPerformed
