@@ -8,6 +8,7 @@ import Excepciones.ExceptionCodigoDuplicado;
 import Excepciones.ExceptionDNI;
 import InterfazGUI.GUI;
 import InterfazGUI.VentanaClientes.Cliente;
+import Placeholder.TextPrompt;
 import Vivero.Vivero;
 import Articulos.*;
 import javax.swing.*;
@@ -58,7 +59,10 @@ public class NuevoArticulo extends JFrame {
         Stock = new javax.swing.JLabel();
         Codigo = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
-
+        TextPrompt placeholdern1=new TextPrompt("Escriba aqui el nombre", txtNombre);
+        TextPrompt placeholdern2=new TextPrompt("Escriba aqui el precio", txtPrecio);
+        TextPrompt placeholdern3=new TextPrompt("Escriba aqui el stock", txtStock);
+        TextPrompt placeholdern4=new TextPrompt("Escriba aqui el codigo ", txtCodigo);
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(580, 400));
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/marchitez-de-la-planta-solar.png")).getImage());

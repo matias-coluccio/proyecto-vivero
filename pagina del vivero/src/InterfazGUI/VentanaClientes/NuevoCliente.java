@@ -6,6 +6,7 @@ package InterfazGUI.VentanaClientes;
 import Excepciones.ExceptionCodigoDuplicado;
 import Excepciones.ExceptionDNI;
 import InterfazGUI.GUI;
+import Placeholder.TextPrompt;
 import Vivero.Vivero;
 //import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -31,6 +32,9 @@ public class NuevoCliente extends javax.swing.JFrame {
         setTitle("Nuevo cliente");
          setLocationRelativeTo(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        TextPrompt placeholdern1=new TextPrompt("Escriba aqui su nombre", txtNombre);
+        TextPrompt placeholdern2=new TextPrompt("Escriba aqui su apellido", txtApellido);
+        TextPrompt placeholdern3=new TextPrompt("Escriba aqui su dni", txtDNI);
         GUI.setupButton(Volver);
         GUI.setupButton(Guardar);
         setResizable(false);

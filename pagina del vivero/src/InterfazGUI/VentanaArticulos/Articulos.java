@@ -6,6 +6,7 @@ package InterfazGUI.VentanaArticulos;
 
 import InterfazGUI.GUI;
 import InterfazGUI.VentanaClientes.NuevoCliente;
+import Placeholder.TextPrompt;
 import Vivero.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import Articulos.*;
@@ -43,6 +44,8 @@ public class Articulos extends javax.swing.JFrame {
         GUI.setupButton(Editar);
         GUI.setupButton(Nuevo);
         GUI.setupButton(Borrar);
+        TextPrompt placeholdern1=new TextPrompt("Escriba aqui el elemento a buscar", Buscador);
+
         Buscador.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {

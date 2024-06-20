@@ -5,6 +5,7 @@
 package InterfazGUI.VentanaClientes;
 
 import InterfazGUI.GUI;
+import Placeholder.TextPrompt;
 import Vivero.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -37,6 +38,7 @@ public class Cliente extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         jTable1.setModel(mt);
         InitTable(mt);
+        TextPrompt placeHolder=new TextPrompt("Escriba aqui el elemento a buscar", Buscador);
         setResizable(false);
         GUI.setupButton(Volver);
         GUI.setupButton(Editar);
