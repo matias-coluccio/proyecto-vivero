@@ -1,6 +1,6 @@
 import Articulos.Planta;
 import Clientes.Cliente;
-import Enum.*;
+
 import InterfazGUI.GUI;
 import Vivero.Vivero;
 

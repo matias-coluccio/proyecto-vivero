@@ -1,5 +1,8 @@
 package InterfazGUI;
 
+import InterfazGUI.VentanaArticulos.Articulos;
+import InterfazGUI.VentanaClientes.Cliente;
+
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import javax.swing.JButton;
@@ -315,7 +318,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_VentasActionPerformed
 
     private void ArticulosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ArticulosActionPerformed
-      Articulos pantallaArticulos=new Articulos();
+      InterfazGUI.VentanaArticulos.Articulos pantallaArticulos=new Articulos();
         pantallaArticulos.setVisible(true);
           setVisible(false);
     }//GEN-LAST:event_ArticulosActionPerformed

@@ -1,7 +1,7 @@
-package InterfazGUI;
+package InterfazGUI.VentanaClientes;
 
 
-import Excepciones.ExceptionDNI;
+import InterfazGUI.GUI;
 import Vivero.Vivero;
 
 import javax.swing.*;

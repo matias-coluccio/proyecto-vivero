@@ -1,16 +1,15 @@
 package Articulos;
 
 import java.util.Objects;
-import Enum.TipoDeArticulo;
 
 public class Articulo {
     protected String nombreDelArticulo;
     protected float precio;
     protected int stock;
-    protected TipoDeArticulo tipoDeArticulo;
+    protected String  tipoDeArticulo;
     protected int codigo;
 
-    public Articulo(String nombreDelArticulo, float precio, int stock, TipoDeArticulo tipoDeArticulo, int codigo) {
+    public Articulo(String nombreDelArticulo, float precio, int stock, String  tipoDeArticulo, int codigo) {
         this.codigo=codigo;
         this.nombreDelArticulo = nombreDelArticulo;
         this.precio = precio;
@@ -29,11 +28,11 @@ public class Articulo {
         this.stock = stock;
     }
 
-    public TipoDeArticulo getTipoDeArticulo() {
+    public String getTipoDeArticulo() {
         return tipoDeArticulo;
     }
 
-    public void setTipoDeArticulo(TipoDeArticulo tipoDeArticulo) {
+    public void setTipoDeArticulo(String tipoDeArticulo) {
         this.tipoDeArticulo = tipoDeArticulo;
     }
 

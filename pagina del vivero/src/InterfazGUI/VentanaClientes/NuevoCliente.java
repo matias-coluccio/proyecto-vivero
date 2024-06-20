@@ -2,15 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package InterfazGUI;
+package InterfazGUI.VentanaClientes;
+import Excepciones.ExceptionCodigoDuplicado;
 import Excepciones.ExceptionDNI;
+import InterfazGUI.GUI;
 import Vivero.Vivero;
 //import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 
 import javax.swing.*;
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -186,7 +187,10 @@ public class NuevoCliente extends javax.swing.JFrame {
             }
 
             try {
-                vivero=Vivero.cargarDesdeArchivo("archivo.json");
+                    if(vivero.archivoVivero.exists()) {
+                        vivero = Vivero.cargarDesdeArchivo("archivo.json");
+                    }
+
                 vivero.agregar(cliente);
                 vivero.guardarEnArchivo("archivo.json");
                 JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente");
@@ -194,10 +198,13 @@ public class NuevoCliente extends javax.swing.JFrame {
             {
 
             }
+
             catch (ExceptionDNI e)
             {
                 JOptionPane.showInternalMessageDialog(null, "Ya existe un cliente con ese DNI", "Error", JOptionPane.ERROR_MESSAGE);
                 System.out.println(e.getMessage());
+            } catch (ExceptionCodigoDuplicado e) {
+
             }
             txtNombre.setText("");
             txtApellido.setText("");

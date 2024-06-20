@@ -14,9 +14,9 @@ public class ValidadorException {
                 throw new ExceptionDNI("Este DNI ya ha sido ingresado");
             }
     }
-    public static void ValidadCodigo(Articulo dato1, Map dato) throws ExceptionCodigoDuplicado
+    public static void ValidadCodigo(int id, Map dato) throws ExceptionCodigoDuplicado
     {
-        if(dato.containsValue(dato1))
+        if(dato.containsKey(id))
         {
             throw new ExceptionCodigoDuplicado("Ya hay un articulo con ese codigo");
         }

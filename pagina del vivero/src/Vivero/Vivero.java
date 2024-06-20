@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class Vivero implements Crud {
     HashMap<Integer, Cliente> clientes;
-    HashMap<String, LinkedList<Articulo>> Articulos;
+    HashMap<Integer, Articulo> Articulos;
    public  static ObjectMapper viveroJson = new ObjectMapper();
     public  File  archivoVivero=new File("archivo.json");
     public Vivero() {
@@ -26,7 +26,7 @@ public class Vivero implements Crud {
 
 
     @Override
-    public void agregar(Object dato)throws ExceptionDNI {
+    public void agregar(Object dato)throws ExceptionDNI, ExceptionCodigoDuplicado {
         if (dato instanceof Cliente) {
             try {
                 ValidadorException.ValidadDNI(((Cliente) dato).getDni(), clientes);
@@ -37,15 +37,11 @@ public class Vivero implements Crud {
             }
         } else if (dato instanceof Articulo) {
             try {
-                ValidadorException.ValidadCodigo((Articulo) dato, Articulos);
-                LinkedList<Articulo> cargados = Articulos.get(dato.getClass().getName());
-                if (cargados == null) {
-                    cargados = new LinkedList<>();
-                }
-                cargados.add((Articulo) dato);
-                Articulos.put(((Articulo) dato).getClass().getName(), cargados);
+                ValidadorException.ValidadCodigo(((Articulo) dato).getCodigo(), Articulos);
+                Articulos.put(((Articulo) dato).getCodigo(), (Articulo) dato);
             } catch (ExceptionCodigoDuplicado e) {
                 System.out.println(e.getMessage());
+                throw e;
             }
         }
 
@@ -55,8 +51,13 @@ public class Vivero implements Crud {
         return clientes;
     }
 
+
     public void setClientes(HashMap<Integer, Cliente> clientes) {
         this.clientes = clientes;
+    }
+
+    public HashMap<Integer, Articulo> getArticulos() {
+        return Articulos;
     }
 
     @Override
@@ -64,7 +65,10 @@ public class Vivero implements Crud {
         if (clientes.containsKey(dato)) {
             return clientes.get(dato);
         }
-        // Implementar búsqueda de Artículos si es necesario
+
+        if (Articulos.containsKey(dato)) {
+            return Articulos.get(dato);
+        }
         return false;
     }
 
@@ -72,7 +76,7 @@ public class Vivero implements Crud {
     public void eliminar(Object dato) {
         if (dato instanceof Integer && clientes.containsKey(dato)) {
             clientes.remove(dato);
-        } else if (dato instanceof String && Articulos.containsKey(dato)) {
+        } else if (dato instanceof Integer && Articulos.containsKey(dato)) {
             Articulos.remove(dato);
         }
     }

@@ -1,25 +1,21 @@
 
 package Articulos;
 
-import Enum.interiorOexterior;
-import Enum.TipoDeArticulo;
-
 import java.util.Objects;
 
 public class Planta extends Articulo {
-    private interiorOexterior interioroexterior;
+    private String interioroexterior;
 
-    public Planta(String nombreDelArticulo, float precio, int stock, int codigo, interiorOexterior interioroexterior) {
-        super(nombreDelArticulo, precio, stock, TipoDeArticulo.Planta, codigo);
+    public Planta(String nombreDelArticulo, float precio, int stock, String tipoDeArticulo, int codigo, String interiorOexterior) {
+        super(nombreDelArticulo, precio, stock, tipoDeArticulo, codigo);
         this.interioroexterior = interioroexterior;
-
     }
 
-    public interiorOexterior getInterioroexterior() {
+    public String  getInterioroexterior() {
         return interioroexterior;
     }
 
-    public void setInterioroexterior(interiorOexterior interioroexterior) {
+    public void setInterioroexterior(String interioroexterior) {
         this.interioroexterior = interioroexterior;
     }
 

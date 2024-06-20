@@ -2,30 +2,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package InterfazGUI;
+package InterfazGUI.VentanaClientes;
 
-import Excepciones.ExceptionDNI;
+import InterfazGUI.GUI;
 import Vivero.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONException;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-
-
-import static Vivero.Vivero.desdeJson;
-import static Vivero.Vivero.viveroJson;
 
 public class Cliente extends javax.swing.JFrame {
     String ids[] = {"Dni", "Nombre", "Apellido", "Categoria"};
@@ -94,7 +85,6 @@ public class Cliente extends javax.swing.JFrame {
         Editar = new javax.swing.JButton();
         Nuevo = new javax.swing.JButton();
         Buscador = new javax.swing.JTextField();
-        Buscar = new javax.swing.JButton();
         Scroll = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
@@ -151,18 +141,7 @@ public class Cliente extends javax.swing.JFrame {
             }
         });
 
-        Buscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                //BuscarActionPerformed(evt);
 
-            }
-        });
-
-        Buscar.setBackground(new java.awt.Color(51, 102, 255));
-        Buscar.setForeground(new java.awt.Color(255, 255, 255));
-        Buscar.setText("Buscar");
-        Buscar.setBorder(null);
-        Buscar.setCursor(new java.awt.Cursor(Cursor.DEFAULT_CURSOR));
 
         jTable1.setModel(mt);
         Scroll.setViewportView(jTable1);
@@ -175,9 +154,9 @@ public class Cliente extends javax.swing.JFrame {
                                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(MainPanelLayout.createSequentialGroup()
                                                 .addGap(121, 121, 121)
-                                                .addComponent(Buscador, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(Buscador, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(40, 40, 40)
-                                                .addComponent(Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                )
                                         .addGroup(MainPanelLayout.createSequentialGroup()
                                                 .addGap(100, 100, 100)
                                                 .addComponent(Scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -200,7 +179,7 @@ public class Cliente extends javax.swing.JFrame {
                                         .addGroup(MainPanelLayout.createSequentialGroup()
                                                 .addGap(10, 10, 10)
                                                 .addComponent(Buscador, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                )
                                 .addGap(6, 6, 6)
                                 .addComponent(Scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(3, 3, 3)
@@ -254,7 +233,7 @@ public class Cliente extends javax.swing.JFrame {
 
         }catch (IOException e)
         {
-            System.out.println(e.getMessage());
+
         }
         HashMap<Integer, Clientes.Cliente>clientesDelVivero=vivero.getClientes();
         for (Map.Entry<Integer,Clientes.Cliente>entry:clientesDelVivero.entrySet())
@@ -332,7 +311,6 @@ public class Cliente extends javax.swing.JFrame {
     // Variables declaration
     private javax.swing.JButton Borrar;
     private javax.swing.JTextField Buscador;
-    private javax.swing.JButton Buscar;
     private javax.swing.JButton Editar;
     private javax.swing.JPanel MainPanel;
     private javax.swing.JButton Nuevo;

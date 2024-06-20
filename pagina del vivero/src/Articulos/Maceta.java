@@ -1,7 +1,6 @@
 package Articulos;
 
 import java.util.Objects;
-import Enum.TipoDeArticulo;
 
 public class Maceta extends Articulo {
     /// lo hago String para poder poenr ..x..x..
@@ -9,8 +8,8 @@ public class Maceta extends Articulo {
     /// platico, fibrocemento,blum,etc;
     private String mateiralDeLaMaceta;
 
-    public Maceta(String nombreDelArticulo, float precio, int stock, TipoDeArticulo tipoDeArticulo, int codigo, String mateiralDeLaMaceta, String medidaDeLaMaceta) {
-        super(nombreDelArticulo, precio, stock, TipoDeArticulo.Maceta, codigo);
+    public Maceta(String nombreDelArticulo, float precio, int stock, String tipoDeArticulo, int codigo, String mateiralDeLaMaceta, String medidaDeLaMaceta) {
+        super(nombreDelArticulo, precio, stock, tipoDeArticulo, codigo);
         this.mateiralDeLaMaceta = mateiralDeLaMaceta;
         MedidaDeLaMaceta = medidaDeLaMaceta;
     }

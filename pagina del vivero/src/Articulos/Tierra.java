@@ -1,14 +1,13 @@
 package Articulos;
 
 import java.util.Objects;
-import Enum.TipoDeArticulo;
 
 public class Tierra extends Articulo {
    // el tamanio de la tierra se mide en dm3
     private String tamanio;
 
-    public Tierra(String nombreDelArticulo, float precio, int stock, TipoDeArticulo tipoDeArticulo, int codigo, String tamanio) {
-        super(nombreDelArticulo, precio, stock, TipoDeArticulo.Tierra, codigo);
+    public Tierra(String nombreDelArticulo, float precio, int stock, String tipoDeArticulo, int codigo, String tamanio) {
+        super(nombreDelArticulo, precio, stock, tipoDeArticulo, codigo);
         this.tamanio = tamanio;
     }
 
