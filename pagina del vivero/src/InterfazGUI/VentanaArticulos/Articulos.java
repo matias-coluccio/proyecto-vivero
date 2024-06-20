@@ -243,7 +243,7 @@ public class Articulos extends javax.swing.JFrame {
         mt.setRowCount(0); // Limpiar todas las filas actuales de la tabla
         ArrayList<Articulo> todos=new ArrayList<>();
 
-        /// aca se bajo del archivo de vivero a vivero para despues bajar todos los clientes para que se pueda mostrar
+        /// aca se bajo del archivo de vivero a vivero para despues bajar todos los articulos para que se pueda mostrar
         try
         {
             vivero = objectMapper.readValue("archivo.json", Vivero.class);
@@ -258,7 +258,7 @@ public class Articulos extends javax.swing.JFrame {
             Articulo aux =entry.getValue();
             todos.add(aux);
         }
-        // Si el texto de búsqueda está vacío, mostrar todos los clientes de nuevo
+        // Si el texto de búsqueda está vacío, mostrar todos los articulo de nuevo
         if (searchText.isEmpty()) {
 
             for (Articulo i : todos ) {
@@ -270,12 +270,11 @@ public class Articulos extends javax.swing.JFrame {
                 String codigo = String.valueOf(i.getCodigo()).toLowerCase();
                 String tipo = i.getTipoDeArticulo().toLowerCase();
                 String nombre = i.getNombreDelArticulo().toLowerCase();
-                String precio = String.valueOf(i.getPrecio()).toLowerCase();
-                String stock = String.valueOf(i.getStock()).toLowerCase();
+
 
                 // Verificar si alguna columna contiene el texto de búsqueda
-                if (codigo.contains(searchText) || tipo.contains(searchText) || nombre.contains(searchText) || precio.contains(searchText) || stock.contains(searchText)) {
-                    // Agregar el cliente que coincide a la tabla
+                if (codigo.contains(searchText) || tipo.contains(searchText) || nombre.contains(searchText)) {
+                    // Agregar el articulo que coincide a la tabla
                     mt.addRow(new Object[]{i.getCodigo(), i.getTipoDeArticulo(), i.getNombreDelArticulo(), i.getPrecio(), i.getStock()});
                 }
             }
