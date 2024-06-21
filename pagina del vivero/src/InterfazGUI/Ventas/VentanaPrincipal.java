@@ -10,15 +10,14 @@ import Historial.ClaseJson;
 import Historial.Venta;
 import InterfazGUI.GUI;
 import InterfazGUI.Historial;
+import InterfazGUI.VentanaClientes.NuevoCliente;
 import Vivero.Vivero;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import Historial.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
@@ -32,6 +31,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     };
     ClaseJson a=new ClaseJson();
     Vivero vivero = new Vivero(); // OTRO PROVISORIO
+    Venta aux = new Venta();
     static ObjectMapper HistorialJson = new ObjectMapper();
 
     public VentanaPrincipal() {
@@ -98,12 +98,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Método para actualizar el total de la venta
-    private void actualizarTotal() {
+    private float actualizarTotal() {
         float total = 0;
         for (int i = 0; i < mt.getRowCount(); i++) {
             total += Float.parseFloat(jTable2.getValueAt(i, 3).toString());
         }
         txtTotal.setText("$" +String.valueOf(total));
+        return total;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -337,9 +338,54 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void txtDniActionPerformed(java.awt.event.ActionEvent evt) {
 
+
     }
 
     private void BuscarActionPerformed(java.awt.event.ActionEvent evt) {
+        try
+        {
+            int dni= Integer.parseInt(txtDni.getText());
+
+            vivero=Vivero.cargarDesdeArchivo("archivo.json");
+            Iterator e = vivero.getClientes().entrySet().iterator();
+            int flag =0;
+            while(e.hasNext() && flag==0)
+            {
+                try
+                {
+                    Map.Entry<Integer, Cliente> i = (Map.Entry<Integer, Cliente>) e.next();
+                    Cliente aux1 = i.getValue();
+                    if(aux1.getDni()==dni)
+                    {
+                        float resultado= (float) (actualizarTotal()*0.9);
+                        txtTotal.setText(String.valueOf(resultado));
+                        flag=1;
+                    }
+
+                }
+                catch (ConcurrentModificationException j)
+                {
+
+                }
+
+            }
+            if(flag==0)
+            {
+                int opc = JOptionPane.showConfirmDialog(null, "No existe un cliente con este dni, desea crearlo?", "DNI NO ENCONTRADO", JOptionPane.YES_NO_OPTION);
+                if(opc==0)
+                {
+                    NuevoCliente clientenuevo= new NuevoCliente(flag);
+                    clientenuevo.setVisible(true);
+                    setVisible(false);
+                }
+            }
+
+
+        }
+        catch (IOException e)
+        {
+
+        }
 
     }
 
@@ -358,7 +404,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         if(opc == JOptionPane.YES_OPTION) {
             for (int i = 0; i < jTable2.getRowCount(); i++) {
-                Venta aux = new Venta();
+
                 Object value;
 
                 // Nombre (asumiendo que siempre es String)
