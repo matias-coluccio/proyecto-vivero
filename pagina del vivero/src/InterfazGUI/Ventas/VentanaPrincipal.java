@@ -63,6 +63,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
     }
 
+
     private void InitTableVentas(DefaultTableModel mt, int codigo) {
         if (vivero.archivoVivero.exists()) {
             try {
@@ -162,6 +163,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 txtDniActionPerformed(evt);
             }
         });
+        txtDni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Buscar.doClick();
+            }
+        });
 
         jTable2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
@@ -190,6 +196,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable2);
 
         Codigo.setText("Codigo");
+        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Cargar.doClick();
+            }
+        });
+
 
         Aceptar.setBackground(new java.awt.Color(153, 255, 153));
         Aceptar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -358,7 +370,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     if(aux1.getDni()==dni)
                     {
                         float resultado= (float) (actualizarTotal()*0.9);
-                        txtTotal.setText(String.valueOf(resultado));
+                        txtTotal.setText("$"+ String.valueOf(resultado));
                         flag=1;
                     }
 
@@ -391,20 +403,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {
 
-      int opc = JOptionPane.showConfirmDialog(null, "Estas seguro? se borrara toda la venta", "Borrar articulo", JOptionPane.YES_NO_OPTION);
-      if(opc==0)
-      {
-          mt.setRowCount(0);
-          actualizarTotal();
-      }
+        int opc = JOptionPane.showConfirmDialog(null, "Estas seguro? se borrara toda la venta", "Borrar articulo", JOptionPane.YES_NO_OPTION);
+        if(opc==0)
+        {
+            mt.setRowCount(0);
+            actualizarTotal();
+        }
     }
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {
         int opc = JOptionPane.showConfirmDialog(null, "Confirmar venta", "Confirmacion de venta", JOptionPane.YES_NO_OPTION);
+        boolean entro=false;
 
         if(opc == JOptionPane.YES_OPTION) {
             for (int i = 0; i < jTable2.getRowCount(); i++) {
-
+                entro=true;
                 Object value;
 
                 // Nombre (asumiendo que siempre es String)
@@ -473,20 +486,35 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     }
                     a.Agregar(aux);
                     a.guardarEnArchivoHistorial("archivoHistorial.json");
-                    JOptionPane.showMessageDialog(null, "Venta registrada exitosamente");
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
             }
+            if(entro)
+            {
+                JOptionPane.showMessageDialog(null, "Venta registrada exitosamente");
+            }
+            txtCodigo.setText("");
+            txtDni.setText("");
             mt.setRowCount(0);
             actualizarTotal();
+
         }
     }
 
     private void CargarActionPerformed(java.awt.event.ActionEvent evt) {
-        int codigo=Integer.parseInt(txtCodigo.getText());
-        InitTableVentas(mt,codigo);
-        actualizarTotal();
+        try {
+            int codigo = Integer.parseInt(txtCodigo.getText());
+            InitTableVentas(mt, codigo);
+            actualizarTotal();
+            txtCodigo.setText("");
+            txtCodigo.requestFocusInWindow(); // Establece el foco de nuevo en el campo de texto
+        } catch (NumberFormatException e) {
+            // Manejar la excepción si el texto no es un número válido
+            JOptionPane.showMessageDialog(this, "Ingrese un código válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            txtCodigo.requestFocusInWindow(); // Asegurarse de que el foco vuelva al campo de texto
+        }
+
     }
     private javax.swing.JButton Aceptar;
     private javax.swing.JButton Buscar;

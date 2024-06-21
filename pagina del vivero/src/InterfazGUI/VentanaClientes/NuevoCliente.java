@@ -94,12 +94,6 @@ public class NuevoCliente extends javax.swing.JFrame {
             }
         });
 
-        Volver.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VolverActionPerformed1(evt, flag);
-            }
-        });
-
         Nombre.setForeground(new java.awt.Color(0, 0, 0));
         Nombre.setText("Nombre");
 
