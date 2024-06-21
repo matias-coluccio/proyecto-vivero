@@ -29,6 +29,7 @@ public class NuevoCliente extends javax.swing.JFrame {
      */
     Vivero vivero = new Vivero();//PROVISORIO DE PERSISTENCIA(JSON)
     private int flag;
+    VentanaPrincipal a;
     public NuevoCliente() {
         initComponents();
         setTitle("Nuevo cliente");
@@ -42,11 +43,12 @@ public class NuevoCliente extends javax.swing.JFrame {
         setResizable(false);
 
     }
-    public NuevoCliente(int flag) {
+    public NuevoCliente(int flag, VentanaPrincipal a ) {
         initComponents1(flag);
+        this.a=a;
         setTitle("Nuevo cliente");
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         TextPrompt placeholdern1=new TextPrompt("Escriba aqui su nombre", txtNombre);
         TextPrompt placeholdern2=new TextPrompt("Escriba aqui su apellido", txtApellido);
         TextPrompt placeholdern3=new TextPrompt("Escriba aqui su dni", txtDNI);
@@ -316,7 +318,7 @@ public class NuevoCliente extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_VolverActionPerformed
     private void VolverActionPerformed1(java.awt.event.ActionEvent evt, int flag) {//GEN-FIRST:event_VolverActionPerformed
-         VentanaPrincipal a =new VentanaPrincipal();
+
        a.setVisible(true);// TODO add your handling code here:
         setVisible(false);
     }//GEN-LAST:event_VolverActionPerformed

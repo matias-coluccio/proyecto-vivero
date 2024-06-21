@@ -3,7 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package InterfazGUI.Ventas;
-
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import Articulos.Articulo;
 import Clientes.Cliente;
 import Historial.ClaseJson;
@@ -61,6 +62,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 }
             }
         });
+        jTable2.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_DELETE) {
+                    int[] selectedRows = jTable2.getSelectedRows();
+                    if (selectedRows.length > 0) {
+                        int confirm = JOptionPane.showConfirmDialog(null, "¿Desea borrar los artículos seleccionados?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+                        if (confirm == JOptionPane.YES_OPTION) {
+                            // Eliminar las filas desde el final hacia el inicio para evitar problemas de indexación
+                            for (int i = selectedRows.length - 1; i >= 0; i--) {
+                                mt.removeRow(selectedRows[i]);
+                            }
+                            actualizarTotal();
+                        }
+                    }
+                }
+            }
+        });
+
     }
 
 
@@ -386,9 +406,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 int opc = JOptionPane.showConfirmDialog(null, "No existe un cliente con este dni, desea crearlo?", "DNI NO ENCONTRADO", JOptionPane.YES_NO_OPTION);
                 if(opc==0)
                 {
-                    NuevoCliente clientenuevo= new NuevoCliente(flag);
+                    NuevoCliente clientenuevo= new NuevoCliente(flag, this);
                     clientenuevo.setVisible(true);
-                    setVisible(false);
                 }
             }
 
