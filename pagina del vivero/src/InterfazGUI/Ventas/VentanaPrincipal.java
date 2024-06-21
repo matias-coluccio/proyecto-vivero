@@ -354,31 +354,83 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {
-
         int opc = JOptionPane.showConfirmDialog(null, "Confirmar venta", "Confirmacion de venta", JOptionPane.YES_NO_OPTION);
-        if(opc==0) {
 
-            for (int i : jTable2.getSelectedRows()) {
+        if(opc == JOptionPane.YES_OPTION) {
+            for (int i = 0; i < jTable2.getRowCount(); i++) {
                 Venta aux = new Venta();
-                aux.setCodigo(Integer.parseInt((String) mt.getValueAt(i, 0)));
-                aux.setPrecio_un(Integer.parseInt((String) mt.getValueAt(i, 2)));
-                aux.setPrecio_total(Integer.parseInt((String) mt.getValueAt(i, 3)));
-                aux.setCant(Integer.parseInt((String) mt.getValueAt(i, 4)));
+                Object value;
+
+                // Nombre (asumiendo que siempre es String)
                 aux.setNombre((String) mt.getValueAt(i, 1));
-                System.out.println("hola");
+
+                // Codigo
+                value = mt.getValueAt(i, 0);
+                if (value instanceof Integer) {
+                    aux.setCodigo((Integer) value);
+                } else if (value instanceof String) {
+                    try {
+                        aux.setCodigo(Integer.parseInt((String) value));
+                    } catch (NumberFormatException e) {
+                        throw new IllegalArgumentException("El valor en la celda (i, 0) no es un entero válido: " + value);
+                    }
+                } else {
+                    throw new IllegalArgumentException("El valor en la celda (i, 0) no es un entero: " + value.getClass().getName());
+                }
+
+                // Precio Unitario
+                value = mt.getValueAt(i, 2);
+                if (value instanceof Float) {
+                    aux.setPrecio_un((Float) value);
+                } else if (value instanceof String) {
+                    try {
+                        aux.setPrecio_un(Float.parseFloat((String) value));
+                    } catch (NumberFormatException e) {
+                        throw new IllegalArgumentException("El valor en la celda (i, 2) no es un float válido: " + value);
+                    }
+                } else {
+                    throw new IllegalArgumentException("El valor en la celda (i, 2) no es un float: " + value.getClass().getName());
+                }
+
+                // Precio Total
+                value = mt.getValueAt(i, 3);
+                if (value instanceof Float) {
+                    aux.setPrecio_total((Float) value);
+                } else if (value instanceof String) {
+                    try {
+                        aux.setPrecio_total(Float.parseFloat((String) value));
+                    } catch (NumberFormatException e) {
+                        throw new IllegalArgumentException("El valor en la celda (i, 3) no es un float válido: " + value);
+                    }
+                } else {
+                    throw new IllegalArgumentException("El valor en la celda (i, 3) no es un float: " + value.getClass().getName());
+                }
+
+                // Cantidad
+                value = mt.getValueAt(i, 4);
+                if (value instanceof Integer) {
+                    aux.setCant((Integer) value);
+                } else if (value instanceof String) {
+                    try {
+                        aux.setCant(Integer.parseInt((String) value));
+                    } catch (NumberFormatException e) {
+                        throw new IllegalArgumentException("El valor en la celda (i, 4) no es un entero válido: " + value);
+                    }
+                } else {
+                    throw new IllegalArgumentException("El valor en la celda (i, 4) no es un entero: " + value.getClass().getName());
+                }
+
+                // Guardar la venta
                 try {
                     if (a.archivoHistorial.exists()) {
                         a = ClaseJson.cargarDesdeArchivoHistorial("archivoHistorial.json");
                     }
-
                     a.Agregar(aux);
                     a.guardarEnArchivoHistorial("archivoHistorial.json");
                     JOptionPane.showMessageDialog(null, "Venta registrada exitosamente");
                 } catch (IOException e) {
-
                     System.out.println(e.getMessage());
                 }
-
             }
             mt.setRowCount(0);
             actualizarTotal();

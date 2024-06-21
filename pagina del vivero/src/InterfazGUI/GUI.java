@@ -32,7 +32,7 @@ public class GUI extends javax.swing.JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         setDate();
-        setTitle("Vivero.Vivero Professional version");
+        setTitle("Vivero Professional version");
         setupButton(Ventas);
         setupButton(Compras);
         setupButton(Caja);
