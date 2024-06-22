@@ -8,8 +8,7 @@ public class Venta {
     private float precio_un;
     private float precio_total;
     private int cant;
-    public static int ID_venta=0;
-    private int id;
+
 
     public Venta(int codigo, int cant, float precio_total, float precio_un, String nombre) {
         this.codigo = codigo;
@@ -17,8 +16,6 @@ public class Venta {
         this.precio_total = precio_total;
         this.precio_un = precio_un;
         this.nombre = nombre;
-        ID_venta++;
-        id=ID_venta;
     }
 
     public Venta() {
@@ -84,11 +81,9 @@ public class Venta {
         return "Venta{" +
                 "codigo=" + codigo +
                 ", nombre='" + nombre + '\'' +
-                ", precio_un=" + precio_un +
                 ", precio_total=" + precio_total +
+                ", precio_un=" + precio_un +
                 ", cant=" + cant +
-                ", id=" + id +
                 '}';
     }
-
 }

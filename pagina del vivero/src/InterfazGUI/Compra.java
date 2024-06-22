@@ -11,6 +11,7 @@ import Historial.ClaseJson;
 import Historial.Venta;
 import InterfazGUI.GUI;
 import InterfazGUI.Historial;
+import InterfazGUI.VentanaArticulos.NuevoArticulo;
 import InterfazGUI.VentanaClientes.NuevoCliente;
 import Vivero.Vivero;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,11 +24,11 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
 public class Compra extends javax.swing.JFrame {
-    String ids[] = {"Codigo", "Nombre", "Precio unitario", "Stock anterior", "Cantidad", "Nuevo Stock"};
+    String ids[] = {"Codigo", "Nombre", "Precio unitario","Precio Total",  "Stock anterior", "Cantidad", "Nuevo Stock"};
     DefaultTableModel mt = new DefaultTableModel(ids, 0) {
         @Override
         public boolean isCellEditable(int row, int column) {
-            return column == 4; // Solo la columna de cantidad es editable
+            return column == 5; // Solo la columna de cantidad es editable
         }
     };
     ClaseJson a=new ClaseJson();
@@ -54,7 +55,8 @@ public class Compra extends javax.swing.JFrame {
                     int row = e.getFirstRow();
                     int column = e.getColumn();
 
-                    if (column == 4) { // Columna de cantidad
+                    if (column == 5) { // Columna de cantidad
+                        actualizarStockTotal(row);
                         actualizarPrecioTotal(row);
                         actualizarTotal();
                     }
@@ -91,7 +93,8 @@ public class Compra extends javax.swing.JFrame {
                 if(articulos.containsKey(codigo))
                 {
                     Articulo aux=articulos.get(codigo);
-                    mt.addRow(new Object[]{aux.getCodigo(), aux.getNombreDelArticulo(), aux.getPrecio(), aux.getPrecio(), 1});
+
+                    mt.addRow(new Object[]{aux.getCodigo(), aux.getNombreDelArticulo(), aux.getPrecio(), aux.getPrecio(), aux.getStock(), 1, 1});
                 }
 
             } catch (IOException e) {
@@ -105,9 +108,21 @@ public class Compra extends javax.swing.JFrame {
 
 
     // Método para actualizar el precio total de una fila
+    private void actualizarStockTotal(int row) {
+        try {
+            int cantidad = Integer.parseInt(jTable2.getValueAt(row, 5).toString());
+            int StockAnterior = Integer.parseInt(jTable2.getValueAt(row, 4).toString());
+            int Stocktotal = cantidad + StockAnterior;
+            jTable2.setValueAt(Stocktotal, row, 6);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            // Manejo del error en caso de que la conversión falle
+        }
+    }
+    // Método para actualizar el precio total de una fila
     private void actualizarPrecioTotal(int row) {
         try {
-            int cantidad = Integer.parseInt(jTable2.getValueAt(row, 4).toString());
+            int cantidad = Integer.parseInt(jTable2.getValueAt(row, 5).toString());
             float precioUnitario = Float.parseFloat(jTable2.getValueAt(row, 2).toString());
             float precioTotal = cantidad * precioUnitario;
             jTable2.setValueAt(precioTotal, row, 3);
@@ -121,7 +136,7 @@ public class Compra extends javax.swing.JFrame {
     private float actualizarTotal() {
         float total = 0;
         for (int i = 0; i < mt.getRowCount(); i++) {
-            total += Float.parseFloat(jTable2.getValueAt(i, 3).toString());
+            total += Float.parseFloat(jTable2.getValueAt(i,3 ).toString());
         }
         txtTotal.setText("$" +String.valueOf(total));
         return total;
@@ -149,7 +164,7 @@ public class Compra extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setIconImage(new javax.swing.ImageIcon(System.getProperty("user.dir")+"\\src\\main\\java\\Imagenes\\marchitez-de-la-planta-solar.png").getImage());
+        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/marchitez-de-la-planta-solar.png")).getImage());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -179,14 +194,14 @@ public class Compra extends javax.swing.JFrame {
 
                 },
                 new String [] {
-                        "Codigo", "Nombre", "Precio unitario", "Stock anterior", "Cantidad", "Nuevo Stock"
+                        "Codigo", "Nombre", "Precio unitario", "Precio Total", "Stock anterior", "Cantidad", "Nuevo Stock"
                 }
         ) {
             Class[] types = new Class [] {
-                    java.lang.Integer.class, java.lang.Integer.class, java.lang.Float.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                    java.lang.Integer.class, java.lang.Integer.class, java.lang.Float.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                    false, false, false, false, true, false
+                    false, false, false, false, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -200,6 +215,11 @@ public class Compra extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable2);
 
         Codigo.setText("Codigo");
+        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Cargar.doClick();
+            }
+        });
 
         Aceptar.setBackground(new java.awt.Color(153, 255, 153));
         Aceptar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -323,7 +343,7 @@ public class Compra extends javax.swing.JFrame {
 
     private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {
 
-        int opc = JOptionPane.showConfirmDialog(null, "Estas seguro? se borrara toda la venta", "Borrar articulo", JOptionPane.YES_NO_OPTION);
+        int opc = JOptionPane.showConfirmDialog(null, "Estas seguro? se borrara toda la compra", "Borrar articulo", JOptionPane.YES_NO_OPTION);
         if(opc==0)
         {
             mt.setRowCount(0);
@@ -332,7 +352,7 @@ public class Compra extends javax.swing.JFrame {
     }
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {
-        int opc = JOptionPane.showConfirmDialog(null, "Confirmar venta", "Confirmacion de venta", JOptionPane.YES_NO_OPTION);
+        int opc = JOptionPane.showConfirmDialog(null, "Confirmar compra", "Confirmacion de compra", JOptionPane.YES_NO_OPTION);
         boolean entro=false;
 
         if(opc == JOptionPane.YES_OPTION) {
@@ -386,7 +406,7 @@ public class Compra extends javax.swing.JFrame {
                 }
 
                 // Cantidad
-                value = mt.getValueAt(i, 4);
+                value = mt.getValueAt(i, 5);
                 if (value instanceof Integer) {
                     aux.setCant((Integer) value);
                 } else if (value instanceof String) {
@@ -399,6 +419,7 @@ public class Compra extends javax.swing.JFrame {
                     throw new IllegalArgumentException("El valor en la celda (i, 4) no es un entero: " + value.getClass().getName());
                 }
 
+
                 // Guardar la venta
                 try {
                     if (a.archivoHistorial.exists()) {
@@ -409,10 +430,65 @@ public class Compra extends javax.swing.JFrame {
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
+                //Aumentar el stock en al articulo
+                try
+                {
+                    int codigo=0;
+                    //Recupero el codigo de la tabla para buscarlo en el archivo
+
+                    codigo =(Integer) mt.getValueAt(i, 0);
+
+
+
+
+                    vivero=Vivero.cargarDesdeArchivo("archivo.json");
+                    Iterator e = vivero.getArticulos().entrySet().iterator();
+                    int flag =0;
+                    while(e.hasNext() && flag==0)
+                    {
+                        try
+                        {
+                            Map.Entry<Integer, Articulo> o = (Map.Entry<Integer, Articulo>) e.next();
+                            Articulo aux1 = o.getValue();
+                            if(aux1.getCodigo()==codigo)
+                            {
+                                int stockTotal= aux1.getStock();
+                                int nuevoStock=stockTotal+ aux.getCant();
+                                aux1.setStock(nuevoStock);
+                                vivero.getArticulos().put(aux1.getCodigo(), aux1);
+                                vivero.guardarEnArchivo("archivo.json");
+
+                                flag=1;
+                            }
+
+                        }
+                        catch (ConcurrentModificationException j)
+                        {
+
+                        }
+
+                    }
+                    if(flag==0)
+                    {
+                        int opc1 = JOptionPane.showConfirmDialog(null, "No existe un cliente con este dni, desea crearlo?", "DNI NO ENCONTRADO", JOptionPane.YES_NO_OPTION);
+                        if(opc1==0)
+                        {
+                            NuevoArticulo nuevoArticulo= new NuevoArticulo(flag, this);
+                            nuevoArticulo.setVisible(true);
+                        }
+                    }
+
+
+                }
+                catch (IOException e)
+                {
+
+                }
             }
+
             if(entro)
             {
-                JOptionPane.showMessageDialog(null, "Venta registrada exitosamente");
+                JOptionPane.showMessageDialog(null, "Compra registrada exitosamente");
             }
             txtCodigo.setText("");
             mt.setRowCount(0);

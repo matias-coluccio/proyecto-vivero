@@ -6,6 +6,7 @@ package InterfazGUI.VentanaArticulos;
 
 import Excepciones.ExceptionCodigoDuplicado;
 import Excepciones.ExceptionDNI;
+import InterfazGUI.Compra;
 import InterfazGUI.GUI;
 import InterfazGUI.VentanaClientes.Cliente;
 import Placeholder.TextPrompt;
@@ -30,6 +31,16 @@ public class NuevoArticulo extends JFrame {
         initComponents();
         setTitle("Nuevo articulo");
          setLocationRelativeTo(null);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        GUI.setupButton(Volver);
+        GUI.setupButton(Guardar);
+        setResizable(false);
+
+    }
+    public NuevoArticulo(int flag, Compra ventana) {
+        initComponents();
+        setTitle("Nuevo articulo");
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         GUI.setupButton(Volver);
         GUI.setupButton(Guardar);

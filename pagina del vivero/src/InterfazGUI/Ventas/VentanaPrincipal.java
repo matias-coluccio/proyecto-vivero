@@ -508,6 +508,62 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
+
+                //Reducir el stock en al articulo
+                try
+                {
+                    int codigo=0;
+                    //Recupero el codigo de la tabla para buscarlo en el archivo
+
+                    codigo =(Integer) mt.getValueAt(i, 0);
+
+
+
+
+                    vivero=Vivero.cargarDesdeArchivo("archivo.json");
+                    Iterator e = vivero.getArticulos().entrySet().iterator();
+                    int flag =0;
+                    while(e.hasNext() && flag==0)
+                    {
+                        try
+                        {
+                            Map.Entry<Integer, Articulo> o = (Map.Entry<Integer, Articulo>) e.next();
+                            Articulo aux1 = o.getValue();
+                            if(aux1.getCodigo()==codigo)
+                            {
+                                int stockTotal= aux1.getStock();
+                                int nuevoStock=stockTotal- aux.getCant();
+                                aux1.setStock(nuevoStock);
+                                vivero.getArticulos().put(aux1.getCodigo(), aux1);
+                                vivero.guardarEnArchivo("archivo.json");
+
+                                flag=1;
+                            }
+
+                        }
+                        catch (ConcurrentModificationException j)
+                        {
+
+                        }
+
+                    }
+                    if(flag==0)
+                    {
+                        int opc1 = JOptionPane.showConfirmDialog(null, "No existe un cliente con este dni, desea crearlo?", "DNI NO ENCONTRADO", JOptionPane.YES_NO_OPTION);
+                        if(opc1==0)
+                        {
+                            NuevoCliente clientenuevo= new NuevoCliente(flag, this);
+                            clientenuevo.setVisible(true);
+                        }
+                    }
+
+
+                }
+                catch (IOException e)
+                {
+
+                }
+
             }
             if(entro)
             {
