@@ -498,16 +498,42 @@ public class Compra extends javax.swing.JFrame {
     }
 
     private void CargarActionPerformed(java.awt.event.ActionEvent evt) {
+        int flag=0;
         try {
             int codigo = Integer.parseInt(txtCodigo.getText());
-            InitTableVentas(mt, codigo);
-            actualizarTotal();
-            txtCodigo.setText("");
-            txtCodigo.requestFocusInWindow(); // Establece el foco de nuevo en el campo de texto
+            vivero=Vivero.cargarDesdeArchivo("archivo.json");
+            HashMap<Integer, Articulo> aux = vivero.getArticulos();
+            Iterator<Map.Entry<Integer, Articulo>> i = aux.entrySet().iterator();
+            while (i.hasNext() && flag==0) {
+                Map.Entry<Integer, Articulo> e = i.next();
+                Articulo aux1 = e.getValue();
+                if(aux1.getCodigo()==codigo)
+                {
+                    InitTableVentas(mt, codigo);
+                    actualizarTotal() ;
+                    txtCodigo.setText("");
+                    txtCodigo.requestFocusInWindow(); // Establece el foco de nuevo en el campo de texto
+                    flag=1;
+                }
+            }
+            if (flag==0)
+            {
+                int opc1 = JOptionPane.showConfirmDialog(null, "No existe un articulo con este codigo, desea crearlo?", "DNI NO ENCONTRADO", JOptionPane.YES_NO_OPTION);
+                if(opc1==0)
+                {
+                    NuevoArticulo articuloNuevo= new NuevoArticulo(flag, this);
+                    articuloNuevo.setVisible(true);
+                }
+            }
+
         } catch (NumberFormatException e) {
             // Manejar la excepción si el texto no es un número válido
             JOptionPane.showMessageDialog(this, "Ingrese un código válido.", "Error", JOptionPane.ERROR_MESSAGE);
             txtCodigo.requestFocusInWindow(); // Asegurarse de que el foco vuelva al campo de texto
+        }
+        catch (IOException e)
+        {
+
         }
 
     }

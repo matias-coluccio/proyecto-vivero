@@ -9,6 +9,7 @@ import Excepciones.ExceptionDNI;
 import InterfazGUI.Compra;
 import InterfazGUI.GUI;
 import InterfazGUI.VentanaClientes.Cliente;
+import InterfazGUI.Ventas.VentanaPrincipal;
 import Placeholder.TextPrompt;
 import Vivero.Vivero;
 import Articulos.*;
@@ -25,8 +26,11 @@ public class NuevoArticulo extends JFrame {
 
     /**
      * Creates new form NuevoCliente
+     *
      */
     Vivero vivero = new Vivero();//PROVISORIO DE PERSISTENCIA(JSON)
+    private int flag;
+    Compra a;
     public NuevoArticulo() {
         initComponents();
         setTitle("Nuevo articulo");
@@ -37,14 +41,16 @@ public class NuevoArticulo extends JFrame {
         setResizable(false);
 
     }
-    public NuevoArticulo(int flag, Compra ventana) {
-        initComponents();
+    public NuevoArticulo(int flag, Compra a) {
+        initComponents1(flag);
+        this.a=a;
         setTitle("Nuevo articulo");
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         GUI.setupButton(Volver);
         GUI.setupButton(Guardar);
         setResizable(false);
+        this.flag=flag;
 
     }
 
@@ -217,10 +223,177 @@ public class NuevoArticulo extends JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private void initComponents1(int flag) {
+
+        MainPanel = new javax.swing.JPanel();
+        Volver = new javax.swing.JButton();
+        txtNombre = new javax.swing.JTextField();
+        txtStock = new javax.swing.JTextField();
+        Nombre = new javax.swing.JLabel();
+        Precio = new javax.swing.JLabel();
+        Tipo = new javax.swing.JLabel();
+        Guardar = new javax.swing.JButton();
+        TipoCmBox = new javax.swing.JComboBox<>();
+        txtPrecio = new javax.swing.JTextField();
+        Stock = new javax.swing.JLabel();
+        Codigo = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JTextField();
+        TextPrompt placeholdern1=new TextPrompt("Escriba aqui el nombre", txtNombre);
+        TextPrompt placeholdern2=new TextPrompt("Escriba aqui el precio", txtPrecio);
+        TextPrompt placeholdern3=new TextPrompt("Escriba aqui el stock", txtStock);
+        TextPrompt placeholdern4=new TextPrompt("Escriba aqui el codigo ", txtCodigo);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(580, 400));
+        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/marchitez-de-la-planta-solar.png")).getImage());
+        MainPanel.setBackground(new java.awt.Color(255, 255, 255));
+        MainPanel.setForeground(new java.awt.Color(0, 0, 0));
+
+        Volver.setBackground(new java.awt.Color(52, 102, 255));
+        Volver.setForeground(new java.awt.Color(255, 255, 255));
+        Volver.setText("Volver");
+        Volver.setBorder(null);
+        Volver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Volver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VolverActionPerformed1(evt, flag);
+            }
+        });
+
+
+
+        Nombre.setForeground(new java.awt.Color(0, 0, 0));
+        Nombre.setText("Nombre");
+
+        Precio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Precio.setForeground(new java.awt.Color(0, 0, 0));
+        Precio.setText("Precio");
+
+        Tipo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Tipo.setForeground(new java.awt.Color(0, 0, 0));
+        Tipo.setText("Tipo");
+
+        Guardar.setBackground(new java.awt.Color(52, 102, 255));
+        Guardar.setForeground(new java.awt.Color(255, 255, 255));
+        Guardar.setText("Guardar");
+        Guardar.setBorder(null);
+        Guardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarActionPerformed(evt);
+            }
+        });
+
+        TipoCmBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Planta", "Maceta", "Agroquimico", "Tierra" }));
+        TipoCmBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                //TipoCmBoxActionPerformed(evt);
+            }
+        });
+
+        txtPrecio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                //txtPrecioActionPerformed(evt);
+            }
+        });
+
+        Stock.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Stock.setForeground(new java.awt.Color(0, 0, 0));
+        Stock.setText("Stock");
+
+        Codigo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Codigo.setForeground(new java.awt.Color(0, 0, 0));
+        Codigo.setText("Codigo");
+
+        javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
+        MainPanel.setLayout(MainPanelLayout);
+        MainPanelLayout.setHorizontalGroup(
+                MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(MainPanelLayout.createSequentialGroup()
+                                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(MainPanelLayout.createSequentialGroup()
+                                                .addGap(6, 6, 6)
+                                                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(Stock)
+                                                        .addGroup(MainPanelLayout.createSequentialGroup()
+                                                                .addComponent(Nombre)
+                                                                .addGap(35, 35, 35)
+                                                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(78, 78, 78)
+                                                                .addComponent(Tipo)))
+                                                .addGap(28, 28, 28)
+                                                .addComponent(TipoCmBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(MainPanelLayout.createSequentialGroup()
+                                                .addContainerGap()
+                                                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGroup(MainPanelLayout.createSequentialGroup()
+                                                                .addComponent(Precio)
+                                                                .addGap(42, 42, 42)
+                                                                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addGroup(MainPanelLayout.createSequentialGroup()
+                                                                                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                                                        .addComponent(txtCodigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                                                                                        .addComponent(txtPrecio, javax.swing.GroupLayout.Alignment.LEADING))
+                                                                                .addGap(132, 132, 132)
+                                                                                .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addGroup(MainPanelLayout.createSequentialGroup()
+                                                .addContainerGap()
+                                                .addComponent(Codigo)))
+                                .addContainerGap(66, Short.MAX_VALUE))
+        );
+        MainPanelLayout.setVerticalGroup(
+                MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(MainPanelLayout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(MainPanelLayout.createSequentialGroup()
+                                                .addGap(10, 10, 10)
+                                                .addComponent(Nombre))
+                                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(MainPanelLayout.createSequentialGroup()
+                                                .addGap(7, 7, 7)
+                                                .addComponent(Tipo))
+                                        .addComponent(TipoCmBox, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(53, 53, 53)
+                                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(Precio)
+                                        .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(Stock))
+                                .addGap(52, 52, 52)
+                                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(Codigo)
+                                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(41, 41, 41))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(MainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
 
     private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
           Articulos articulos=new Articulos();
         articulos.setVisible(true);// TODO add your handling code here:
+        setVisible(false);
+    }//GEN-LAST:event_VolverActionPerformed
+    private void VolverActionPerformed1(java.awt.event.ActionEvent evt, int flag) {//GEN-FIRST:event_VolverActionPerformed
+
+        a.setVisible(true);// TODO add your handling code here:
         setVisible(false);
     }//GEN-LAST:event_VolverActionPerformed
 

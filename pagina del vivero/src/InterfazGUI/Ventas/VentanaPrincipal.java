@@ -413,6 +413,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
 
         }
+        catch (NumberFormatException e)
+        {
+            JOptionPane.showInternalMessageDialog(null, "Ingrese un valor valido", "Error", JOptionPane.ERROR_MESSAGE);
+        }
         catch (IOException e)
         {
 
@@ -578,19 +582,44 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     private void CargarActionPerformed(java.awt.event.ActionEvent evt) {
-        try {
-            int codigo = Integer.parseInt(txtCodigo.getText());
-            InitTableVentas(mt, codigo);
-            actualizarTotal();
-            txtCodigo.setText("");
-            txtCodigo.requestFocusInWindow(); // Establece el foco de nuevo en el campo de texto
-        } catch (NumberFormatException e) {
-            // Manejar la excepción si el texto no es un número válido
-            JOptionPane.showMessageDialog(this, "Ingrese un código válido.", "Error", JOptionPane.ERROR_MESSAGE);
-            txtCodigo.requestFocusInWindow(); // Asegurarse de que el foco vuelva al campo de texto
+
+        int flag=0;
+            try {
+                int codigo = Integer.parseInt(txtCodigo.getText());
+                vivero=Vivero.cargarDesdeArchivo("archivo.json");
+                HashMap<Integer, Articulo> aux = vivero.getArticulos();
+                Iterator<Map.Entry<Integer, Articulo>> i = aux.entrySet().iterator();
+                while (i.hasNext() && flag==0) {
+                    Map.Entry<Integer, Articulo> e = i.next();
+                    Articulo aux1 = e.getValue();
+                    if(aux1.getCodigo()==codigo)
+                    {
+                        InitTableVentas(mt, codigo);
+                        actualizarTotal() ;
+                        txtCodigo.setText("");
+                        txtCodigo.requestFocusInWindow(); // Establece el foco de nuevo en el campo de texto
+                        flag=1;
+                }
+                }
+                if (flag==0)
+                {
+                    JOptionPane.showMessageDialog(this, "Ingrese un código válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+            } catch (NumberFormatException e) {
+                // Manejar la excepción si el texto no es un número válido
+                JOptionPane.showMessageDialog(this, "Ingrese un código válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                txtCodigo.requestFocusInWindow(); // Asegurarse de que el foco vuelva al campo de texto
+            }
+            catch (IOException e)
+            {
+
+            }
         }
 
-    }
+
+
+
     private javax.swing.JButton Aceptar;
     private javax.swing.JButton Buscar;
     private javax.swing.JButton Cancelar;
