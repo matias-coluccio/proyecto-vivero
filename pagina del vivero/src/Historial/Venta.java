@@ -1,5 +1,7 @@
 package Historial;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 public class Venta {
@@ -8,6 +10,7 @@ public class Venta {
     private float precio_un;
     private float precio_total;
     private int cant;
+    private  String fechaActual;
 
 
     public Venta(int codigo, int cant, float precio_total, float precio_un, String nombre) {
@@ -16,10 +19,19 @@ public class Venta {
         this.precio_total = precio_total;
         this.precio_un = precio_un;
         this.nombre = nombre;
+        this.fechaActual=LocalDate.now().toString();
     }
 
     public Venta() {
+        this.fechaActual=LocalDate.now().toString();
+    }
 
+    public String getFechaActual() {
+        return fechaActual;
+    }
+
+    public void setFechaActual(String fechaActual) {
+        this.fechaActual = fechaActual;
     }
 
     public int getCodigo() {
@@ -67,23 +79,23 @@ public class Venta {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Venta venta = (Venta) o;
-        return codigo == venta.codigo && precio_un == venta.precio_un && precio_total == venta.precio_total && cant == venta.cant && Objects.equals(nombre, venta.nombre);
+        return codigo == venta.codigo && Float.compare(precio_un, venta.precio_un) == 0 && Float.compare(precio_total, venta.precio_total) == 0 && cant == venta.cant && Objects.equals(nombre, venta.nombre) && Objects.equals(fechaActual, venta.fechaActual);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(codigo, nombre, precio_un, precio_total, cant);
+        return Objects.hash(codigo, nombre, precio_un, precio_total, cant, fechaActual);
     }
-
 
     @Override
     public String toString() {
         return "Venta{" +
                 "codigo=" + codigo +
                 ", nombre='" + nombre + '\'' +
-                ", precio_total=" + precio_total +
                 ", precio_un=" + precio_un +
+                ", precio_total=" + precio_total +
                 ", cant=" + cant +
+                ", fechaActual='" + fechaActual + '\'' +
                 '}';
     }
 }

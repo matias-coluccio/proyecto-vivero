@@ -64,12 +64,15 @@ public class Vivero implements Crud {
         return Articulos;
     }
 
-    @Override
-    public Object buscar(Object dato) {
+
+    public Object buscarDni(Object dato) {
         if (clientes.containsKey(dato)) {
             return clientes.get(dato);
         }
+        return false;
+    }
 
+    public Object buscarCodigo(Object dato) {
         if (Articulos.containsKey(dato)) {
             return Articulos.get(dato);
         }

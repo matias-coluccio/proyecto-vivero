@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ClaseJson {
     public  static ObjectMapper HistorialJson = new ObjectMapper();
@@ -34,6 +35,24 @@ public class ClaseJson {
 
     public ArrayList<Venta> getHistorial() {
         return historial;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ClaseJson claseJson = (ClaseJson) o;
+        return Objects.equals(archivoHistorial, claseJson.archivoHistorial) && Objects.equals(historial, claseJson.historial);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(archivoHistorial, historial);
+    }
+
+    public String listar()
+    {
+        return historial.toString();
     }
 
     public  void Agregar(Venta a) {

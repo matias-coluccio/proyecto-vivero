@@ -165,7 +165,7 @@ public class VentanaEditarCliente extends javax.swing.JFrame {
 
     private void cargar()
     {
-        Clientes.Cliente aux=(Clientes.Cliente) vivero.buscar(dni);
+        Clientes.Cliente aux=(Clientes.Cliente) vivero.buscarDni(dni);
         txtNombre.setText(aux.getNombre());
         txtApellido.setText(aux.getApellido());
         CategoriaCmBox.setSelectedItem(aux.getCategoria());

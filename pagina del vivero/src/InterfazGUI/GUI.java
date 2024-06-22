@@ -2,8 +2,9 @@ package InterfazGUI;
 
 import InterfazGUI.VentanaArticulos.Articulos;
 import InterfazGUI.VentanaClientes.Cliente;
+import InterfazGUI.VentanaCompras.Compra;
 import InterfazGUI.Ventas.VentanaPrincipal;
-
+import InterfazGUI.HistorialVentas.*;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import javax.swing.JButton;

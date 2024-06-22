@@ -2,26 +2,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package InterfazGUI;
+package InterfazGUI.VentanaCompras;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import Articulos.Articulo;
-import Clientes.Cliente;
 import Historial.ClaseJson;
 import Historial.Venta;
 import InterfazGUI.GUI;
-import InterfazGUI.Historial;
 import InterfazGUI.VentanaArticulos.NuevoArticulo;
-import InterfazGUI.VentanaClientes.NuevoCliente;
 import Vivero.Vivero;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import Historial.*;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+
 
 public class Compra extends javax.swing.JFrame {
     String ids[] = {"Codigo", "Nombre", "Precio unitario","Precio Total",  "Stock anterior", "Cantidad", "Nuevo Stock"};
@@ -33,8 +32,8 @@ public class Compra extends javax.swing.JFrame {
     };
     ClaseJson a=new ClaseJson();
     Vivero vivero = new Vivero(); // OTRO PROVISORIO
-    Venta aux = new Venta();
     static ObjectMapper HistorialJson = new ObjectMapper();
+    String tipoDearticulo=null;
 
     public Compra() {
         initComponents();
@@ -94,7 +93,7 @@ public class Compra extends javax.swing.JFrame {
                 {
                     Articulo aux=articulos.get(codigo);
 
-                    mt.addRow(new Object[]{aux.getCodigo(), aux.getNombreDelArticulo(), aux.getPrecio(), aux.getPrecio(), aux.getStock(), 1, 1});
+                    mt.addRow(new Object[]{aux.getCodigo(), aux.getNombreDelArticulo(), aux.getPrecio(), aux.getPrecio(), aux.getStock(), 1, aux.getStock()+1});
                 }
 
             } catch (IOException e) {
@@ -110,7 +109,17 @@ public class Compra extends javax.swing.JFrame {
     // Método para actualizar el precio total de una fila
     private void actualizarStockTotal(int row) {
         try {
-            int cantidad = Integer.parseInt(jTable2.getValueAt(row, 5).toString());
+            int cantidad=0;
+            try
+            {
+                 cantidad = Integer.parseInt(jTable2.getValueAt(row, 5).toString());
+            }
+            catch (NumberFormatException e)
+            {
+
+            }
+
+
             int StockAnterior = Integer.parseInt(jTable2.getValueAt(row, 4).toString());
             int Stocktotal = cantidad + StockAnterior;
             jTable2.setValueAt(Stocktotal, row, 6);
@@ -122,7 +131,16 @@ public class Compra extends javax.swing.JFrame {
     // Método para actualizar el precio total de una fila
     private void actualizarPrecioTotal(int row) {
         try {
-            int cantidad = Integer.parseInt(jTable2.getValueAt(row, 5).toString());
+            int cantidad=0;
+            try
+            {
+                 cantidad = Integer.parseInt(jTable2.getValueAt(row, 5).toString());
+            }
+            catch (NumberFormatException e)
+            {
+
+            }
+
             float precioUnitario = Float.parseFloat(jTable2.getValueAt(row, 2).toString());
             float precioTotal = cantidad * precioUnitario;
             jTable2.setValueAt(precioTotal, row, 3);
@@ -352,6 +370,7 @@ public class Compra extends javax.swing.JFrame {
     }
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {
+        Venta aux = new Venta();
         int opc = JOptionPane.showConfirmDialog(null, "Confirmar compra", "Confirmacion de compra", JOptionPane.YES_NO_OPTION);
         boolean entro=false;
 
@@ -425,6 +444,7 @@ public class Compra extends javax.swing.JFrame {
                     if (a.archivoHistorial.exists()) {
                         a = ClaseJson.cargarDesdeArchivoHistorial("archivoHistorial.json");
                     }
+
                     a.Agregar(aux);
                     a.guardarEnArchivoHistorial("archivoHistorial.json");
                 } catch (IOException e) {
@@ -509,6 +529,7 @@ public class Compra extends javax.swing.JFrame {
                 Articulo aux1 = e.getValue();
                 if(aux1.getCodigo()==codigo)
                 {
+                    tipoDearticulo=aux1.getTipoDeArticulo();
                     InitTableVentas(mt, codigo);
                     actualizarTotal() ;
                     txtCodigo.setText("");

@@ -10,7 +10,6 @@ import Clientes.Cliente;
 import Historial.ClaseJson;
 import Historial.Venta;
 import InterfazGUI.GUI;
-import InterfazGUI.Historial;
 import InterfazGUI.VentanaClientes.NuevoCliente;
 import Vivero.Vivero;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -108,7 +107,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     // Método para actualizar el precio total de una fila
     private void actualizarPrecioTotal(int row) {
         try {
-            int cantidad = Integer.parseInt(jTable2.getValueAt(row, 4).toString());
+            int cantidad=0;
+            try
+            {
+                 cantidad = Integer.parseInt(jTable2.getValueAt(row, 4).toString());
+            }
+            catch (NumberFormatException e)
+            {
+
+            }
+
             float precioUnitario = Float.parseFloat(jTable2.getValueAt(row, 2).toString());
             float precioTotal = cantidad * precioUnitario;
             jTable2.setValueAt(precioTotal, row, 3);

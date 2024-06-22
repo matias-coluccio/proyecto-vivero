@@ -6,10 +6,8 @@ package InterfazGUI.VentanaArticulos;
 
 import Excepciones.ExceptionCodigoDuplicado;
 import Excepciones.ExceptionDNI;
-import InterfazGUI.Compra;
+import InterfazGUI.VentanaCompras.Compra;
 import InterfazGUI.GUI;
-import InterfazGUI.VentanaClientes.Cliente;
-import InterfazGUI.Ventas.VentanaPrincipal;
 import Placeholder.TextPrompt;
 import Vivero.Vivero;
 import Articulos.*;
