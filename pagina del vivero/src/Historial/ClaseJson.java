@@ -9,7 +9,8 @@ import java.util.Objects;
 
 public class ClaseJson {
     public  static ObjectMapper HistorialJson = new ObjectMapper();
-    public  File  archivoHistorial=new File("archivoHistorial.json");
+    public  File  archivoHistorialVentas=new File("archivoHistorialVenta.json");
+    public  File  archivoHistorialCompras=new File("archivoHistorialCompra.json");
 
     ArrayList<HistorialMovimientos> historial=new ArrayList<>();
 
@@ -42,12 +43,12 @@ public class ClaseJson {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ClaseJson claseJson = (ClaseJson) o;
-        return Objects.equals(archivoHistorial, claseJson.archivoHistorial) && Objects.equals(historial, claseJson.historial);
+        return Objects.equals(archivoHistorialVentas, claseJson.archivoHistorialVentas) && Objects.equals(archivoHistorialCompras, claseJson.archivoHistorialCompras) && Objects.equals(historial, claseJson.historial);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(archivoHistorial, historial);
+        return Objects.hash(archivoHistorialVentas, archivoHistorialCompras, historial);
     }
 
     public String listar()

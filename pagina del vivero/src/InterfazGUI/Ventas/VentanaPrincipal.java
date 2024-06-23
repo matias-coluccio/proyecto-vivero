@@ -69,11 +69,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     if (selectedRows.length > 0) {
                         int confirm = JOptionPane.showConfirmDialog(null, "¿Desea borrar los artículos seleccionados?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
                         if (confirm == JOptionPane.YES_OPTION) {
+                            int i=0;
                             // Eliminar las filas desde el final hacia el inicio para evitar problemas de indexación
-                            for (int i = selectedRows.length - 1; i >= 0; i--) {
+                            for ( i = selectedRows.length - 1; i >= 0; i--) {
                                 mt.removeRow(selectedRows[i]);
                             }
                             actualizarTotal();
+                            actualizarPrecioTotal(i);
                         }
                     }
                 }
@@ -395,10 +397,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 {
                     Map.Entry<Integer, Cliente> i = (Map.Entry<Integer, Cliente>) e.next();
                     Cliente aux1 = i.getValue();
+
                     if(aux1.getDni()==dni)
                     {
-                        float resultado= (float) (actualizarTotal()*0.9);
-                        txtTotal.setText("$"+ String.valueOf(resultado));
+                        for(int o=0;  o<jTable2.getRowCount();o++)
+                        {
+                            try
+                            {
+                                float resultado= (float) mt.getValueAt(o,3);
+
+                                mt.setValueAt((resultado*0.9),o,3);
+                                actualizarTotal();
+                            }
+                            catch (ClassCastException p)
+                            {
+
+                            }
+
+
+                        }
+
                         flag=1;
                     }
 
@@ -492,7 +510,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     } catch (NumberFormatException e) {
                         throw new IllegalArgumentException("El valor en la celda (i, 3) no es un float válido: " + value);
                     }
-                } else {
+                }
+                else if (value instanceof Double) {
+                    try {
+                        String valor=String.valueOf( value);
+                        aux.setPrecio_total(Float.parseFloat(valor));
+                    } catch (NumberFormatException e) {
+                        throw new IllegalArgumentException("El valor en la celda (i, 3) no es un float válido: " + value);
+                    }
+                }
+                else {
                     throw new IllegalArgumentException("El valor en la celda (i, 3) no es un float: " + value.getClass().getName());
                 }
 
@@ -512,11 +539,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
                 // Guardar la venta
                 try {
-                    if (a.archivoHistorial.exists()) {
-                        a = ClaseJson.cargarDesdeArchivoHistorial("archivoHistorial.json");
+                    if (a.archivoHistorialVentas.exists()) {
+                        a = ClaseJson.cargarDesdeArchivoHistorial("archivoHistorialVenta.json");
                     }
                     a.Agregar(aux);
-                    a.guardarEnArchivoHistorial("archivoHistorial.json");
+                    a.guardarEnArchivoHistorial("archivoHistorialVenta.json");
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }

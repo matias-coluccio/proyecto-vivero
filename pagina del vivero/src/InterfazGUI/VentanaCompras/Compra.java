@@ -32,7 +32,6 @@ public class Compra extends javax.swing.JFrame {
     };
     ClaseJson a=new ClaseJson();
     Vivero vivero = new Vivero(); // OTRO PROVISORIO
-    static ObjectMapper HistorialJson = new ObjectMapper();
     String tipoDearticulo=null;
 
     public Compra() {
@@ -45,6 +44,7 @@ public class Compra extends javax.swing.JFrame {
         GUI.setupButtonAceptar(Aceptar);
         GUI.setupButtonCancelar(Cancelar);
         setResizable(false);
+        txtTotal.setText("$0.00");
 
         // Agregar TableModelListener
         mt.addTableModelListener(new TableModelListener() {
@@ -92,8 +92,16 @@ public class Compra extends javax.swing.JFrame {
                 if(articulos.containsKey(codigo))
                 {
                     Articulo aux=articulos.get(codigo);
+                    if(aux.getStock()<0)
+                    {
+                        mt.addRow(new Object[]{aux.getCodigo(), aux.getNombreDelArticulo(), aux.getPrecio(), aux.getPrecio(), aux.getStock(), 1, 1});
+                    }
 
-                    mt.addRow(new Object[]{aux.getCodigo(), aux.getNombreDelArticulo(), aux.getPrecio(), aux.getPrecio(), aux.getStock(), 1, aux.getStock()+1});
+                   else
+                    {
+                        mt.addRow(new Object[]{aux.getCodigo(), aux.getNombreDelArticulo(), aux.getPrecio(), aux.getPrecio(), aux.getStock(), 1, aux.getStock()+1});
+                    }
+
                 }
 
             } catch (IOException e) {
@@ -108,6 +116,7 @@ public class Compra extends javax.swing.JFrame {
 
     // Método para actualizar el precio total de una fila
     private void actualizarStockTotal(int row) {
+        int Stocktotal=0;
         try {
             int cantidad=0;
             try
@@ -120,9 +129,19 @@ public class Compra extends javax.swing.JFrame {
             }
 
 
+
             int StockAnterior = Integer.parseInt(jTable2.getValueAt(row, 4).toString());
-            int Stocktotal = cantidad + StockAnterior;
-            jTable2.setValueAt(Stocktotal, row, 6);
+            if(StockAnterior<0)
+            {
+                Stocktotal=cantidad;
+                jTable2.setValueAt(Stocktotal, row, 6);
+            }
+            else
+            {
+                Stocktotal = cantidad + StockAnterior;
+                jTable2.setValueAt(Stocktotal, row, 6);
+            }
+
         } catch (NumberFormatException e) {
             e.printStackTrace();
             // Manejo del error en caso de que la conversión falle
@@ -441,12 +460,12 @@ public class Compra extends javax.swing.JFrame {
 
                 // Guardar Historial
                 try {
-                    if (a.archivoHistorial.exists()) {
-                        a = ClaseJson.cargarDesdeArchivoHistorial("archivoHistorial.json");
+                    if (a.archivoHistorialCompras.exists()) {
+                        a = ClaseJson.cargarDesdeArchivoHistorial("archivoHistorialCompra.json");
                     }
 
                     a.Agregar(aux);
-                    a.guardarEnArchivoHistorial("archivoHistorial.json");
+                    a.guardarEnArchivoHistorial("archivoHistorialCompra.json");
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
