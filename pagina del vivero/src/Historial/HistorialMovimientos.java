@@ -1,10 +1,9 @@
 package Historial;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 
-public class Venta {
+public class HistorialMovimientos {
     private int codigo;
     private String nombre;
     private float precio_un;
@@ -13,7 +12,7 @@ public class Venta {
     private  String fechaActual;
 
 
-    public Venta(int codigo, int cant, float precio_total, float precio_un, String nombre) {
+    public HistorialMovimientos(int codigo, int cant, float precio_total, float precio_un, String nombre) {
         this.codigo = codigo;
         this.cant = cant;
         this.precio_total = precio_total;
@@ -22,7 +21,7 @@ public class Venta {
         this.fechaActual=LocalDate.now().toString();
     }
 
-    public Venta() {
+    public HistorialMovimientos() {
         this.fechaActual=LocalDate.now().toString();
     }
 
@@ -78,8 +77,8 @@ public class Venta {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Venta venta = (Venta) o;
-        return codigo == venta.codigo && Float.compare(precio_un, venta.precio_un) == 0 && Float.compare(precio_total, venta.precio_total) == 0 && cant == venta.cant && Objects.equals(nombre, venta.nombre) && Objects.equals(fechaActual, venta.fechaActual);
+        HistorialMovimientos that = (HistorialMovimientos) o;
+        return codigo == that.codigo && Float.compare(precio_un, that.precio_un) == 0 && Float.compare(precio_total, that.precio_total) == 0 && cant == that.cant && Objects.equals(nombre, that.nombre) && Objects.equals(fechaActual, that.fechaActual);
     }
 
     @Override
@@ -89,7 +88,7 @@ public class Venta {
 
     @Override
     public String toString() {
-        return "Venta{" +
+        return "HistorialMovimientos{" +
                 "codigo=" + codigo +
                 ", nombre='" + nombre + '\'' +
                 ", precio_un=" + precio_un +

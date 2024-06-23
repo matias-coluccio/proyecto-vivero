@@ -8,7 +8,7 @@ import java.awt.event.KeyEvent;
 import Articulos.Articulo;
 import Clientes.Cliente;
 import Historial.ClaseJson;
-import Historial.Venta;
+import Historial.HistorialMovimientos;
 import InterfazGUI.GUI;
 import InterfazGUI.VentanaClientes.NuevoCliente;
 import Vivero.Vivero;
@@ -31,7 +31,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     };
     ClaseJson a=new ClaseJson();
     Vivero vivero = new Vivero(); // OTRO PROVISORIO
-    Venta aux = new Venta();
+    HistorialMovimientos aux = new HistorialMovimientos();
     static ObjectMapper HistorialJson = new ObjectMapper();
 
     public VentanaPrincipal() {

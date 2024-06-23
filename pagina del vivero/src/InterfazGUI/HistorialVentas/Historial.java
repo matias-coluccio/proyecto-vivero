@@ -33,19 +33,15 @@ public class Historial extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         jTable2.setModel(mt);
-        ActualizarTabla();
         InitTableVentas(mt, LocalDate.now().toString());
         setResizable(false);
-    }
-    private void ActualizarTabla()
-    {
+
+        // Listener para cambios en la tabla
         mt.addTableModelListener(new TableModelListener() {
             @Override
             public void tableChanged(TableModelEvent e) {
                 if (e.getType() == TableModelEvent.UPDATE) {
-                    System.out.println("ayudenme por favor me quiero suicidar");
                     actualizarTotal();
-
                 }
             }
         });
@@ -66,24 +62,18 @@ public class Historial extends javax.swing.JFrame {
         return total;
     }
     private void InitTableVentas(DefaultTableModel mt, String fecha) {
-        mt.setRowCount(0);
+        mt.setRowCount(0); // Limpiar la tabla
         if (Historial.archivoHistorial.exists()) {
             try {
-                Historial= ClaseJson.cargarDesdeArchivoHistorial("archivoHistorial.json");
-               ArrayList<Venta> Ventas=Historial.getHistorial();
-               int contadorVentas=0;
-               for(Venta i:Ventas)
-               {
-                   mt.addRow(new Object[]{contadorVentas+1, i.getPrecio_total(), i.getFechaActual()});
-                   contadorVentas++;
-
-
-               }
+                Historial = ClaseJson.cargarDesdeArchivoHistorial("archivoHistorial.json");
+                ArrayList<HistorialMovimientos> ventas = Historial.getHistorial();
+                for (HistorialMovimientos venta : ventas) {
+                    mt.addRow(new Object[]{mt.getRowCount() + 1, venta.getPrecio_total(), venta.getFechaActual()});
+                }
+                actualizarTotal();
             } catch (IOException e) {
-
                 System.out.println(e.getMessage());
             }
-            actualizarTotal();
         } else {
             System.out.println("El archivo no existe");
         }
@@ -99,14 +89,15 @@ public class Historial extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        Buscar = new javax.swing.JButton();
+        Volver = new javax.swing.JButton();
         Total = new javax.swing.JLabel();
         txtTotal = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        Fechas = new javax.swing.JLabel();
+        Fecha = new javax.swing.JLabel();
         txtFecha = crearFormattedTextField();
-        Volver = new javax.swing.JButton();
+        Buscar = new javax.swing.JButton();
+        Categoriacmbox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -115,15 +106,15 @@ public class Historial extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
-        Buscar.setBackground(new java.awt.Color(51, 102, 255));
-        Buscar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        Buscar.setForeground(new java.awt.Color(0, 0, 0));
-        Buscar.setText("Buscar");
-        Buscar.setBorder(null);
-        Buscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Buscar.addActionListener(new java.awt.event.ActionListener() {
+        Volver.setBackground(new java.awt.Color(51, 102, 255));
+        Volver.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Volver.setForeground(new java.awt.Color(0, 0, 0));
+        Volver.setText("Volver");
+        Volver.setBorder(null);
+        Volver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Volver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BuscarActionPerformed(evt);
+                VolverActionPerformed(evt);
             }
         });
 
@@ -140,7 +131,7 @@ public class Historial extends javax.swing.JFrame {
 
                 },
                 new String [] {
-                        "Numero", "Precio Total", "Fecha"
+                        "Numero", "Precio total", "Fecha"
                 }
         ) {
             Class[] types = new Class [] {
@@ -160,26 +151,30 @@ public class Historial extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTable2);
 
-        Fechas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        Fechas.setForeground(new java.awt.Color(0, 0, 0));
-        Fechas.setText("Filtrar fecha:");
+        Fecha.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Fecha.setForeground(new java.awt.Color(0, 0, 0));
+        Fecha.setText("Filtrar fecha:");
 
         txtFecha.setFont(new java.awt.Font("Segoe UI", 0, 18));
         txtFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Buscar.doClick();
-            }
+                Buscar.doClick();}
         });// NOI18N
 
-        Volver.setBackground(new java.awt.Color(51, 102, 255));
-        Volver.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        Volver.setForeground(new java.awt.Color(0, 0, 0));
-        Volver.setText("Volver");
-        Volver.setBorder(null);
-        Volver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Volver.addActionListener(new java.awt.event.ActionListener() {
+        Buscar.setBackground(new java.awt.Color(51, 102, 255));
+        Buscar.setForeground(new java.awt.Color(0, 0, 0));
+        Buscar.setText("Buscar");
+        Buscar.setBorder(null);
+        Buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VolverActionPerformed(evt);
+                BuscarActionPerformed(evt);
+            }
+        });
+
+        Categoriacmbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ventas", "Compras" }));
+        Categoriacmbox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CategoriacmboxActionPerformed(evt);
             }
         });
 
@@ -188,42 +183,51 @@ public class Historial extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(250, 250, 250)
-                                .addComponent(Fechas)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(217, Short.MAX_VALUE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(305, 305, 305)
-                                .addComponent(Total)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(39, 39, 39))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(88, 88, 88)
+                                                .addComponent(Categoriacmbox, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(60, 60, 60)
+                                                .addComponent(Fecha)
+                                                .addGap(27, 27, 27)
+                                                .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(30, 30, 30)
+                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(25, 25, 25)
+                                                .addComponent(Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(405, 405, 405)
+                                                .addComponent(Total)
+                                                .addGap(14, 14, 14)
+                                                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(Fecha)
+                                                .addComponent(Categoriacmbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(10, 10, 10)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(Fechas)
-                                        .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(Total)
-                                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(27, Short.MAX_VALUE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(22, 22, 22)
+                                                .addComponent(Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(30, 30, 30)
+                                                .addComponent(Total))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(20, 20, 20)
+                                                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -234,7 +238,7 @@ public class Historial extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -245,42 +249,50 @@ public class Historial extends javax.swing.JFrame {
         gui.setVisible(true);// TODO add your handling code here:
         setVisible(false);
     }
+    private void CategoriacmboxActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
 
     private void BuscarActionPerformed(java.awt.event.ActionEvent evt) {
-        int flag = 0;
         try {
             String fechaInput = txtFecha.getText();
             SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
             SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
+            // Convertir la fecha de entrada al formato yyyy-MM-dd
             Date fechaDate = inputFormat.parse(fechaInput);
             String fechaFormatted = outputFormat.format(fechaDate);
 
+            // Cargar el historial de ventas desde el archivo
             Historial = ClaseJson.cargarDesdeArchivoHistorial("archivoHistorial.json");
+            ArrayList<HistorialMovimientos> ventas = Historial.getHistorial();
 
-            ArrayList<Venta> aux = Historial.getHistorial();
-            mt.setRowCount(0); // Limpiar la tabla antes de agregar nuevas filas
-            for (Venta i : aux) {
-                if (i.getFechaActual().equals(fechaFormatted)) {
-                    InitTableVentas(mt, fechaFormatted);
-                    flag = 1;
+            // Limpiar la tabla antes de agregar nuevas filas
+            mt.setRowCount(0);
+
+            // Filtrar las ventas por la fecha formateada y agregarlas a la tabla
+            boolean ventasEncontradas = false;
+            for (HistorialMovimientos venta : ventas) {
+                if (venta.getFechaActual().equals(fechaFormatted)) {
+                    mt.addRow(new Object[]{mt.getRowCount() + 1, venta.getPrecio_total(), venta.getFechaActual()});
+                    ventasEncontradas = true;
                 }
             }
 
             actualizarTotal();
-            if (flag == 0) {
-                InitTableVentas(mt, fechaFormatted);
-                txtFecha.setText("");
+
+            // Mostrar mensaje si no se encontraron ventas
+            if (!ventasEncontradas) {
                 JOptionPane.showMessageDialog(this, "No existen ventas en esta fecha", "ERROR", JOptionPane.ERROR_MESSAGE);
-                txtFecha.requestFocusInWindow();
             }
+
         } catch (ParseException e) {
             JOptionPane.showMessageDialog(this, "Fecha no válida. Por favor ingrese una fecha en el formato dd/MM/yyyy.", "Error", JOptionPane.ERROR_MESSAGE);
             txtFecha.requestFocusInWindow(); // Asegurarse de que el foco vuelva al campo de texto
         } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar el historial de ventas.", "Error", JOptionPane.ERROR_MESSAGE);
             System.out.println(e.getMessage());
         }
-
     }
 
     private JFormattedTextField crearFormattedTextField() {
@@ -301,13 +313,14 @@ public class Historial extends javax.swing.JFrame {
 
     // Declaración de variables - no modificar
     private javax.swing.JButton Buscar;
-    private javax.swing.JLabel Fechas;
+    private javax.swing.JComboBox<String> Categoriacmbox;
+    private javax.swing.JLabel Fecha;
     private javax.swing.JLabel Total;
     private javax.swing.JButton Volver;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
-    private JFormattedTextField txtFecha;  // Cambiado a JFormattedTextField
+    private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtTotal;
     // Fin de la declaración de variables
 }

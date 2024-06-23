@@ -7,7 +7,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import Articulos.Articulo;
 import Historial.ClaseJson;
-import Historial.Venta;
+import Historial.HistorialMovimientos;
 import InterfazGUI.GUI;
 import InterfazGUI.VentanaArticulos.NuevoArticulo;
 import Vivero.Vivero;
@@ -370,7 +370,7 @@ public class Compra extends javax.swing.JFrame {
     }
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {
-        Venta aux = new Venta();
+        HistorialMovimientos aux = new HistorialMovimientos();
         int opc = JOptionPane.showConfirmDialog(null, "Confirmar compra", "Confirmacion de compra", JOptionPane.YES_NO_OPTION);
         boolean entro=false;
 
@@ -439,7 +439,7 @@ public class Compra extends javax.swing.JFrame {
                 }
 
 
-                // Guardar la venta
+                // Guardar Historial
                 try {
                     if (a.archivoHistorial.exists()) {
                         a = ClaseJson.cargarDesdeArchivoHistorial("archivoHistorial.json");

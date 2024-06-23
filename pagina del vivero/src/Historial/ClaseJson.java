@@ -11,7 +11,7 @@ public class ClaseJson {
     public  static ObjectMapper HistorialJson = new ObjectMapper();
     public  File  archivoHistorial=new File("archivoHistorial.json");
 
-    ArrayList<Venta> historial=new ArrayList<>();
+    ArrayList<HistorialMovimientos> historial=new ArrayList<>();
 
     public ClaseJson() {
     }
@@ -33,7 +33,7 @@ public class ClaseJson {
         return HistorialJson.readValue(jsonString, ClaseJson.class);
     }
 
-    public ArrayList<Venta> getHistorial() {
+    public ArrayList<HistorialMovimientos> getHistorial() {
         return historial;
     }
 
@@ -55,7 +55,7 @@ public class ClaseJson {
         return historial.toString();
     }
 
-    public  void Agregar(Venta a) {
+    public  void Agregar(HistorialMovimientos a) {
         HistorialJson.enable(SerializationFeature.INDENT_OUTPUT);
         historial.add(a);
     }
