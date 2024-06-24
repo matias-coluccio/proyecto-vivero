@@ -558,7 +558,7 @@ public class Compra extends javax.swing.JFrame {
             }
             if (flag==0)
             {
-                int opc1 = JOptionPane.showConfirmDialog(null, "No existe un articulo con este codigo, desea crearlo?", "DNI NO ENCONTRADO", JOptionPane.YES_NO_OPTION);
+                int opc1 = JOptionPane.showConfirmDialog(null, "No existe un articulo con este codigo, desea crearlo?", "CODIGO NO ENCONTRADO", JOptionPane.YES_NO_OPTION);
                 if(opc1==0)
                 {
                     NuevoArticulo articuloNuevo= new NuevoArticulo(flag, this);

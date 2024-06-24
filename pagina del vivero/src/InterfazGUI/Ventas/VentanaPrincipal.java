@@ -119,12 +119,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
             }
 
+
             float precioUnitario = Float.parseFloat(jTable2.getValueAt(row, 2).toString());
             float precioTotal = cantidad * precioUnitario;
             jTable2.setValueAt(precioTotal, row, 3);
         } catch (NumberFormatException e) {
             e.printStackTrace();
             // Manejo del error en caso de que la conversión falle
+        }
+        catch (ArrayIndexOutOfBoundsException e)
+        {
+
         }
     }
 
