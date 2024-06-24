@@ -278,6 +278,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         Cargar.setForeground(new java.awt.Color(0, 0, 0));
         Cargar.setText("Cargar");
         Cargar.setBorder(null);
+        Cargar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Cargar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CargarActionPerformed(evt);
