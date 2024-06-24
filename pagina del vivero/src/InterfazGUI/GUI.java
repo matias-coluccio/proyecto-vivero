@@ -40,7 +40,7 @@ public class GUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setDate();
         setTitle("Vivero Professional version");
-        setHora();
+        MainPanel.requestFocusInWindow();
         setupButton(Ventas);
         setupButton(Compras);
         setupButton(Caja);
@@ -381,6 +381,7 @@ public class GUI extends javax.swing.JFrame {
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(MainPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+        setHora();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
