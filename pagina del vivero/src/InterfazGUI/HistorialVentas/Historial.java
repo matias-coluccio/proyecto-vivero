@@ -221,14 +221,11 @@ public class Historial extends javax.swing.JFrame {
     private void buscarPorFecha(String ruta) {
         String fechaInput = txtFecha.getText().trim();
         if (fechaInput.isEmpty() || fechaInput.equals("__/__/____")) {
-            if(ruta.equals("archivoHistorialVenta.json"))
-            {
+            if (ruta.equals("archivoHistorialVenta.json")) {
                 InitTableVentas(mt);
-            }
-            else {
+            } else {
                 InitTableCompras(mt);
             }
-
             return;
         }
 
@@ -240,34 +237,43 @@ public class Historial extends javax.swing.JFrame {
             Date fechaDate = inputFormat.parse(fechaInput);
             String fechaFormatted = outputFormat.format(fechaDate);
 
-            // Cargar el historial de ventas desde el archivo
+            // Cargar el historial desde el archivo
             Historial = ClaseJson.cargarDesdeArchivoHistorial(ruta);
-            ArrayList<HistorialMovimientos> ventas = Historial.getHistorial();
+            ArrayList<HistorialMovimientos> movimientos = Historial.getHistorial();
 
             // Limpiar la tabla antes de agregar nuevas filas
             mt.setRowCount(0);
 
-            // Filtrar las ventas por la fecha formateada y agregarlas a la tabla
-            boolean ventasEncontradas = false;
-            for (HistorialMovimientos venta : ventas) {
-                if (venta.getFechaActual().equals(fechaFormatted)) {
-                    mt.addRow(new Object[]{mt.getRowCount() + 1, venta.getPrecio_total(), venta.getFechaActual()});
-                    ventasEncontradas = true;
+            // Utilizar un mapa para agrupar las ventas/compras por ID en la fecha formateada
+            Map<Integer, HistorialMovimientos> movimientosMap = new HashMap<>();
+            for (HistorialMovimientos movimiento : movimientos) {
+                if (movimiento.getFechaActual().equals(fechaFormatted)) {
+                    if (movimientosMap.containsKey(movimiento.getId())) {
+                        HistorialMovimientos movimientoExistente = movimientosMap.get(movimiento.getId());
+                        movimientoExistente.setPrecio_total(movimientoExistente.getPrecio_total() + movimiento.getPrecio_total());
+                    } else {
+                        movimientosMap.put(movimiento.getId(), movimiento);
+                    }
                 }
+            }
+
+            // Agregar las ventas/compras agrupadas a la tabla
+            for (HistorialMovimientos movimiento : movimientosMap.values()) {
+                mt.addRow(new Object[]{movimiento.getId(), movimiento.getPrecio_total(), movimiento.getFechaActual()});
             }
 
             actualizarTotal();
 
-            // Mostrar mensaje si no se encontraron ventas
-            if (!ventasEncontradas) {
-                //JOptionPane.showMessageDialog(this, "No existen ventas en esta fecha", "ERROR", JOptionPane.ERROR_MESSAGE);
+            // Mostrar mensaje si no se encontraron ventas/compras
+            if (movimientosMap.isEmpty()) {
+                // JOptionPane.showMessageDialog(this, "No existen ventas/compras en esta fecha", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
 
         } catch (ParseException e) {
-            //JOptionPane.showMessageDialog(this, "Fecha no válida. Por favor ingrese una fecha en el formato dd/MM/yyyy.", "Error", JOptionPane.ERROR_MESSAGE);
+            // JOptionPane.showMessageDialog(this, "Fecha no válida. Por favor ingrese una fecha en el formato dd/MM/yyyy.", "Error", JOptionPane.ERROR_MESSAGE);
             txtFecha.requestFocusInWindow(); // Asegurarse de que el foco vuelva al campo de texto
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar el historial de ventas.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al cargar el historial.", "Error", JOptionPane.ERROR_MESSAGE);
             System.out.println(e.getMessage());
         }
     }
