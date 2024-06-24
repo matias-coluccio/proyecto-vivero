@@ -22,8 +22,13 @@ import java.util.*;
  */
 public class Historial extends javax.swing.JFrame {
     String ids[] = {"Numero", "Precio Total", "Fecha"};
-    DefaultTableModel mt = new DefaultTableModel(ids, 0);
     ClaseJson Historial = new ClaseJson();
+    DefaultTableModel mt = new DefaultTableModel(ids, 0) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false; // Todas las celdas no son editables
+        }
+    };
 
     /**
      * Crea una nueva instancia de la ventana Historial.
@@ -49,35 +54,39 @@ public class Historial extends javax.swing.JFrame {
             }
         });
 
+        // Listener para clics en las filas de la tabla
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int row = jTable2.rowAtPoint(evt.getPoint());
+                int idVenta = (int) jTable2.getValueAt(row, 0);
+                String selectedCategory = (String) Categoriacmbox.getSelectedItem();
+                if (selectedCategory.equals("Ventas")) {
+                    mostrarDetalleVenta(idVenta);
+                } else {
+                    mostrarDetalleCompra(idVenta);
+                }
+            }
+        });
+
         // Añadir DocumentListener al txtFecha
         txtFecha.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                String venta="Ventas";
-                if(venta.equals(Categoriacmbox.getSelectedItem()))
-                {
+                String selectedCategory = (String) Categoriacmbox.getSelectedItem();
+                if (selectedCategory.equals("Ventas")) {
                     buscarPorFecha("archivoHistorialVenta.json");
-                    //InitTableVentas(mt);
-                }
-                else
-                {
+                } else {
                     buscarPorFecha("archivoHistorialCompra.json");
-                    //InitTableCompras(mt);
                 }
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                String venta="Ventas";
-                if(venta.equals(Categoriacmbox.getSelectedItem()))
-                {
+                String selectedCategory = (String) Categoriacmbox.getSelectedItem();
+                if (selectedCategory.equals("Ventas")) {
                     buscarPorFecha("archivoHistorialVenta.json");
-                    //InitTableVentas(mt);
-                }
-                else
-                {
+                } else {
                     buscarPorFecha("archivoHistorialCompra.json");
-                    //InitTableCompras(mt);
                 }
             }
 
@@ -87,6 +96,55 @@ public class Historial extends javax.swing.JFrame {
             }
         });
     }
+    private void mostrarDetalleVenta(int idVenta) {
+        try {
+            Historial = ClaseJson.cargarDesdeArchivoHistorial("archivoHistorialVenta.json");
+            ArrayList<HistorialMovimientos> ventas = Historial.getHistorial();
+            HistorialMovimientos ventaSeleccionada = null;
+            for (HistorialMovimientos venta : ventas) {
+                if (venta.getId() == idVenta) {
+                    if (ventaSeleccionada == null) {
+                        ventaSeleccionada = venta;
+                    } else {
+                        // Sumar los totales de las ventas con el mismo ID
+                        ventaSeleccionada.setPrecio_total(ventaSeleccionada.getPrecio_total() + venta.getPrecio_total());
+                    }
+                }
+            }
+            if (ventaSeleccionada != null) {
+                DetalleVenta detalle = new DetalleVenta(this, ventaSeleccionada, idVenta, false);
+                detalle.setVisible(true);
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar el historial de ventas.", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
+        }
+    }
+    private void mostrarDetalleCompra(int idVenta) {
+        try {
+            Historial = ClaseJson.cargarDesdeArchivoHistorial("archivoHistorialCompra.json");
+            ArrayList<HistorialMovimientos> compras = Historial.getHistorial();
+            HistorialMovimientos compraSeleccionada = null;
+            for (HistorialMovimientos venta : compras) {
+                if (venta.getId() == idVenta) {
+                    if (compraSeleccionada == null) {
+                        compraSeleccionada = venta;
+                    } else {
+                        // Sumar los totales de las ventas con el mismo ID
+                        compraSeleccionada.setPrecio_total(compraSeleccionada.getPrecio_total() + venta.getPrecio_total());
+                    }
+                }
+            }
+            if (compraSeleccionada != null) {
+                DetalleVenta detalle = new DetalleVenta(this, compraSeleccionada, idVenta, true);
+                detalle.setVisible(true);
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar el historial de compras.", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     private float actualizarTotal() {
         float total = 0;
@@ -109,8 +167,19 @@ public class Historial extends javax.swing.JFrame {
             try {
                 Historial = ClaseJson.cargarDesdeArchivoHistorial("archivoHistorialVenta.json");
                 ArrayList<HistorialMovimientos> ventas = Historial.getHistorial();
+                // Utilizar un mapa para agrupar las ventas por ID
+                Map<Integer, HistorialMovimientos> ventasMap = new HashMap<>();
                 for (HistorialMovimientos venta : ventas) {
-                    mt.addRow(new Object[]{mt.getRowCount() + 1, venta.getPrecio_total(), venta.getFechaActual()});
+                    if (ventasMap.containsKey(venta.getId())) {
+                        HistorialMovimientos ventaExistente = ventasMap.get(venta.getId());
+                        ventaExistente.setPrecio_total(ventaExistente.getPrecio_total() + venta.getPrecio_total());
+                    } else {
+                        ventasMap.put(venta.getId(), venta);
+                    }
+                }
+                // Agregar las ventas agrupadas a la tabla
+                for (HistorialMovimientos venta : ventasMap.values()) {
+                    mt.addRow(new Object[]{venta.getId(), venta.getPrecio_total(), venta.getFechaActual()});
                 }
                 actualizarTotal();
             } catch (IOException e) {
@@ -126,8 +195,19 @@ public class Historial extends javax.swing.JFrame {
             try {
                 Historial = ClaseJson.cargarDesdeArchivoHistorial("archivoHistorialCompra.json");
                 ArrayList<HistorialMovimientos> ventas = Historial.getHistorial();
+                // Utilizar un mapa para agrupar las ventas por ID
+                Map<Integer, HistorialMovimientos> ventasMap = new HashMap<>();
                 for (HistorialMovimientos venta : ventas) {
-                    mt.addRow(new Object[]{mt.getRowCount() + 1, venta.getPrecio_total(), venta.getFechaActual()});
+                    if (ventasMap.containsKey(venta.getId())) {
+                        HistorialMovimientos ventaExistente = ventasMap.get(venta.getId());
+                        ventaExistente.setPrecio_total(ventaExistente.getPrecio_total() + venta.getPrecio_total());
+                    } else {
+                        ventasMap.put(venta.getId(), venta);
+                    }
+                }
+                // Agregar las ventas agrupadas a la tabla
+                for (HistorialMovimientos venta : ventasMap.values()) {
+                    mt.addRow(new Object[]{venta.getId(), venta.getPrecio_total(), venta.getFechaActual()});
                 }
                 actualizarTotal();
             } catch (IOException e) {
@@ -270,7 +350,7 @@ public class Historial extends javax.swing.JFrame {
             }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
+                return false;
             }
         });
         jScrollPane2.setViewportView(jTable2);

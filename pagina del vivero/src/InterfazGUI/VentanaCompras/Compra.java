@@ -393,8 +393,22 @@ public class Compra extends javax.swing.JFrame {
         HistorialMovimientos aux = new HistorialMovimientos();
         int opc = JOptionPane.showConfirmDialog(null, "Confirmar compra", "Confirmacion de compra", JOptionPane.YES_NO_OPTION);
         boolean entro=false;
+        int Idventa=0;
 
         if(opc == JOptionPane.YES_OPTION) {
+            try {
+                if (a.archivoHistorialCompras.exists()) {
+                    a = ClaseJson.cargarDesdeArchivoHistorial("archivoHistorialCompra.json");
+                    ArrayList<HistorialMovimientos> ventas = a.getHistorial();
+                    HistorialMovimientos ultimo = ventas.get(ventas.size() - 1); // Get the last element properly
+                    Idventa = ultimo.getId() + 1;
+                } else {
+                    Idventa = 1;
+                }
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+                return; // Exit if there's an error loading the history
+            }
             for (int i = 0; i < jTable2.getRowCount(); i++) {
                 entro=true;
                 Object value;
@@ -458,12 +472,9 @@ public class Compra extends javax.swing.JFrame {
                     throw new IllegalArgumentException("El valor en la celda (i, 4) no es un entero: " + value.getClass().getName());
                 }
 
-
+                aux.setId(Idventa);
                 // Guardar Historial
                 try {
-                    if (a.archivoHistorialCompras.exists()) {
-                        a = ClaseJson.cargarDesdeArchivoHistorial("archivoHistorialCompra.json");
-                    }
 
                     a.Agregar(aux);
                     a.guardarEnArchivoHistorial("archivoHistorialCompra.json");
