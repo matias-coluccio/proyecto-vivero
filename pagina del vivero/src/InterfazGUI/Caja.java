@@ -10,6 +10,7 @@ import Historial.HistorialMovimientos;
 import Vivero.Vivero;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -61,6 +62,11 @@ public class Caja extends javax.swing.JFrame {
     private void ActualizarTxts()
     {
         try {
+            txtTierras.setText("0");
+            txtAgroquimicos.setText("0");
+            txtMacetas.setText("0");
+            txtPlantas.setText("0");
+            txtCantTotal.setText("0");
             if (Historial.archivoHistorialVentas.exists()) {
                 Historial = ClaseJson.cargarDesdeArchivoHistorial("archivoHistorialVenta.json");
                 ArrayList<HistorialMovimientos> ventas =Historial.getHistorial();
@@ -78,35 +84,40 @@ public class Caja extends javax.swing.JFrame {
                 txtCantTotal.setText("0");
                 for(HistorialMovimientos i:ventas)
                 {
-                    CantTotal+=i.getCant();
-
-
-                    if(articulos.containsKey(i.getCodigo()))
+                    if(i.getFechaActual().equals(LocalDate.now().toString()))
                     {
-                        Articulo aux=articulos.get(i.getCodigo());
-                        if(aux.getTipoDeArticulo().equals("Planta"))
+                        CantTotal+=i.getCant();
+                        if(articulos.containsKey(i.getCodigo()))
                         {
+                            Articulo aux=articulos.get(i.getCodigo());
+                            if(aux.getTipoDeArticulo().equals("Planta"))
+                            {
 
-                            cantidadPlanta+=i.getCant();
-                            txtPlantas.setText(String.valueOf(cantidadPlanta));
-                        }
-                        else if(aux.getTipoDeArticulo().equals("Maceta"))
-                        {
-                            cantidadMaceta+=i.getCant();
-                            txtMacetas.setText(String.valueOf(cantidadMaceta));
-                        }
-                        else if(aux.getTipoDeArticulo().equals("Agroquimico"))
-                        {
-                            cantidadAgroquimico+=i.getCant();
-                            txtAgroquimicos.setText(String.valueOf(cantidadAgroquimico));
-                        }
-                        else if(aux.getTipoDeArticulo().equals("Tierra"))
-                        {
-                            cantidadTierra+=i.getCant();
-                            txtTierras.setText(String.valueOf(cantidadTierra));
-                        }
+                                cantidadPlanta+=i.getCant();
+                                txtPlantas.setText(String.valueOf(cantidadPlanta));
+                            }
+                            else if(aux.getTipoDeArticulo().equals("Maceta"))
+                            {
+                                cantidadMaceta+=i.getCant();
+                                txtMacetas.setText(String.valueOf(cantidadMaceta));
+                            }
+                            else if(aux.getTipoDeArticulo().equals("Agroquimico"))
+                            {
+                                cantidadAgroquimico+=i.getCant();
+                                txtAgroquimicos.setText(String.valueOf(cantidadAgroquimico));
+                            }
+                            else if(aux.getTipoDeArticulo().equals("Tierra"))
+                            {
+                                cantidadTierra+=i.getCant();
+                                txtTierras.setText(String.valueOf(cantidadTierra));
+                            }
 
+                        }
                     }
+
+
+
+
 
                 }
                 txtCantTotal.setText(String.valueOf(CantTotal));
@@ -120,14 +131,20 @@ public class Caja extends javax.swing.JFrame {
     private void actualizarPrecioTotal() {
        try
        {
+           txtTotal.setText("$0.00");
            float total=0;
            if(Historial.archivoHistorialVentas.exists())
            {
+
                Historial=ClaseJson.cargarDesdeArchivoHistorial("archivoHistorialVenta.json");
               ArrayList<HistorialMovimientos> ventas =Historial.getHistorial();
               for(HistorialMovimientos i:ventas)
               {
-                  total+=i.getPrecio_total();
+                  if(i.getFechaActual().equals(LocalDate.now().toString()))
+                  {
+                      total+=i.getPrecio_total();
+                  }
+
               }
               txtTotal.setText("$"+(total));
            }
