@@ -44,6 +44,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         GUI.setupButton(Buscar);
         GUI.setupButtonAceptar(Aceptar);
         GUI.setupButtonCancelar(Cancelar);
+        GUI.setupButton(Cargar);
         setResizable(false);
 
         // Agregar TableModelListener
