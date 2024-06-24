@@ -10,6 +10,7 @@ public class HistorialMovimientos {
     private float precio_total;
     private int cant;
     private  String fechaActual;
+    private int id;
 
 
     public HistorialMovimientos(int codigo, int cant, float precio_total, float precio_un, String nombre) {
@@ -19,6 +20,14 @@ public class HistorialMovimientos {
         this.precio_un = precio_un;
         this.nombre = nombre;
         this.fechaActual=LocalDate.now().toString();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public HistorialMovimientos() {
@@ -78,12 +87,12 @@ public class HistorialMovimientos {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         HistorialMovimientos that = (HistorialMovimientos) o;
-        return codigo == that.codigo && Float.compare(precio_un, that.precio_un) == 0 && Float.compare(precio_total, that.precio_total) == 0 && cant == that.cant && Objects.equals(nombre, that.nombre) && Objects.equals(fechaActual, that.fechaActual);
+        return codigo == that.codigo && Float.compare(precio_un, that.precio_un) == 0 && Float.compare(precio_total, that.precio_total) == 0 && cant == that.cant && id == that.id && Objects.equals(nombre, that.nombre) && Objects.equals(fechaActual, that.fechaActual);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(codigo, nombre, precio_un, precio_total, cant, fechaActual);
+        return Objects.hash(codigo, nombre, precio_un, precio_total, cant, fechaActual, id);
     }
 
     @Override
@@ -95,6 +104,7 @@ public class HistorialMovimientos {
                 ", precio_total=" + precio_total +
                 ", cant=" + cant +
                 ", fechaActual='" + fechaActual + '\'' +
+                ", id=" + id +
                 '}';
     }
 }

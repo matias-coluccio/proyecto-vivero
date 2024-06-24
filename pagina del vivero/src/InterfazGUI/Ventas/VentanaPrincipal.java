@@ -469,12 +469,29 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {
         int opc = JOptionPane.showConfirmDialog(null, "Confirmar venta", "Confirmacion de venta", JOptionPane.YES_NO_OPTION);
-        boolean entro=false;
+        boolean entro = false;
+        int Idventa = 0;
 
-        if(opc == JOptionPane.YES_OPTION) {
+        if (opc == JOptionPane.YES_OPTION) {
+            // Determinar el próximo Idventa
+            try {
+                if (a.archivoHistorialVentas.exists()) {
+                    a = ClaseJson.cargarDesdeArchivoHistorial("archivoHistorialVenta.json");
+                    ArrayList<HistorialMovimientos> ventas = a.getHistorial();
+                    HistorialMovimientos ultimo = ventas.get(ventas.size() - 1); // Get the last element properly
+                    Idventa = ultimo.getId() + 1;
+                } else {
+                    Idventa = 1;
+                }
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+                return; // Exit if there's an error loading the history
+            }
+
             for (int i = 0; i < jTable2.getRowCount(); i++) {
-                entro=true;
+                entro = true;
                 Object value;
+                HistorialMovimientos aux = new HistorialMovimientos(); // Ensure a new object for each row
 
                 // Nombre (asumiendo que siempre es String)
                 aux.setNombre((String) mt.getValueAt(i, 1));
@@ -517,16 +534,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     } catch (NumberFormatException e) {
                         throw new IllegalArgumentException("El valor en la celda (i, 3) no es un float válido: " + value);
                     }
-                }
-                else if (value instanceof Double) {
+                } else if (value instanceof Double) {
                     try {
-                        String valor=String.valueOf( value);
+                        String valor = String.valueOf(value);
                         aux.setPrecio_total(Float.parseFloat(valor));
                     } catch (NumberFormatException e) {
                         throw new IllegalArgumentException("El valor en la celda (i, 3) no es un float válido: " + value);
                     }
-                }
-                else {
+                } else {
                     throw new IllegalArgumentException("El valor en la celda (i, 3) no es un float: " + value.getClass().getName());
                 }
 
@@ -544,75 +559,56 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     throw new IllegalArgumentException("El valor en la celda (i, 4) no es un entero: " + value.getClass().getName());
                 }
 
+                // Asignar el mismo Idventa a cada fila de la venta actual
+                aux.setId(Idventa);
+
                 // Guardar la venta
                 try {
-                    if (a.archivoHistorialVentas.exists()) {
-                        a = ClaseJson.cargarDesdeArchivoHistorial("archivoHistorialVenta.json");
-                    }
                     a.Agregar(aux);
                     a.guardarEnArchivoHistorial("archivoHistorialVenta.json");
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
 
-                //Reducir el stock en al articulo
-                try
-                {
-                    int codigo=0;
-                    //Recupero el codigo de la tabla para buscarlo en el archivo
+                // Reducir el stock en al articulo
+                try {
+                    int codigo = 0;
+                    // Recupero el codigo de la tabla para buscarlo en el archivo
+                    codigo = (Integer) mt.getValueAt(i, 0);
 
-                    codigo =(Integer) mt.getValueAt(i, 0);
-
-
-
-
-                    vivero=Vivero.cargarDesdeArchivo("archivo.json");
+                    vivero = Vivero.cargarDesdeArchivo("archivo.json");
                     Iterator e = vivero.getArticulos().entrySet().iterator();
-                    int flag =0;
-                    while(e.hasNext() && flag==0)
-                    {
-                        try
-                        {
+                    int flag = 0;
+                    while (e.hasNext() && flag == 0) {
+                        try {
                             Map.Entry<Integer, Articulo> o = (Map.Entry<Integer, Articulo>) e.next();
                             Articulo aux1 = o.getValue();
-                            if(aux1.getCodigo()==codigo)
-                            {
-                                int stockTotal= aux1.getStock();
-                                int nuevoStock=stockTotal- aux.getCant();
+                            if (aux1.getCodigo() == codigo) {
+                                int stockTotal = aux1.getStock();
+                                int nuevoStock = stockTotal - aux.getCant();
                                 aux1.setStock(nuevoStock);
                                 vivero.getArticulos().put(aux1.getCodigo(), aux1);
                                 vivero.guardarEnArchivo("archivo.json");
-
-                                flag=1;
+                                flag = 1;
                             }
-
+                        } catch (ConcurrentModificationException j) {
+                            // Handle ConcurrentModificationException if needed
                         }
-                        catch (ConcurrentModificationException j)
-                        {
-
-                        }
-
                     }
-                    if(flag==0)
-                    {
+                    if (flag == 0) {
                         int opc1 = JOptionPane.showConfirmDialog(null, "No existe un cliente con este dni, desea crearlo?", "DNI NO ENCONTRADO", JOptionPane.YES_NO_OPTION);
-                        if(opc1==0)
-                        {
-                            NuevoCliente clientenuevo= new NuevoCliente(flag, this);
+                        if (opc1 == 0) {
+                            NuevoCliente clientenuevo = new NuevoCliente(flag, this);
                             clientenuevo.setVisible(true);
                         }
                     }
-
-
+                } catch (IOException e) {
+                    // Handle IOException if needed
                 }
-                catch (IOException e)
-                {
-
-                }
-
             }
-            if(entro)
-            {
+
+            // Confirm the sale
+            if (entro) {
                 JOptionPane.showMessageDialog(null, "Venta registrada exitosamente");
             }
             txtCodigo.setText("");
@@ -620,6 +616,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             mt.setRowCount(0);
             actualizarTotal();
 
+            // Increment the Idventa for the next sale
+            Idventa++;
         }
     }
 
