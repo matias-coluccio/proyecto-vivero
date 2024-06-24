@@ -492,8 +492,17 @@ public class Compra extends javax.swing.JFrame {
                             Articulo aux1 = o.getValue();
                             if(aux1.getCodigo()==codigo)
                             {
+                                int nuevoStock=0;
                                 int stockTotal= aux1.getStock();
-                                int nuevoStock=stockTotal+ aux.getCant();
+                                if(stockTotal<0)
+                                {
+                                    nuevoStock=aux.getCant();
+                                }
+                                else
+                                {
+                                    nuevoStock=stockTotal+ aux.getCant();
+                                }
+
                                 aux1.setStock(nuevoStock);
                                 vivero.getArticulos().put(aux1.getCodigo(), aux1);
                                 vivero.guardarEnArchivo("archivo.json");
