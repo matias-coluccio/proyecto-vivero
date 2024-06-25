@@ -291,9 +291,9 @@ public class Articulos extends javax.swing.JFrame {
     // Acción para el botón Borrar
     private void BorrarActionPerformed(java.awt.event.ActionEvent evt) {
         if (jTable1.getSelectedRow() < 0) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente a borrar", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un articulo a borrar", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            int opc = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar los clientes seleccionados?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+            int opc = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar los articulos seleccionados?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
             if (opc == 0) {
                 for (int i : jTable1.getSelectedRows()) {
                     try {
@@ -319,7 +319,7 @@ public class Articulos extends javax.swing.JFrame {
     // Acción para el botón Editar
     private void EditarActionPerformed(java.awt.event.ActionEvent evt) {
         if (jTable1.getSelectedRow() < 0) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente a editar", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un articulo a editar", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             int codigo = (Integer) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
             VentanaEditarArticulo VentanaeditarArticulo = new VentanaEditarArticulo(codigo, vivero);
