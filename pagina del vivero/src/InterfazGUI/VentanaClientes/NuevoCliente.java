@@ -360,8 +360,6 @@ public class NuevoCliente extends javax.swing.JFrame {
             txtApellido.setText("");
             CategoriaCmBox.setSelectedItem("Consumidor Final");
             txtDNI.setText("");
-
-            System.out.println(vivero.listar());
         }
         catch (NumberFormatException e)
         {

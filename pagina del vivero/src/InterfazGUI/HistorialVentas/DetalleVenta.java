@@ -47,10 +47,7 @@ public class DetalleVenta extends javax.swing.JDialog {
                 if(historial.archivoHistorialCompras.exists())
                 {
                     for (HistorialMovimientos compra : compras) {
-                        System.out.println(idVenta);
-                        //System.out.println(venta.getId());
                         if (compra.getId() == idVenta) {
-                            System.out.println("hola");
                             mt.addRow(new Object[]{compra.getCodigo(), compra.getNombre(), compra.getCant(), compra.getPrecio_un(), compra.getPrecio_total()});
                         }
                     }
@@ -64,10 +61,7 @@ public class DetalleVenta extends javax.swing.JDialog {
                 if(historial.archivoHistorialVentas.exists())
                 {
                     for (HistorialMovimientos venta1 : ventas) {
-                        System.out.println(idVenta);
-                        //System.out.println(venta.getId());
                         if (venta1.getId() == idVenta) {
-                            System.out.println("hola");
                             mt.addRow(new Object[]{venta1.getCodigo(), venta1.getNombre(), venta1.getCant(), venta1.getPrecio_un(), venta1.getPrecio_total()});
                         }
                     }
@@ -80,7 +74,6 @@ public class DetalleVenta extends javax.swing.JDialog {
         {
 
         }
-        //System.out.println(idVenta);
     }
 
 

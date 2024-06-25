@@ -294,7 +294,6 @@ public class Articulos extends javax.swing.JFrame {
                     try {
                         vivero.eliminar(jTable1.getValueAt(i, 0));
                         vivero.guardarEnArchivo("archivo.json");
-                        System.out.println(vivero.listar());
                         jTable1.remove(i);
                     } catch (Exception e) {
 

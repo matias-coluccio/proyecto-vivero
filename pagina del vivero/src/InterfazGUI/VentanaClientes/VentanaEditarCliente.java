@@ -29,7 +29,6 @@ public class VentanaEditarCliente extends javax.swing.JFrame {
         setResizable(false);
         this.dni=DNI;
         this.vivero=vivero;
-        System.out.println(vivero.listar());
         cargar();
 
 
@@ -203,8 +202,6 @@ public class VentanaEditarCliente extends javax.swing.JFrame {
             txtApellido.setText("");
             CategoriaCmBox.setSelectedItem("Consumidor Final");
 
-
-            System.out.println(vivero.listar());
         }
         catch (NumberFormatException e)
         {

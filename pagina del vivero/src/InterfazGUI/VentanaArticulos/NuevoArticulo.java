@@ -436,8 +436,6 @@ public class NuevoArticulo extends JFrame {
             txtCodigo.setText("");
             txtPrecio.setText("");
             TipoCmBox.setSelectedItem("Planta");
-
-            System.out.println(vivero.listar());
         }
         catch (NumberFormatException e)
         {

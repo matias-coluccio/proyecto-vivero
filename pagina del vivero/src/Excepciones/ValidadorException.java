@@ -6,7 +6,7 @@ import Excepciones.ExceptionDNI;
 
 import java.util.Map;
 
-public class ValidadorException {
+public abstract class ValidadorException {
     public static void ValidadDNI(int dni, Map dato) throws ExceptionDNI
     {
             if(dato.containsKey(dni))

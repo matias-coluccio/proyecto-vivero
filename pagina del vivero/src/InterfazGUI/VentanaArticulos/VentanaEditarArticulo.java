@@ -3,6 +3,7 @@ package InterfazGUI.VentanaArticulos;
 
 import Excepciones.ExceptionCodigoDuplicado;
 import Excepciones.ExceptionDNI;
+import Historial.ClaseJson;
 import InterfazGUI.GUI;
 import InterfazGUI.VentanaClientes.Cliente;
 import Vivero.Vivero;
@@ -35,7 +36,6 @@ public class VentanaEditarArticulo extends JFrame {
         setResizable(false);
         this.codigo=codigo;
         this.vivero=vivero;
-        System.out.println(vivero.listar());
         cargar();
 
 
@@ -221,7 +221,7 @@ public class VentanaEditarArticulo extends JFrame {
     }
 
 
-    private void GuardarActionPerformed(java.awt.event.ActionEvent evt)  {
+    private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {
         try {
             Articulo articulo = new Articulo();
             articulo.setNombreDelArticulo(txtNombre.getText());
@@ -230,61 +230,41 @@ public class VentanaEditarArticulo extends JFrame {
             articulo.setStock(Integer.parseInt(txtStock.getText()));
             articulo.setTipoDeArticulo((String) TipoCmBox.getSelectedItem());
 
-            if(  txtNombre.getText().equals("") ||  txtPrecio.getText().equals("") || txtCodigo.getText().equals("") || txtStock.equals(""))
-            {
-                throw new NumberFormatException("Campos vacios");
+            if (txtNombre.getText().equals("") || txtPrecio.getText().equals("") || txtCodigo.getText().equals("") || txtStock.getText().equals("")) {
+                throw new NumberFormatException("Campos vacíos");
             }
 
             try {
-                vivero.getArticulos();
-                Iterator e = vivero.getArticulos().entrySet().iterator();
-                while (e.hasNext())
-                {
-                    try
-                    {
-                        Map.Entry<Integer, Articulo> i = (Map.Entry<Integer, Articulo>) e.next();
-                        Articulo aux = i.getValue();
-                        if(aux.getCodigo()==codigo)
-                        {
-                            vivero.getArticulos().remove(aux.getCodigo());
-                        }
-
-                    }
-                    catch (ConcurrentModificationException j)
-                    {
-
-                    }
+                // Remover el artículo existente con el mismo código
+                Articulo articuloExistente = (Articulo) vivero.buscarCodigo(codigo);
+                if (articuloExistente != null) {
+                    vivero.getArticulos().remove(articuloExistente.getCodigo());
                 }
+
+                // Agregar el artículo modificado
                 vivero.agregar(articulo);
                 vivero.guardarEnArchivo("archivo.json");
-                JOptionPane.showMessageDialog(null, "Articulo registrado exitosamente");
-            }catch (IOException e)
-            {
+                JOptionPane.showMessageDialog(null, "Artículo registrado exitosamente");
+
+                // Limpiar los campos
+                txtNombre.setText("");
+                txtStock.setText("");
+                txtCodigo.setText("");
+                txtPrecio.setText("");
+                TipoCmBox.setSelectedItem("Planta");
+
+            } catch (IOException e) {
                 System.out.println(e.getMessage());
-            }
-            catch (ExceptionCodigoDuplicado e)
-            {
-                JOptionPane.showInternalMessageDialog(null, "Ya existe un articulo con ese codigo", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (ExceptionCodigoDuplicado e) {
+                JOptionPane.showInternalMessageDialog(null, "Ya existe un artículo con ese código", "Error", JOptionPane.ERROR_MESSAGE);
                 System.out.println(e.getMessage());
+            } catch (ExceptionDNI e) {
+                // Manejar la excepción de DNI aquí si es necesario
             }
-            catch(ExceptionDNI e) {
-
-            }
-            txtNombre.setText("");
-            txtStock.setText("");
-            txtCodigo.setText("");
-            txtPrecio.setText("");
-            TipoCmBox.setSelectedItem("Planta");
-
-
-
-        }
-        catch (NumberFormatException e)
-        {
+        } catch (NumberFormatException e) {
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Debe rellenar los campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
     }
 
 
