@@ -26,9 +26,11 @@ public class NuevoArticulo extends JFrame {
      * Creates new form NuevoCliente
      *
      */
-    Vivero vivero = new Vivero();//PROVISORIO DE PERSISTENCIA(JSON)
+    Vivero vivero = new Vivero();
     private int flag;
     Compra a;
+
+    //Ventana para crear un articulo desde el menu de articulos
     public NuevoArticulo() {
         initComponents();
         setTitle("Nuevo articulo");
@@ -39,6 +41,7 @@ public class NuevoArticulo extends JFrame {
         setResizable(false);
 
     }
+    //Ventana que hace lo mismo pero desde compras para que cuando vuelva no vaya al menu articulos sino a la compra
     public NuevoArticulo(int flag, Compra a) {
         initComponents1(flag);
         this.a=a;
@@ -236,6 +239,7 @@ public class NuevoArticulo extends JFrame {
         Stock = new javax.swing.JLabel();
         Codigo = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
+        //Seteo los placeholders
         TextPrompt placeholdern1=new TextPrompt("Escriba aqui el nombre", txtNombre);
         TextPrompt placeholdern2=new TextPrompt("Escriba aqui el precio", txtPrecio);
         TextPrompt placeholdern3=new TextPrompt("Escriba aqui el stock", txtStock);
@@ -385,25 +389,26 @@ public class NuevoArticulo extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
-          Articulos articulos=new Articulos();
-        articulos.setVisible(true);// TODO add your handling code here:
+        Articulos articulos=new Articulos();
+        articulos.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_VolverActionPerformed
     private void VolverActionPerformed1(java.awt.event.ActionEvent evt, int flag) {//GEN-FIRST:event_VolverActionPerformed
-
-        a.setVisible(true);// TODO add your handling code here:
+       //Vuelve a compras ya que se llamo desde esa ventana
+        a.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_VolverActionPerformed
 
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
         try {
+            //Creo un articulo que guarda los datos de los textFields
             Articulo articulo = new Articulo();
             articulo.setNombreDelArticulo(txtNombre.getText());
             articulo.setPrecio(Float.parseFloat(txtPrecio.getText()));
             articulo.setCodigo(Integer.parseInt(txtCodigo.getText()));
             articulo.setStock(Integer.parseInt(txtStock.getText()));
             articulo.setTipoDeArticulo((String) TipoCmBox.getSelectedItem());
-
+            //Si estan vacios los campos que tire un error
             if( txtNombre.getText().equals("") ||  txtPrecio.getText().equals("") || txtCodigo.getText().equals("") || txtStock.equals(""))
             {
                 throw new NumberFormatException("Campos vacios");
@@ -413,6 +418,8 @@ public class NuevoArticulo extends JFrame {
                     if(vivero.archivoVivero.exists()) {
                         vivero = Vivero.cargarDesdeArchivo("archivo.json");
                     }
+
+                    //Guardo en el archivo el nuevo articulo
 
                 vivero.agregar(articulo);
                 vivero.guardarEnArchivo("archivo.json");
@@ -426,11 +433,14 @@ public class NuevoArticulo extends JFrame {
             {
 
             }
+
             catch (ExceptionCodigoDuplicado e)
             {
+                //Muestro un mensaje si ya existe un articulo con ese codigo
                 JOptionPane.showInternalMessageDialog(null, "Ya existe un articulo con ese codigo", "Error", JOptionPane.ERROR_MESSAGE);
                 System.out.println(e.getMessage());
             }
+            //Setear todos los campos vacios una vez que cargo el articulo
             txtNombre.setText("");
             txtStock.setText("");
             txtCodigo.setText("");

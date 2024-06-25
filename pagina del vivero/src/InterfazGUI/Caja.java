@@ -32,8 +32,11 @@ public class Caja extends javax.swing.JFrame {
         setTitle("Menu Caja");
         setLocationRelativeTo(null);
         GUI.setupButton(Volver);
+        //Hago que no se puedan borrar los datos mostrados en los TextFields
         FalseEditable();
+        //Actualizo el diseño de la fuente en los TextFields
         AgrandarLetra();
+        //Muestro los TextFields con los datos correspondientes
         ActualizarTxts();
         PanelDescripcion.requestFocusInWindow();
         actualizarPrecioTotal();

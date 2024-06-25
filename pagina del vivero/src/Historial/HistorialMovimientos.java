@@ -3,7 +3,9 @@ package Historial;
 import java.time.LocalDate;
 import java.util.Objects;
 
+//Clase que guarda los atributos de una venta o compra
 public class HistorialMovimientos {
+    //Atributos de clase
     private int codigo;
     private String nombre;
     private float precio_un;
@@ -12,7 +14,7 @@ public class HistorialMovimientos {
     private  String fechaActual;
     private int id;
 
-
+    //Constructor que no se utiliza pero serviria para crear un historial con todos sus datos de una
     public HistorialMovimientos(int codigo, int cant, float precio_total, float precio_un, String nombre) {
         this.codigo = codigo;
         this.cant = cant;
@@ -22,6 +24,7 @@ public class HistorialMovimientos {
         this.fechaActual=LocalDate.now().toString();
     }
 
+    //Getter and setter
     public int getId() {
         return id;
     }
@@ -82,6 +85,7 @@ public class HistorialMovimientos {
         this.cant = cant;
     }
 
+    //Overrides
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

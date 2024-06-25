@@ -164,6 +164,7 @@ public class VentanaEditarCliente extends javax.swing.JFrame {
 
     private void cargar()
     {
+        //Busco en el archivo ese cliente y cargo los textFields
         Clientes.Cliente aux=(Clientes.Cliente) vivero.buscarDni(dni);
         txtNombre.setText(aux.getNombre());
         txtApellido.setText(aux.getApellido());
@@ -173,6 +174,7 @@ public class VentanaEditarCliente extends javax.swing.JFrame {
 
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {
         try {
+            //Creo un cliente con los datos de los textFields
             Clientes.Cliente cliente = new Clientes.Cliente();
             cliente.setNombre(txtNombre.getText());
             cliente.setApellido(txtApellido.getText());
@@ -182,10 +184,12 @@ public class VentanaEditarCliente extends javax.swing.JFrame {
 
             if(  txtNombre.getText().equals("") ||  txtApellido.getText().equals("") )
             {
+                //Si deja campos vacios
                 throw new NumberFormatException("Campos vacios");
             }
 
             try {
+                //Guardo el cliente en el archivo ahora editado
                 vivero.getClientes().put(dni,cliente);
                 vivero.guardarEnArchivo("archivo.json");
                 JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente");
@@ -195,9 +199,11 @@ public class VentanaEditarCliente extends javax.swing.JFrame {
             }
             catch (Exception e)
             {
+                //Muestro mensaje si ya existe un cliente con el mismo DNI
                 JOptionPane.showInternalMessageDialog(null, "Ya existe un cliente con ese DNI", "Error", JOptionPane.ERROR_MESSAGE);
                 System.out.println(e.getMessage());
             }
+            //Limpio los textFields una vez que cargo
             txtNombre.setText("");
             txtApellido.setText("");
             CategoriaCmBox.setSelectedItem("Consumidor Final");
@@ -205,6 +211,7 @@ public class VentanaEditarCliente extends javax.swing.JFrame {
         }
         catch (NumberFormatException e)
         {
+            //Muestro mensaje si deja campos vacios
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Debe rellenar los campos", "Error", JOptionPane.ERROR_MESSAGE);
         }

@@ -4,6 +4,7 @@ import InterfazGUI.GUI;
 
 public class Main {
     public static void main(String[] args) {
+        //Main class, ejecuta la app
         GUI gui= new GUI();
         gui.setVisible(true);
 

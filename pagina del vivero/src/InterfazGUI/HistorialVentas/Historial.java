@@ -1,10 +1,7 @@
 package InterfazGUI.HistorialVentas;
 
-import Clientes.Cliente;
 import InterfazGUI.GUI;
 import Historial.*;
-import Vivero.Vivero;
-
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -142,7 +139,7 @@ public class Historial extends javax.swing.JFrame {
                     if (compraSeleccionada == null) {
                         compraSeleccionada = venta;
                     } else {
-                        // Sumar los totales de las ventas con el mismo ID
+                        // Sumar los totales de las compras con el mismo ID
                         compraSeleccionada.setPrecio_total(compraSeleccionada.getPrecio_total() + venta.getPrecio_total());
                     }
                 }
@@ -207,7 +204,7 @@ public class Historial extends javax.swing.JFrame {
             try {
                 Historial = ClaseJson.cargarDesdeArchivoHistorial("archivoHistorialCompra.json");
                 ArrayList<HistorialMovimientos> ventas = Historial.getHistorial();
-                // Utilizar un mapa para agrupar las ventas por ID
+                // Utilizar un mapa para agrupar las compras por ID
                 Map<Integer, HistorialMovimientos> ventasMap = new HashMap<>();
                 for (HistorialMovimientos venta : ventas) {
                     if (ventasMap.containsKey(venta.getId())) {
@@ -217,7 +214,7 @@ public class Historial extends javax.swing.JFrame {
                         ventasMap.put(venta.getId(), venta);
                     }
                 }
-                // Agregar las ventas agrupadas a la tabla
+                // Agregar las compras agrupadas a la tabla
                 for (HistorialMovimientos venta : ventasMap.values()) {
                     mt.addRow(new Object[]{venta.getId(), venta.getPrecio_total(), venta.getFechaActual()});
                 }
@@ -235,6 +232,7 @@ public class Historial extends javax.swing.JFrame {
 
         String fechaInput = txtFecha.getText().trim();
         if (fechaInput.isEmpty() || fechaInput.equals("__/__/____")) {
+            //Si esta vacio muestro todos los datos ya sea ventas o compras
             if (ruta.equals("archivoHistorialVenta.json")) {
                 InitTableVentas(mt);
             } else {
@@ -295,6 +293,7 @@ public class Historial extends javax.swing.JFrame {
         }
     }
 
+    //Formatear txt para que coincidan el string del json de la fecha con la fecha devuelta por LocalDate
     private JFormattedTextField crearFormattedTextField() {
         JFormattedTextField formattedTextField = null;
         try {
@@ -465,9 +464,9 @@ public class Historial extends javax.swing.JFrame {
             // Mostrar ventas
             InitTableVentas(mt);
         } else {
+            // Mostrar compras
             InitTableCompras(mt);
 
-            // Implementar lógica para mostrar compras si es necesario
         }
     }
 

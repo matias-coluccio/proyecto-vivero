@@ -24,6 +24,7 @@ import javax.swing.text.*;
  * of the parent text component. You are free to change the properties after
  * class construction.
  */
+//Clase utilizada para hacer los placeHolders de los TextFields
 public class TextPrompt extends JLabel implements FocusListener, DocumentListener {
 	/**
 	 * 

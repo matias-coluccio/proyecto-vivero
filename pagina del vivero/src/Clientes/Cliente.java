@@ -1,18 +1,13 @@
 package Clientes;
-
-import Vivero.Vivero;
-//import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.Objects;
 
 public class Cliente {
+    //Atributos
     private String nombre;
     private String apellido;
     private String categoria;
     private int dni;
-
+    //Constructor
     public Cliente(String nombre, String apellido, String categoria, int dni) {
         this.nombre = nombre;
         this.apellido = apellido;
@@ -20,11 +15,13 @@ public class Cliente {
         this.dni = dni;
 
     }
+    //Constructor por defecto
     public Cliente()
     {
         this("", "", null, 0);
     }
 
+    //Getter and setter
     public String getNombre() {
         return nombre;
     }
@@ -57,7 +54,7 @@ public class Cliente {
         this.dni = dni;
     }
 
-
+//Overrides
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

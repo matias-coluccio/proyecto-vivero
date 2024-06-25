@@ -21,17 +21,22 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 public class Articulos extends javax.swing.JFrame {
+    // Array de nombres de las columnas
     String ids[] = {"Codigo", "Tipo", "Nombre", "Precio", "Stock"};
+
+    // Modelo de la tabla con columnas no editables
     DefaultTableModel mt = new DefaultTableModel(ids, 0) {
         @Override
         public boolean isCellEditable(int row, int column) {
             return false; // Todas las celdas no son editables
         }
     };
+
+    // Creación de un objeto Vivero
     Vivero vivero = new Vivero();//OTRO PROVISORIO
     static ObjectMapper objectMapper = new ObjectMapper();
 
-
+    // Constructor de la clase Articulos
     public Articulos() {
         initComponents();
         setTitle("Menu Articulos");
@@ -44,8 +49,9 @@ public class Articulos extends javax.swing.JFrame {
         GUI.setupButton(Editar);
         GUI.setupButton(Nuevo);
         GUI.setupButton(Borrar);
-        TextPrompt placeholdern1=new TextPrompt("Escriba aqui el elemento a buscar", Buscador);
+        TextPrompt placeholdern1 = new TextPrompt("Escriba aqui el elemento a buscar", Buscador);
 
+        // Listener para el campo de búsqueda
         Buscador.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -64,17 +70,17 @@ public class Articulos extends javax.swing.JFrame {
         });
     }
 
+    // Método para inicializar la tabla
     private void InitTable(DefaultTableModel mt) {
         if (vivero.archivoVivero.exists()) {
             try {
-                vivero=Vivero.cargarDesdeArchivo("archivo.json");
-                HashMap<Integer, Articulo> articulos=vivero.getArticulos();
-                for (Map.Entry<Integer, Articulo> aux : articulos.entrySet()){
-                   Articulo articulo=aux.getValue();
+                vivero = Vivero.cargarDesdeArchivo("archivo.json");
+                HashMap<Integer, Articulo> articulos = vivero.getArticulos();
+                for (Map.Entry<Integer, Articulo> aux : articulos.entrySet()) {
+                    Articulo articulo = aux.getValue();
                     mt.addRow(new Object[]{articulo.getCodigo(), articulo.getTipoDeArticulo(), articulo.getNombreDelArticulo(), articulo.getPrecio(), articulo.getStock()});
                 }
             } catch (IOException e) {
-
                 System.out.println(e.getMessage());
             }
         } else {
@@ -82,6 +88,7 @@ public class Articulos extends javax.swing.JFrame {
         }
     }
 
+    // Método para inicializar los componentes
     private void initComponents() {
         MainPanel = new javax.swing.JPanel();
         Volver = new javax.swing.JButton();
@@ -145,29 +152,29 @@ public class Articulos extends javax.swing.JFrame {
         });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
+                new Object[][]{
                         {null, null, null, null, null},
                         {null, null, null, null, null},
                         {null, null, null, null, null},
                         {null, null, null, null, null}
                 },
-                new String [] {
+                new String[]{
                         "Codigo", "Tipo", "Nombre", "Precio", "Stock"
                 }
         ) {
-            Class[] types = new Class [] {
+            Class[] types = new Class[]{
                     java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
             };
-            boolean[] canEdit = new boolean [] {
+            boolean[] canEdit = new boolean[]{
                     false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+                return types[columnIndex];
             }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         Scroll.setViewportView(jTable1);
@@ -225,6 +232,7 @@ public class Articulos extends javax.swing.JFrame {
         pack();
     }
 
+    // Acción para el botón Nuevo
     private void NuevoActionPerformed(java.awt.event.ActionEvent evt) {
         try {
             NuevoArticulo articulo = new NuevoArticulo();
@@ -235,36 +243,33 @@ public class Articulos extends javax.swing.JFrame {
         }
     }
 
+    // Acción para el botón Volver
     private void VolverActionPerformed(java.awt.event.ActionEvent evt) {
         GUI gui = new GUI();
         gui.setVisible(true);
         setVisible(false);
     }
 
+    // Método para buscar artículos
     private void buscarArticulos() {
         String searchText = Buscador.getText().toLowerCase(); // Obtener el texto del campo de búsqueda
         mt.setRowCount(0); // Limpiar todas las filas actuales de la tabla
-        ArrayList<Articulo> todos=new ArrayList<>();
+        ArrayList<Articulo> todos = new ArrayList<>();
 
-        /// aca se bajo del archivo de vivero a vivero para despues bajar todos los articulos para que se pueda mostrar
-        try
-        {
+        // Cargar artículos del archivo
+        try {
             vivero = objectMapper.readValue("archivo.json", Vivero.class);
-
-        }catch (IOException e)
-        {
-
+        } catch (IOException e) {
+            // Manejo de excepción
         }
-        HashMap<Integer, Articulo>ArticulosDelVivero=vivero.getArticulos();
-        for (Map.Entry<Integer, Articulo>entry:ArticulosDelVivero.entrySet())
-        {
-            Articulo aux =entry.getValue();
+        HashMap<Integer, Articulo> ArticulosDelVivero = vivero.getArticulos();
+        for (Map.Entry<Integer, Articulo> entry : ArticulosDelVivero.entrySet()) {
+            Articulo aux = entry.getValue();
             todos.add(aux);
         }
-        // Si el texto de búsqueda está vacío, mostrar todos los articulo de nuevo
+        // Si el texto de búsqueda está vacío, mostrar todos los artículos
         if (searchText.isEmpty()) {
-
-            for (Articulo i : todos ) {
+            for (Articulo i : todos) {
                 mt.addRow(new Object[]{i.getCodigo(), i.getTipoDeArticulo(), i.getNombreDelArticulo(), i.getPrecio(), i.getStock()});
             }
         } else {
@@ -274,16 +279,16 @@ public class Articulos extends javax.swing.JFrame {
                 String tipo = i.getTipoDeArticulo().toLowerCase();
                 String nombre = i.getNombreDelArticulo().toLowerCase();
 
-
                 // Verificar si alguna columna contiene el texto de búsqueda
                 if (codigo.contains(searchText) || tipo.contains(searchText) || nombre.contains(searchText)) {
-                    // Agregar el articulo que coincide a la tabla
+                    // Agregar el artículo que coincide a la tabla
                     mt.addRow(new Object[]{i.getCodigo(), i.getTipoDeArticulo(), i.getNombreDelArticulo(), i.getPrecio(), i.getStock()});
                 }
             }
         }
     }
 
+    // Acción para el botón Borrar
     private void BorrarActionPerformed(java.awt.event.ActionEvent evt) {
         if (jTable1.getSelectedRow() < 0) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente a borrar", "Error", JOptionPane.ERROR_MESSAGE);
@@ -296,7 +301,7 @@ public class Articulos extends javax.swing.JFrame {
                         vivero.guardarEnArchivo("archivo.json");
                         jTable1.remove(i);
                     } catch (Exception e) {
-
+                        // Manejo de excepción
                     }
                 }
                 mt.setRowCount(0);
@@ -304,13 +309,14 @@ public class Articulos extends javax.swing.JFrame {
                 Iterator<Map.Entry<Integer, Articulo>> o = aux.entrySet().iterator();
                 while (o.hasNext()) {
                     Map.Entry<Integer, Articulo> e = o.next();
-                   Articulo i = e.getValue();
+                    Articulo i = e.getValue();
                     mt.addRow(new Object[]{i.getCodigo(), i.getTipoDeArticulo(), i.getNombreDelArticulo(), i.getPrecio(), i.getStock()});
                 }
             }
         }
     }
 
+    // Acción para el botón Editar
     private void EditarActionPerformed(java.awt.event.ActionEvent evt) {
         if (jTable1.getSelectedRow() < 0) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente a editar", "Error", JOptionPane.ERROR_MESSAGE);
@@ -321,11 +327,6 @@ public class Articulos extends javax.swing.JFrame {
             setVisible(false);
         }
     }
-
-
-
-
-
 
     // Variables declaration
     private javax.swing.JButton Borrar;

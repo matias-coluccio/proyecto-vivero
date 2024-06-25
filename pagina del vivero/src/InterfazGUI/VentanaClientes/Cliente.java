@@ -268,11 +268,14 @@ public class Cliente extends javax.swing.JFrame {
 
     private void BorrarActionPerformed(java.awt.event.ActionEvent evt) {
         if (jTable1.getSelectedRow() < 0) {
+            //Si no selecciona ninguna fila de la tabla
             JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente a borrar", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             int opc = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar los clientes seleccionados?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
             if (opc == 0) {
+                //OPC 0 significa confirmar
                 for (int i : jTable1.getSelectedRows()) {
+                    //Voy borrando cada fila seleccionada
                     try {
                         vivero.eliminar(jTable1.getValueAt(i, 0));
                         vivero.guardarEnArchivo("archivo.json");
@@ -281,10 +284,12 @@ public class Cliente extends javax.swing.JFrame {
 
                     }
                 }
+                //Vuelvo a limpiar la tabla
                 mt.setRowCount(0);
                 HashMap<Integer, Clientes.Cliente> aux = vivero.getClientes();
                 Iterator<Map.Entry<Integer, Clientes.Cliente>> i = aux.entrySet().iterator();
                 while (i.hasNext()) {
+                    //Seteo la tabla con los clientes actualizados
                     Map.Entry<Integer, Clientes.Cliente> e = i.next();
                     Clientes.Cliente aux1 = e.getValue();
                     mt.addRow(new Object[]{aux1.getDni(), aux1.getNombre(), aux1.getApellido(), aux1.getCategoria()});
@@ -295,8 +300,10 @@ public class Cliente extends javax.swing.JFrame {
 
     private void EditarActionPerformed(java.awt.event.ActionEvent evt) {
         if (jTable1.getSelectedRow() < 0) {
+            //Si no selecciona ninguna fila de la tabla
             JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente a editar", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
+            //Ejecuto la ventana de editar el cliente
             int dni = (Integer) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
             VentanaEditarCliente ventanaEditarCliente = new VentanaEditarCliente(dni, vivero);
             ventanaEditarCliente.setVisible(true);
