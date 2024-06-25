@@ -8,6 +8,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.EventListener;
 
 public class DetalleVenta extends javax.swing.JDialog {
     private HistorialMovimientos venta;
@@ -25,7 +26,14 @@ public class DetalleVenta extends javax.swing.JDialog {
     public DetalleVenta(java.awt.Frame parent, HistorialMovimientos venta, int id, boolean esCompra) {
         super(parent, true);
         this.venta = venta;
-        initComponents();
+        if(esCompra)
+        {
+            initComponentsCompra();
+        }
+        else {
+            initComponents();
+        }
+
         jTable1.setModel(mt);
         this.idVenta=id;
         mt.setRowCount(0);
@@ -105,6 +113,47 @@ public class DetalleVenta extends javax.swing.JDialog {
         jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         jLabel1.setText("ID Venta:");
+        jLabel2.setText("Fecha:");
+
+        lblIdVenta.setText(String.valueOf(venta.getId()));
+        lblFecha.setText(venta.getFechaActual());
+
+        JPanel infoPanel = new JPanel();
+        infoPanel.setLayout(new GridLayout(2, 2));
+        infoPanel.add(jLabel1);
+        infoPanel.add(lblIdVenta);
+        infoPanel.add(jLabel2);
+        infoPanel.add(lblFecha);
+
+        jPanel1.add(infoPanel, java.awt.BorderLayout.NORTH);
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+    }
+    private void initComponentsCompra() {
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Detalle de compra");
+        setSize(400, 300);
+        setLocationRelativeTo(null);
+
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        lblIdVenta = new javax.swing.JLabel();
+        lblFecha = new javax.swing.JLabel();
+
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {},
+                new String [] {"Código", "Nombre", "Cantidad", "Precio Unitario", "Precio Total"}
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        jLabel1.setText("ID Compra:");
         jLabel2.setText("Fecha:");
 
         lblIdVenta.setText(String.valueOf(venta.getId()));

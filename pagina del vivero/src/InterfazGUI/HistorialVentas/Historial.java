@@ -69,33 +69,45 @@ public class Historial extends javax.swing.JFrame {
         });
 
         // Añadir DocumentListener al txtFecha
-        txtFecha.getDocument().addDocumentListener(new DocumentListener() {
+        txtFecha.getDocument().addDocumentListener(documentListener);
+    }
+    private void setDocumentListenerEnabled(boolean enabled) {
+        if (enabled) {
+            txtFecha.getDocument().addDocumentListener(documentListener);
+        } else {
+            txtFecha.getDocument().removeDocumentListener(documentListener);
+        }
+    }
+
+
+        DocumentListener documentListener = new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                String selectedCategory = (String) Categoriacmbox.getSelectedItem();
-                if (selectedCategory.equals("Ventas")) {
-                    buscarPorFecha("archivoHistorialVenta.json");
-                } else {
-                    buscarPorFecha("archivoHistorialCompra.json");
-                }
+                handleDateChange();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                String selectedCategory = (String) Categoriacmbox.getSelectedItem();
-                if (selectedCategory.equals("Ventas")) {
-                    buscarPorFecha("archivoHistorialVenta.json");
-                } else {
-                    buscarPorFecha("archivoHistorialCompra.json");
-                }
+                handleDateChange();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
                 // No es relevante para JTextFields simples
             }
-        });
-    }
+
+            private void handleDateChange() {
+                String selectedCategory = (String) Categoriacmbox.getSelectedItem();
+                if (selectedCategory.equals("Ventas")) {
+                    buscarPorFecha("archivoHistorialVenta.json");
+                } else {
+                    buscarPorFecha("archivoHistorialCompra.json");
+                }
+            }
+        };
+
+
+
     private void mostrarDetalleVenta(int idVenta) {
         try {
             Historial = ClaseJson.cargarDesdeArchivoHistorial("archivoHistorialVenta.json");
@@ -219,6 +231,8 @@ public class Historial extends javax.swing.JFrame {
     }
 
     private void buscarPorFecha(String ruta) {
+        setDocumentListenerEnabled(false); // Desactivar DocumentListener temporalmente
+
         String fechaInput = txtFecha.getText().trim();
         if (fechaInput.isEmpty() || fechaInput.equals("__/__/____")) {
             if (ruta.equals("archivoHistorialVenta.json")) {
@@ -226,6 +240,7 @@ public class Historial extends javax.swing.JFrame {
             } else {
                 InitTableCompras(mt);
             }
+            setDocumentListenerEnabled(true); // Volver a activar DocumentListener
             return;
         }
 
@@ -275,6 +290,8 @@ public class Historial extends javax.swing.JFrame {
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Error al cargar el historial.", "Error", JOptionPane.ERROR_MESSAGE);
             System.out.println(e.getMessage());
+        } finally {
+            setDocumentListenerEnabled(true); // Volver a activar DocumentListener
         }
     }
 

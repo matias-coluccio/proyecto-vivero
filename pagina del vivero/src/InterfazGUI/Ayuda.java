@@ -4,6 +4,8 @@
  */
 package InterfazGUI;
 
+import java.util.Objects;
+
 /**
  *
  * @author Gian
@@ -18,6 +20,8 @@ public class Ayuda extends javax.swing.JFrame {
           setLocationRelativeTo(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
+        MainPanel.requestFocusInWindow();
+        GUI.setupButton(Volver);
         
         
     }
@@ -52,7 +56,11 @@ public class Ayuda extends javax.swing.JFrame {
         Titulo.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
         Titulo.setText("Ayuda");
 
+        Volver.setBackground(new java.awt.Color(51, 102, 255));
+        Volver.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Volver.setForeground(new java.awt.Color(0, 0, 0));
         Volver.setText("Volver");
+        Volver.setBorder(null);
         Volver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Volver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -60,7 +68,7 @@ public class Ayuda extends javax.swing.JFrame {
             }
         });
 
-        Imagen.setIcon(new javax.swing.ImageIcon("C:\\Users\\Gian\\Downloads\\images.png")); // NOI18N
+        Imagen.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource("/Imagenes/images.png"))));
 
         PanelAyuda.setBackground(new java.awt.Color(153, 153, 153));
         PanelAyuda.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -123,8 +131,8 @@ public class Ayuda extends javax.swing.JFrame {
                         .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(MainPanelLayout.createSequentialGroup()
                         .addGap(76, 76, 76)
-                        .addComponent(Volver)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(60, Short.MAX_VALUE))
             .addGroup(MainPanelLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(PanelAyuda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -145,8 +153,8 @@ public class Ayuda extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(PanelAyuda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(118, 118, 118)
-                .addComponent(Volver)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(17, 17, 17))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
