@@ -1,0 +1,46 @@
+{
+  "archivoHistorial" : "C:\\Users\\Matias\\Desktop\\proyectos\\proyecto-vivero\\archivoHistorial.json",
+  "historial" : [ {
+    "codigo" : 1,
+    "nombre" : "qwe",
+    "precio_un" : 1000.0,
+    "precio_total" : 1000.0,
+    "cant" : 1
+  }, {
+    "codigo" : 2,
+    "nombre" : "asd",
+    "precio_un" : 2000.0,
+    "precio_total" : 2000.0,
+    "cant" : 1
+  }, {
+    "codigo" : 3,
+    "nombre" : "zxc",
+    "precio_un" : 3000.0,
+    "precio_total" : 3000.0,
+    "cant" : 1
+  }, {
+    "codigo" : 3,
+    "nombre" : "zxc",
+    "precio_un" : 3000.0,
+    "precio_total" : 3000.0,
+    "cant" : 1
+  }, {
+    "codigo" : 3,
+    "nombre" : "zxc",
+    "precio_un" : 3000.0,
+    "precio_total" : 3000.0,
+    "cant" : 1
+  }, {
+    "codigo" : 3,
+    "nombre" : "zxc",
+    "precio_un" : 3000.0,
+    "precio_total" : 3000.0,
+    "cant" : 1
+  }, {
+    "codigo" : 3,
+    "nombre" : "zxc",
+    "precio_un" : 3000.0,
+    "precio_total" : 3000.0,
+    "cant" : 1
+  } ]
+}

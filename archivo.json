@@ -1,0 +1,47 @@
+{
+  "clientes" : {
+    "43457062" : {
+      "nombre" : "matias",
+      "apellido" : "coluccio",
+      "categoria" : "Consumidor final",
+      "dni" : 43457062
+    },
+    "1234" : {
+      "nombre" : "yago",
+      "apellido" : "fernandez",
+      "categoria" : "Consumidor final",
+      "dni" : 1234
+    }
+  },
+  "archivoVivero" : "C:\\Users\\Matias\\Desktop\\proyectos\\proyecto-vivero\\archivo.json",
+  "articulos" : {
+    "1" : {
+      "nombreDelArticulo" : "palo de agua",
+      "precio" : 1000.0,
+      "stock" : 22,
+      "tipoDeArticulo" : "Planta",
+      "codigo" : 1
+    },
+    "2" : {
+      "nombreDelArticulo" : "glacoxan",
+      "precio" : 2000.0,
+      "stock" : 200,
+      "tipoDeArticulo" : "Agroquimico",
+      "codigo" : 2
+    },
+    "3" : {
+      "nombreDelArticulo" : "ROCIO 14",
+      "precio" : 3000.0,
+      "stock" : 300,
+      "tipoDeArticulo" : "Maceta",
+      "codigo" : 3
+    },
+    "123" : {
+      "nombreDelArticulo" : "plantita",
+      "precio" : 123.0,
+      "stock" : 124,
+      "tipoDeArticulo" : "Planta",
+      "codigo" : 123
+    }
+  }
+}

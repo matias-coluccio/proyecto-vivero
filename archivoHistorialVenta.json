@@ -1,0 +1,45 @@
+{
+  "archivoHistorialVentas" : "C:\\Users\\Matias\\Desktop\\proyectos\\proyecto-vivero\\archivoHistorialVenta.json",
+  "archivoHistorialCompras" : "C:\\Users\\Matias\\Desktop\\proyectos\\proyecto-vivero\\archivoHistorialCompra.json",
+  "historial" : [ {
+    "codigo" : 1,
+    "nombre" : "qwe",
+    "precio_un" : 1000.0,
+    "precio_total" : 4500.0,
+    "cant" : 5,
+    "fechaActual" : "2024-06-24",
+    "id" : 0
+  }, {
+    "codigo" : 2,
+    "nombre" : "asd",
+    "precio_un" : 2000.0,
+    "precio_total" : 1800.0,
+    "cant" : 1,
+    "fechaActual" : "2024-06-24",
+    "id" : 0
+  }, {
+    "codigo" : 1,
+    "nombre" : "qwe",
+    "precio_un" : 1000.0,
+    "precio_total" : 1000.0,
+    "cant" : 1,
+    "fechaActual" : "2024-06-24",
+    "id" : 0
+  }, {
+    "codigo" : 1,
+    "nombre" : "qwe",
+    "precio_un" : 1000.0,
+    "precio_total" : 100000.0,
+    "cant" : 100,
+    "fechaActual" : "2024-06-24",
+    "id" : 0
+  }, {
+    "codigo" : 1,
+    "nombre" : "qwe",
+    "precio_un" : 1000.0,
+    "precio_total" : 9000.0,
+    "cant" : 10,
+    "fechaActual" : "2024-06-25",
+    "id" : 1
+  } ]
+}

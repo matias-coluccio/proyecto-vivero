@@ -1,0 +1,556 @@
+@startuml
+
+package Excepciones
+{
+Exception<|-- ExceptionDNI
+Exception<|--ExceptionCodigoDuplicado
+class ExceptionCodigoDuplicado
+{
+public ExceptionCodigoDuplicado(String message);
+}
+class ExceptionDNI
+{
+    public ExceptionDNI(String message);
+}
+class validadorExcepcion
+{
+public static void ValidadDNI(int dni, Map dato) throws ExceptionDNI
+public static void ValidadCodigo(int id, Map dato) throws ExceptionCodigoDuplicado
+}
+}
+
+
+package Articulos
+{
+  class articulo{
+      protected String nombreDelArticulo;
+      protected float precio;
+      protected int stock;
+      protected String  tipoDeArticulo;
+      protected int codigo;
+      public Articulo(String nombreDelArticulo, float precio, int stock, String  tipoDeArticulo, int codigo)
+      public int getStock();
+     public void setStock(int stock);
+     public String getTipoDeArticulo() ;
+     public void setTipoDeArticulo(String tipoDeArticulo) ;
+     public String getNombreDelArticulo() ;
+     public void setNombreDelArticulo(String nombreDelArticulo) ;
+     public float getPrecio();
+     public void setPrecio(float precio) ;
+     public int getCodigo() ;
+     public void setCodigo(int codigo);
+  }
+}
+
+package clientes
+{
+class cliente{
+private String nombre;
+    private String apellido;
+    private String categoria;
+    private int dni;
+    public Cliente(String nombre, String apellido, String categoria, int dni);
+    public Cliente();
+    public String getNombre();
+    public void setNombre(String nombre);
+    public String getApellido();
+    public void setApellido(String apellido);
+    public String getCategoria();
+    public void setCategoria(String categoria);
+    public int getDni();
+    public boolean equals(Object o);
+    public int hashCode();
+    public String toString()
+}
+}
+
+package Historial
+{
+class claseJson
+{
+    public  static ObjectMapper HistorialJson = new ObjectMapper();
+    public  File  archivoHistorialVentas=new File("archivoHistorialVenta.json");
+    public  File  archivoHistorialCompras=new File("archivoHistorialCompra.json");
+    ArrayList<HistorialMovimientos> historial=new ArrayList<>();
+
+    public ClaseJson();
+    public  void guardarEnArchivoHistorial(String ruta) throws IOException;
+    public static ClaseJson cargarDesdeArchivoHistorial(String ruta) throws IOException;
+    public String convertirAJsonHistorial() throws IOException;
+    public static ClaseJson desdeJsonHistorial(String jsonString) throws IOException;
+    public ArrayList<HistorialMovimientos> getHistorial();
+    public boolean equals(Object o);
+    public int hashCode();
+    public String listar();
+    public  void Agregar(HistorialMovimientos a);
+}
+class HistorialMovimientos
+{
+    private int codigo;
+    private String nombre;
+    private float precio_un;
+    private float precio_total;
+    private int cant;
+    private  String fechaActual;
+    private int id;
+
+    public HistorialMovimientos(int codigo, int cant, float precio_total, float precio_un, String nombre);
+    public int getId()
+        public void setId(int id)
+        public HistorialMovimientos()
+        public String getFechaActual()
+        public void setFechaActual(String fechaActual)
+        public int getCodigo()
+        public void setCodigo(int codigo)
+        public String getNombre()
+        public void setNombre(String nombre)
+        public float getPrecio_un()
+        public void setPrecio_un(Float precio_un)
+        public float getPrecio_total()
+        public void setPrecio_total(Float precio_total)
+        public int getCant()
+        public void setCant(int cant)
+}
+}
+package imagenes
+{
+}
+package Interfaz
+{
+ interface Crud<T> {
+    void agregar(T dato)throws ExceptionDNI, ExceptionCodigoDuplicado;
+    void eliminar(T dato);
+    void modificar(T dato);
+    String  listar();
+}
+}
+
+package InterfazGUI
+{
+package HistorialVentas
+{
+    class Historial extends javax.swing.JFrame
+    {
+     String ids[] = {"Numero", "Precio Total", "Fecha"};
+     ClaseJson Historial = new ClaseJson();
+     DefaultTableModel mt = new DefaultTableModel(ids, 0);
+     public Historial();
+     private void mostrarDetalleVenta(int idVenta);
+     private void mostrarDetalleCompra(int idVenta);
+     private float actualizarTotal();
+     private void InitTableVentas(DefaultTableModel mt);
+     private void InitTableCompras(DefaultTableModel mt);
+     private void buscarPorFecha(String ruta);
+     private JFormattedTextField crearFormattedTextField();
+     private void initComponents();
+      @SuppressWarnings("unchecked");
+     private void VolverActionPerformed(java.awt.event.ActionEvent evt);
+     private void CategoriacmboxActionPerformed(java.awt.event.ActionEvent evt);
+
+     private javax.swing.JComboBox<String> Categoriacmbox;
+     private javax.swing.JLabel Fecha;
+     private javax.swing.JLabel Total;
+     private javax.swing.JButton Volver;
+     private javax.swing.JPanel jPanel1;
+     private javax.swing.JScrollPane jScrollPane2;
+     private javax.swing.JTable jTable2;
+     private javax.swing.JTextField txtFecha;
+     private javax.swing.JTextField txtTotal;
+
+    }
+
+    class DetalleVenta extends javax.swing.JDialog
+    {
+    private HistorialMovimientos venta;
+        private ClaseJson historial;
+        String ids[] = {"Código", "Nombre", "Cantidad", "Precio Unitario", "Precio Total"};
+        DefaultTableModel mt = new DefaultTableModel(ids, 0);
+        @Override public boolean isCellEditable(int row, int column);
+        private int idVenta;
+        public DetalleVenta(java.awt.Frame parent, HistorialMovimientos venta, int id, boolean esCompra);
+        private void initComponents()
+        private javax.swing.JPanel jPanel1;
+            private javax.swing.JScrollPane jScrollPane1;
+            private javax.swing.JTable jTable1;
+            private javax.swing.JLabel jLabel1;
+            private javax.swing.JLabel jLabel2;
+            private javax.swing.JLabel lblIdVenta;
+        private javax.swing.JLabel lblFecha;
+    }
+}
+
+package VentanaArticulos
+{
+
+    class Articulos extends javax.swing.JFrame
+    {
+    String ids[] = {"Codigo", "Tipo", "Nombre", "Precio", "Stock"};
+        DefaultTableModel mt = new DefaultTableModel(ids, 0)
+        Vivero vivero = new Vivero();
+        static ObjectMapper objectMapper = new ObjectMapper();
+        public Articulos();
+        private void InitTable(DefaultTableModel mt);
+        private void initComponents();
+        private void NuevoActionPerformed(java.awt.event.ActionEvent evt);
+         private void VolverActionPerformed(java.awt.event.ActionEvent evt);
+         private void buscarArticulos();
+         private void BorrarActionPerformed(java.awt.event.ActionEvent evt);
+         private void EditarActionPerformed(java.awt.event.ActionEvent evt);
+         private javax.swing.JButton Borrar;
+             private javax.swing.JTextField Buscador;
+             private javax.swing.JButton Editar;
+             private javax.swing.JPanel MainPanel;
+             private javax.swing.JButton Nuevo;
+             private javax.swing.JScrollPane Scroll;
+             private javax.swing.JButton Volver;
+             private javax.swing.JTable jTable1;
+    }
+
+    class NuevoArticulo extends JFrame
+    {
+        Vivero vivero = new Vivero();
+            private int flag;
+            Compra a;
+            public NuevoArticulo();
+             public NuevoArticulo(int flag, Compra a);
+             @SuppressWarnings("unchecked");
+             private void initComponents();
+             private void initComponents1(int flag);
+             private void VolverActionPerformed(java.awt.event.ActionEvent evt);
+             private void VolverActionPerformed1(java.awt.event.ActionEvent evt, int flag);
+             private void GuardarActionPerformed(java.awt.event.ActionEvent evt);
+             private javax.swing.JLabel Codigo;
+                 private javax.swing.JButton Guardar;
+                 private javax.swing.JPanel MainPanel;
+                 private javax.swing.JLabel Nombre;
+                 private javax.swing.JLabel Precio;
+                 private javax.swing.JLabel Stock;
+                 private javax.swing.JLabel Tipo;
+                 private javax.swing.JComboBox<String> TipoCmBox;
+                 private javax.swing.JButton Volver;
+                 private javax.swing.JTextField txtCodigo;
+                 private javax.swing.JTextField txtNombre;
+                 private javax.swing.JTextField txtPrecio;
+                 private javax.swing.JTextField txtStock;
+    }
+
+    class VentanaEditarArticulo extends JFrame
+    {
+        private Vivero vivero;
+            private int codigo;
+            public VentanaEditarArticulo(int codigo, Vivero vivero);
+        private void initComponents();
+        private void VolverActionPerformed(java.awt.event.ActionEvent evt);
+        private void cargar();
+        private void GuardarActionPerformed(java.awt.event.ActionEvent evt);
+        private javax.swing.JLabel Codigo;
+            private javax.swing.JButton Guardar;
+            private javax.swing.JPanel MainPanel;
+            private javax.swing.JLabel Nombre;
+            private javax.swing.JLabel Precio;
+            private javax.swing.JLabel Stock;
+            private javax.swing.JLabel Tipo;
+            private javax.swing.JComboBox<String> TipoCmBox;
+            private javax.swing.JButton Volver;
+            private javax.swing.JTextField txtCodigo;
+            private javax.swing.JTextField txtNombre;
+            private javax.swing.JTextField txtPrecio;
+            private javax.swing.JTextField txtStock;
+    }
+}
+
+package VentanaClientes
+{
+    class Cliente extends javax.swing.JFrame
+    {
+        String ids[] = {"Dni", "Nombre", "Apellido", "Categoria"};
+            DefaultTableModel mt = new DefaultTableModel(ids, 0);
+            Vivero vivero = new Vivero();
+                 static ObjectMapper objectMapper = new ObjectMapper();
+                 public Cliente();
+         private void InitTable(DefaultTableModel mt);
+         private void initComponents();
+         private void NuevoActionPerformed(java.awt.event.ActionEvent evt);
+         private void VolverActionPerformed(java.awt.event.ActionEvent evt);
+         private void buscarClientes();
+         private void BorrarActionPerformed(java.awt.event.ActionEvent evt);
+         private void EditarActionPerformed(java.awt.event.ActionEvent evt);
+         private javax.swing.JButton Borrar;
+             private javax.swing.JTextField Buscador;
+             private javax.swing.JButton Editar;
+             private javax.swing.JPanel MainPanel;
+             private javax.swing.JButton Nuevo;
+             private javax.swing.JScrollPane Scroll;
+             private javax.swing.JButton Volver;
+             private javax.swing.JTable jTable1;
+    }
+
+    class NuevoCliente extends javax.swing.JFrame
+    {
+        Vivero vivero = new Vivero();
+            private int flag;
+            VentanaPrincipal a;
+            public NuevoCliente();
+         public NuevoCliente(int flag, VentanaPrincipal a );
+        @SuppressWarnings("unchecked");
+        private void initComponents();
+        private void initComponents1(int flag);
+       private void VolverActionPerformed(java.awt.event.ActionEvent evt);
+        private void VolverActionPerformed1(java.awt.event.ActionEvent evt, int flag);
+       private void GuardarActionPerformed(java.awt.event.ActionEvent evt);
+        private javax.swing.JLabel Apellido;
+            private javax.swing.JLabel Categoria;
+            private javax.swing.JComboBox<String> CategoriaCmBox;
+            private javax.swing.JLabel Dni;
+            private javax.swing.JButton Guardar;
+            private javax.swing.JPanel MainPanel;
+            private javax.swing.JLabel Nombre;
+            private javax.swing.JButton Volver;
+            private javax.swing.JTextField txtApellido;
+            private javax.swing.JTextField txtDNI;
+            private javax.swing.JTextField txtNombre;
+    }
+
+    class VentanaEditarCliente extends javax.swing.JFrame
+    {
+         private Vivero vivero;
+            private int dni;
+            public VentanaEditarCliente(int DNI, Vivero vivero);
+         private void initComponents();
+         private void VolverActionPerformed(java.awt.event.ActionEvent evt);
+          private void cargar();
+        private void GuardarActionPerformed(java.awt.event.ActionEvent evt);
+        private javax.swing.JLabel Apellido;
+            private javax.swing.JLabel Categoria;
+            private javax.swing.JComboBox<String> CategoriaCmBox;
+            private javax.swing.JButton Guardar;
+            private javax.swing.JPanel MainPanel;
+            private javax.swing.JLabel Nombre;
+            private javax.swing.JButton Volver;
+            private javax.swing.JTextField txtApellido;
+            private javax.swing.JTextField txtNombre;
+    }
+}
+
+package VentanaCompras
+{
+    class Compra extends javax.swing.JFrame
+    {
+         String ids[] = {"Codigo", "Nombre", "Precio unitario","Precio Total",  "Stock anterior", "Cantidad", "Nuevo Stock"};
+            DefaultTableModel mt = new DefaultTableModel(ids, 0);
+          ClaseJson a=new ClaseJson();
+              Vivero vivero = new Vivero();
+              String tipoDearticulo=null;
+              public Compra();
+              private void InitTableVentas(DefaultTableModel mt, int codigo);
+         private void actualizarStockTotal(int row);
+         private void actualizarPrecioTotal(int row);
+           private float actualizarTotal();
+        @SuppressWarnings("unchecked");
+            private void initComponents();
+           private void VolverActionPerformed(java.awt.event.ActionEvent evt);
+          private void CancelarActionPerformed(java.awt.event.ActionEvent evt);
+            private void AceptarActionPerformed(java.awt.event.ActionEvent evt);
+        private void CargarActionPerformed(java.awt.event.ActionEvent evt);
+        private javax.swing.JButton Aceptar;
+            private javax.swing.JButton Cancelar;
+            private javax.swing.JButton Cargar;
+            private javax.swing.JLabel Codigo;
+            private javax.swing.JLabel Total;
+            private javax.swing.JButton Volver;
+            private javax.swing.JPanel jPanel1;
+            private javax.swing.JScrollPane jScrollPane2;
+            private javax.swing.JTable jTable2;
+            private javax.swing.JTextField txtCodigo;
+            private javax.swing.JTextField txtTotal;
+    }
+}
+
+package Ventanas
+{
+    class VentanaPrincipal extends javax.swing.JFrame
+    {
+     String ids[] = {"Codigo", "Nombre", "Precio unitario", "Precio total", "Cantidad"};
+        DefaultTableModel mt = new DefaultTableModel(ids, 0);
+        ClaseJson a=new ClaseJson();
+            Vivero vivero = new Vivero();
+            HistorialMovimientos aux = new HistorialMovimientos();
+            static ObjectMapper HistorialJson = new ObjectMapper();
+            public VentanaPrincipal();
+            private void InitTableVentas(DefaultTableModel mt, int codigo);
+         private void actualizarPrecioTotal(int row)
+            private float actualizarTotal();
+          @SuppressWarnings("unchecked");
+          private void initComponents();
+           private void VolverActionPerformed(java.awt.event.ActionEvent evt);
+           private void txtDniActionPerformed(java.awt.event.ActionEvent evt);
+          private void BuscarActionPerformed(java.awt.event.ActionEvent evt);
+          private void CancelarActionPerformed(java.awt.event.ActionEvent evt);
+          private void AceptarActionPerformed(java.awt.event.ActionEvent evt);
+         private void CargarActionPerformed(java.awt.event.ActionEvent evt);
+           private javax.swing.JButton Aceptar;
+              private javax.swing.JButton Buscar;
+              private javax.swing.JButton Cancelar;
+              private javax.swing.JButton Cargar;
+              private javax.swing.JLabel Codigo;
+              private javax.swing.JLabel DNI;
+              private javax.swing.JLabel Total;
+              private javax.swing.JButton Volver;
+              private javax.swing.JPanel jPanel1;
+              private javax.swing.JScrollPane jScrollPane2;
+              private javax.swing.JTable jTable2;
+              private javax.swing.JTextField txtCodigo;
+              private javax.swing.JTextField txtDni;
+              private javax.swing.JTextField txtTotal;
+    }
+
+}
+    class Ayuda extends javax.swing.JFrame
+    {
+        public Ayuda();
+        @SuppressWarnings("unchecked");
+         private void initComponents();
+        private void VolverActionPerformed(java.awt.event.ActionEvent evt);
+        private javax.swing.JLabel Imagen;
+            private javax.swing.JPanel MainPanel;
+            private javax.swing.JPanel PanelAyuda;
+            private javax.swing.JLabel Soporte;
+            private javax.swing.JLabel Titulo;
+            private javax.swing.JButton Volver;
+            private javax.swing.JLabel txtCaja;
+            private javax.swing.JLabel txtCompras;
+            private javax.swing.JLabel txtHistorial;
+            private javax.swing.JLabel txtVentas;
+    }
+
+    class Caja extends javax.swing.JFrame
+    {
+        ClaseJson Historial=new ClaseJson();
+            Vivero HistorialVivero=new Vivero();
+            public Caja();
+            private void FalseEditable();
+            private void AgrandarLetra();
+            private void ActualizarTxts();
+            private void actualizarPrecioTotal();
+          @SuppressWarnings("unchecked");
+          private void initComponents();
+           private void VolverActionPerformed(java.awt.event.ActionEvent evt);
+            private javax.swing.JLabel Agroquimicos;
+                private javax.swing.JLabel CantTotal;
+                private javax.swing.JLabel Macetas;
+                private javax.swing.JPanel PanelDescripcion;
+                private javax.swing.JLabel Plantas;
+                private javax.swing.JLabel Tierras;
+                private javax.swing.JLabel Titulo;
+                private javax.swing.JLabel Total;
+                private javax.swing.JButton Volver;
+                private javax.swing.JPanel jPanel1;
+                private javax.swing.JTextField txtAgroquimicos;
+                private javax.swing.JTextField txtCantTotal;
+                private javax.swing.JTextField txtMacetas;
+                private javax.swing.JTextField txtPlantas;
+                private javax.swing.JTextField txtTierras;
+                private javax.swing.JTextField txtTotal;
+    }
+
+    class GUI extends javax.swing.JFrame
+    {
+        private Color colorOriginal;
+            public GUI();
+         private void setDate();
+         private void setHora();
+        public static void setupButton(JButton button);
+         public static void setupButtonAceptar(JButton button);
+         public static void setupButtonCancelar(JButton button) ;
+         @SuppressWarnings("unchecked");
+         private void initComponents();
+         private void VentasActionPerformed(java.awt.event.ActionEvent evt);
+          private void ArticulosActionPerformed(java.awt.event.ActionEvent evt);
+          private void ComprasActionPerformed(java.awt.event.ActionEvent evt);
+          private void CajaActionPerformed(java.awt.event.ActionEvent evt);
+          private void HistorialActionPerformed(java.awt.event.ActionEvent evt);
+          private void AyudaActionPerformed(java.awt.event.ActionEvent evt);
+          private void ClientesActionPerformed(java.awt.event.ActionEvent evt);
+          private void HoraActionPerformed(java.awt.event.ActionEvent evt);
+          private javax.swing.JButton Articulos;
+              private javax.swing.JButton Ayuda;
+              private javax.swing.JButton Caja;
+              private javax.swing.JButton Clientes;
+              private javax.swing.JButton Compras;
+              private javax.swing.JLabel Fecha;
+              private javax.swing.JButton Historial;
+              private javax.swing.JLabel Imagen;
+              private javax.swing.JTextField Hora;
+              private javax.swing.JPanel MainPanel;
+              private javax.swing.JPanel PanelMenu;
+              private javax.swing.JLabel Titulo;
+              private javax.swing.JButton Ventas;
+    }
+
+
+
+}
+
+
+package TextPrompt
+    {
+        class TextPrompt extends JLabel implements FocusListener, DocumentListener
+        {
+            private static final long serialVersionUID = 1L;
+           	public enum Show;
+            private JTextComponent component;
+            private Document document;
+           	private Show show;
+           	private boolean showPromptOnce;
+           	private int focusLost;
+           	public TextPrompt(String text, JTextComponent component);
+           	public TextPrompt(String text, JTextComponent component, Show show);
+           	public void changeAlpha(float alpha);
+           	public void changeAlpha(int alpha);
+           	public void changeStyle(int style);
+           	public Show getShow();
+           	public void setShow(Show show);
+            public boolean getShowPromptOnce();
+            public void setShowPromptOnce(boolean showPromptOnce);
+            private void checkForPrompt();
+            public void focusGained(FocusEvent e);
+            public void focusLost(FocusEvent e);
+            public void insertUpdate(DocumentEvent e);
+            public void removeUpdate(DocumentEvent e);
+            public void changedUpdate(DocumentEvent e);
+
+        }
+    }
+package Vivero
+{
+    class Vivero implements Crud
+    {
+
+
+
+        HashMap<Integer, Cliente> clientes;
+            HashMap<Integer, Articulo> Articulos;
+           public  static ObjectMapper viveroJson = new ObjectMapper();
+            public  File  archivoVivero=new File("archivo.json");
+            public Vivero();
+            @Override public void agregar(Object dato)throws ExceptionDNI, ExceptionCodigoDuplicado ;
+            public HashMap<Integer, Cliente> getClientes();
+            public void setClientes(HashMap<Integer, Cliente> clientes);
+            public HashMap<Integer, Articulo> getArticulos();
+            public Object buscarDni(Object dato);
+            public Object buscarCodigo(Object dato);
+            @Override public void eliminar(Object dato);
+            @Override public void modificar(Object dato);
+            @Override public String listar();
+            public  void guardarEnArchivo(String ruta) throws IOException;
+            public static Vivero cargarDesdeArchivo(String ruta) throws IOException;
+            public String convertirAJson() throws IOException;
+            public static Vivero desdeJson(String jsonString) throws IOException;
+
+
+    }
+}
+
+
+
+@enduml
