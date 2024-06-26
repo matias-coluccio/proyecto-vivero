@@ -390,7 +390,7 @@ public class Compra extends javax.swing.JFrame {
     }
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {
-        HistorialMovimientos aux = new HistorialMovimientos();
+
         int opc = JOptionPane.showConfirmDialog(null, "Confirmar compra", "Confirmacion de compra", JOptionPane.YES_NO_OPTION);
         boolean entro=false;
         int Idventa=0;
@@ -399,8 +399,8 @@ public class Compra extends javax.swing.JFrame {
             try {
                 if (a.archivoHistorialCompras.exists()) {
                     a = ClaseJson.cargarDesdeArchivoHistorial("archivoHistorialCompra.json");
-                    ArrayList<HistorialMovimientos> ventas = a.getHistorial();
-                    HistorialMovimientos ultimo = ventas.get(ventas.size() - 1); // Get the last element properly
+                    ArrayList<HistorialMovimientos> compras = a.getHistorial();
+                    HistorialMovimientos ultimo = compras.get(compras.size() - 1); // Get the last element properly
                     Idventa = ultimo.getId() + 1;
                 } else {
                     Idventa = 1;
@@ -412,6 +412,7 @@ public class Compra extends javax.swing.JFrame {
             for (int i = 0; i < jTable2.getRowCount(); i++) {
                 entro=true;
                 Object value;
+                HistorialMovimientos aux = new HistorialMovimientos();
 
                 // Nombre (asumiendo que siempre es String)
                 aux.setNombre((String) mt.getValueAt(i, 1));
@@ -475,6 +476,7 @@ public class Compra extends javax.swing.JFrame {
                 aux.setId(Idventa);
                 // Guardar Historial
                 try {
+                    System.out.println(aux);
 
                     a.Agregar(aux);
                     a.guardarEnArchivoHistorial("archivoHistorialCompra.json");
